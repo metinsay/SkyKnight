@@ -16,8 +16,8 @@ rotVel :: Float
 rotVel = 3
 
 data State = State
-    { _position :: (Float, Float)
-    , _velocity :: (Float, Float) 
+    { _position :: Point
+    , _velocity :: Point
     , _rotation :: Float
     , _keys :: (Bool, Bool)
     } deriving Show
@@ -64,6 +64,6 @@ step t s = s
   where
     norm = (- sin (s ^. rotation), cos (s ^. rotation))
 
-(.*) :: Float -> (Float, Float) -> (Float, Float)
+(.*) :: Float -> Point -> Point
 m .* (x, y) = (m * x, m * y)
 infixl 7 .*
