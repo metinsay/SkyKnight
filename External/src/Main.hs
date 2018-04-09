@@ -18,9 +18,6 @@ drag = 0.01
 getLift :: Float -> Float
 getLift x = 2 * x ** 0.3
 
-rotVel :: Float
-rotVel = 3
-
 initialPlayer :: Point
 initialPlayer = (50, 10500)
 
@@ -28,9 +25,9 @@ initialBlocks :: [(Point, Point)]
 initialBlocks = [ ((-1000, -1000), (0, 12000)) ]
     <|> (\(x, y) -> ((x, -1000), (x + 50, y))) <$> zip [0, 50 ..] heights
   where
-    heights = (/ 10000) . (^ 4) <$> [-100 .. 69]
-          <|> (4802 -) . (/ 10000) . (^ 4) <$> [-70 .. 69]
-          <|> (/ 10000) . (^ 4) <$> [-70 .. 0]
+    heights = (/ 10000) . (** 4) <$> [-100 .. 69]
+          <|> (4802 -) . (/ 10000) . (** 4) <$> [-70 .. 69]
+          <|> (/ 10000) . (** 4) <$> [-70 .. 0]
           <|> (* 10) <$> [0 .. 300]
           <|> replicate 50 3000
           <|> replicate 50 10000
@@ -74,17 +71,17 @@ handle (EventMotion (x, y)) s = s & rotation .~ unit (x, y)
 handle _ s = s
 
 step :: Float -> State -> State
-step t s = s & updateVelocity & updatePosition & checkCollision
+step t = checkCollision . updatePosition . updateVelocity 
   where
-    aim = unit $ s ^. rotation
-    norm = (\(x, y) -> (-y, x)) aim
-    dir = unit $ s ^. velocity
-    offset = uncurry (+) (norm * dir)
-    lift = signum offset * getLift (abs offset)
+    aim s = unit $ s ^. rotation
+    norm s = (\(x, y) -> (-y, x)) $ aim s
+    dir s = unit $ s ^. velocity
+    offset s = uncurry (+) (norm s * dir s)
+    lift s = signum (offset s) * getLift (abs $ offset s)
     updateVelocity s = s
         & velocity +~ (0, - gravity * t)
         & velocity *~ ((1 - drag) ** t) .* 1
-        & velocity -~ lift * t * mag (s ^. velocity) .* norm
+        & velocity -~ lift s * t * mag (s ^. velocity) .* norm s
     updatePosition s = s & position +~ t .* s ^. velocity
     checkCollision s = bool s (reset s) . or $ inBlock <$> playerPoints s <*> s ^. blocks
 

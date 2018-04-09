@@ -3,7 +3,7 @@ version:             0.0.0.0
 build-type:          Simple
 cabal-version:       >=1.10
 
-executable baseball
+executable wingsuit
   hs-source-dirs:      src
   main-is:             Main.hs
   ghc-options:         -O2 -Wall
