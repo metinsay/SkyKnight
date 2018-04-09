@@ -1,5 +1,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 
+module Main (main) where
+
 import Control.Applicative ((<|>))
 import Control.Lens
 import Data.Bool (bool)
