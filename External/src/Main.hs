@@ -15,8 +15,8 @@ gravity = 200
 drag :: Float
 drag = 0.01
 
-getLift :: Float -> Float
-getLift x = 2 * x ** 0.3
+getLift :: Float -> Float -> Float
+getLift v x = 2 * v * x ** 0.3
 
 initialPlayer :: Point
 initialPlayer = (50, 10500)
@@ -77,11 +77,11 @@ step t = checkCollision . updatePosition . updateVelocity
     norm s = (\(x, y) -> (-y, x)) $ aim s
     dir s = unit $ s ^. velocity
     offset s = uncurry (+) (norm s * dir s)
-    lift s = signum (offset s) * getLift (abs $ offset s)
+    lift s = signum (offset s) * getLift (mag $ s ^. velocity) (abs $ offset s)
     updateVelocity s = s
         & velocity +~ (0, - gravity * t)
         & velocity *~ ((1 - drag) ** t) .* 1
-        & velocity -~ lift s * t * mag (s ^. velocity) .* norm s
+        & velocity -~ lift s * t .* norm s
     updatePosition s = s & position +~ t .* s ^. velocity
     checkCollision s = bool s (reset s) . or $ inBlock <$> playerPoints s <*> s ^. blocks
 
