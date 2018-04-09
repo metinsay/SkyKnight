@@ -30,8 +30,7 @@ initialBlocks =
 data State = State
     { _position :: Point
     , _velocity :: Point
-    , _rotation :: Float
-    , _keys :: (Bool, Bool)
+    , _rotation :: Point
     , _blocks :: [(Point, Point)]
     } deriving Show
 makeLenses ''State
@@ -49,7 +48,7 @@ framerate :: Int
 framerate = 60
 
 initial :: State
-initial = State initialPlayer (0, 0) 0 (False, False) initialBlocks
+initial = State initialPlayer (0, 0) 0 initialBlocks
 
 render :: State -> Picture
 render s = renderPlayer <> fold renderBlocks
@@ -59,17 +58,15 @@ render s = renderPlayer <> fold renderBlocks
         polygon [(x1, y1), (x1, y2), (x2, y2), (x2, y1)]
 
 handle :: Event -> State -> State
-handle (EventKey (Char 'a') Down _ _) s = s & keys . _1 .~ True
-handle (EventKey (Char 'a') Up _ _) s = s & keys . _1 .~ False
-handle (EventKey (Char 'd') Down _ _) s = s & keys . _2 .~ True
-handle (EventKey (Char 'd') Up _ _) s = s & keys . _2 .~ False
+handle (EventMotion (x, y)) s
+    = s & rotation .~ unit (x - s ^. position . _1, y - s ^. position . _2)
 handle _ s = s
 
 step :: Float -> State -> State
-step t s = s & updateVelocity & updatePosition & updateRotation & checkCollision
+step t s = s & updateVelocity & updatePosition & checkCollision
   where
-    norm = (- sin (s ^. rotation), cos (s ^. rotation))
-    aim = (cos (s ^. rotation), sin (s ^. rotation))
+    aim = unit $ s ^. rotation
+    norm = (\(x, y) -> (-y, x)) aim
     dir = unit $ s ^. velocity
     offset = uncurry (+) (norm * dir)
     lift = signum offset * getLift (abs offset)
@@ -78,21 +75,18 @@ step t s = s & updateVelocity & updatePosition & updateRotation & checkCollision
         & velocity *~ ((1 - drag) ** t) .* 1
         & velocity -~ lift * t * mag (s ^. velocity) .* norm
     updatePosition s = s & position +~ t .* s ^. velocity
-    updateRotation s = s
-        & rotation +~ rotVel * t * fromIntegral (fromEnum $ s ^. keys . _1)
-        & rotation -~ rotVel * t * fromIntegral (fromEnum $ s ^. keys . _2)
     checkCollision s = bool s initial . or $ inBlock <$> playerPoints s <*> s ^. blocks
 
 playerPoints :: State -> [Point]
 playerPoints s =
-    [ (x + 20 * cos r - 5 * sin r, y + 20 * sin r + 5 * cos r)
-    , (x + 20 * cos r + 5 * sin r, y + 20 * sin r - 5 * cos r)
-    , (x - 20 * cos r + 5 * sin r, y - 20 * sin r - 5 * cos r)
-    , (x - 20 * cos r - 5 * sin r, y - 20 * sin r + 5 * cos r)
+    [ (x + 20 * dx - 5 * dy, y + 20 * dy + 5 * dx)
+    , (x + 20 * dx + 5 * dy, y + 20 * dy - 5 * dx)
+    , (x - 20 * dx + 5 * dy, y - 20 * dy - 5 * dx)
+    , (x - 20 * dx - 5 * dy, y - 20 * dy + 5 * dx)
     ]
   where
     (x, y) = s ^. position
-    r = s ^. rotation
+    (dx, dy) = s ^. rotation
 
 inBlock :: Point -> (Point, Point) -> Bool
 inBlock (x, y) ((x1, y1), (x2, y2)) = x > x1 && x < x2 && y > y1 && y < y2
