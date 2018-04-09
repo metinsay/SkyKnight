@@ -59,9 +59,11 @@ reset :: State -> State
 reset s = s & position .~ initialPlayer & velocity .~ 0
 
 render :: State -> Picture
-render s = translate (- s ^. position . _1) (- s ^. position . _2)
-    $ renderPlayer <> fold renderBlocks
+render s = renderSpeed
+    <> uncurry translate (- s ^. position) (renderPlayer <> fold renderBlocks)
   where
+    renderSpeed = translate 0 300 . scale 0.2 0.2 . text
+        . show @Int . floor . mag $ s ^. velocity
     renderPlayer = polygon $ playerPoints s
     renderBlocks = s ^. blocks <&> \((x1, y1), (x2, y2)) ->
         polygon [(x1, y1), (x1, y2), (x2, y2), (x2, y1)]
