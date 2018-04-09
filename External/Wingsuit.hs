@@ -18,6 +18,10 @@ lift = 2
 rotVel :: Float
 rotVel = 3
 
+initialPlayer :: Point
+initialPlayer = (-600, 350)
+
+initialBlocks :: [(Point, Point)]
 initialBlocks =
     [ ( (-650, -400), (-350, -50) )
     , ( (-650, -400), (150, -200) )
@@ -45,7 +49,7 @@ framerate :: Int
 framerate = 60
 
 initial :: State
-initial = State (-600, 350) (0, 0) 0 (False, False) initialBlocks
+initial = State initialPlayer (0, 0) 0 (False, False) initialBlocks
 
 render :: State -> Picture
 render s = renderPlayer <> fold renderBlocks
