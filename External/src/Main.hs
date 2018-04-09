@@ -65,7 +65,7 @@ render s = uncurry translate (- s ^. position) (renderPlayer <> fold renderBlock
     renderHeight = showText 300 . show @Int . floor $ s ^. position ^. _2
     renderSpeed = showText 200 . show @Int . floor . mag $ s ^. velocity
     renderAcceleration = showText 100 . show @Int . floor . mag $ getAcceleration s
-    showText y t = color (makeColor 0 0.8 0 1) . translate 450 y . scale 0.5 0.5 $ text t
+    showText y t = color (makeColor 0 0.8 0 1) . translate 400 y . scale 0.5 0.5 $ text t
     renderPlayer = polygon $ playerPoints s
     renderBlocks = s ^. blocks <&> \((x1, y1), (x2, y2)) ->
         polygon [(x1, y1), (x1, y2), (x2, y2), (x2, y1)]
