@@ -7,13 +7,13 @@ import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.Pure.Game
 
 gravity :: Float
-gravity = 100
+gravity = 200
 
 drag :: Float
 drag = 0.01
 
-lift :: Float
-lift = 2
+getLift :: Float -> Float
+getLift x = 2 * x ** 0.25
 
 rotVel :: Float
 rotVel = 3
@@ -69,10 +69,14 @@ step :: Float -> State -> State
 step t s = s & updateVelocity & updatePosition & updateRotation & checkCollision
   where
     norm = (- sin (s ^. rotation), cos (s ^. rotation))
+    aim = (cos (s ^. rotation), sin (s ^. rotation))
+    dir = unit $ s ^. velocity
+    offset = uncurry (+) (norm * dir)
+    lift = signum offset * getLift (abs offset)
     updateVelocity s = s
         & velocity +~ (0, - gravity * t)
         & velocity *~ ((1 - drag) ** t) .* 1
-        & velocity -~ lift * t * uncurry (+) (norm * s ^. velocity) .* norm
+        & velocity -~ lift * t * mag (s ^. velocity) .* norm
     updatePosition s = s & position +~ t .* s ^. velocity
     updateRotation s = s
         & rotation +~ rotVel * t * fromIntegral (fromEnum $ s ^. keys . _1)
@@ -90,9 +94,15 @@ playerPoints s =
     (x, y) = s ^. position
     r = s ^. rotation
 
+inBlock :: Point -> (Point, Point) -> Bool
+inBlock (x, y) ((x1, y1), (x2, y2)) = x > x1 && x < x2 && y > y1 && y < y2
+
+unit :: Point -> Point
+unit p = if mag p == 0 then 0 else 1 / mag p .* p
+
+mag :: Point -> Float
+mag (x, y) = sqrt $ x ** 2 + y ** 2
+
 (.*) :: Float -> Point -> Point
 m .* (x, y) = (m * x, m * y)
 infixl 7 .*
-
-inBlock :: Point -> (Point, Point) -> Bool
-inBlock (x, y) ((x1, y1), (x2, y2)) = x > x1 && x < x2 && y > y1 && y < y2
