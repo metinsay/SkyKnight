@@ -1,5 +1,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 
+import Control.Applicative ((<|>))
 import Control.Lens
 import Data.Bool (bool)
 import Data.Foldable (fold)
@@ -13,19 +14,24 @@ drag :: Float
 drag = 0.01
 
 getLift :: Float -> Float
-getLift x = 2 * x ** 0.25
+getLift x = 2 * x ** 0.3
 
 rotVel :: Float
 rotVel = 3
 
 initialPlayer :: Point
-initialPlayer = (-600, 350)
+initialPlayer = (50, 10500)
 
 initialBlocks :: [(Point, Point)]
-initialBlocks =
-    [ ( (-650, -400), (-350, -50) )
-    , ( (-650, -400), (150, -200) )
-    ]
+initialBlocks = [ ((-1000, -1000), (0, 12000)) ]
+    <|> (\(x, y) -> ((x, -1000), (x + 50, y))) <$> zip [0, 50 ..] heights
+  where
+    heights = (/ 10000) . (^ 4) <$> [-100 .. 69]
+          <|> (4802 -) . (/ 10000) . (^ 4) <$> [-70 .. 69]
+          <|> (/ 10000) . (^ 4) <$> [-70 .. 0]
+          <|> (* 10) <$> [0 .. 300]
+          <|> replicate 50 3000
+          <|> replicate 50 10000
 
 data State = State
     { _position :: Point
