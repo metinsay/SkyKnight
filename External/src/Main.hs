@@ -59,11 +59,11 @@ reset :: State -> State
 reset s = s & position .~ initialPlayer & velocity .~ 0
 
 render :: State -> Picture
-render s = renderSpeed
-    <> uncurry translate (- s ^. position) (renderPlayer <> fold renderBlocks)
+render s = uncurry translate (- s ^. position) (renderPlayer <> fold renderBlocks)
+    <> renderSpeed
   where
-    renderSpeed = translate 0 300 . scale 0.2 0.2 . text
-        . show @Int . floor . mag $ s ^. velocity
+    renderSpeed = color (makeColor 0 0.8 0 1) . translate 450 300 . scale 0.5 0.5
+        . text . show @Int . floor . mag $ s ^. velocity
     renderPlayer = polygon $ playerPoints s
     renderBlocks = s ^. blocks <&> \((x1, y1), (x2, y2)) ->
         polygon [(x1, y1), (x1, y2), (x2, y2), (x2, y1)]
