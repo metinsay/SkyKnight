@@ -60,10 +60,12 @@ reset s = s & position .~ initialPlayer & velocity .~ 0
 
 render :: State -> Picture
 render s = uncurry translate (- s ^. position) (renderPlayer <> fold renderBlocks)
-    <> renderSpeed
+    <> renderHeight <> renderSpeed <> renderAcceleration
   where
-    renderSpeed = color (makeColor 0 0.8 0 1) . translate 450 300 . scale 0.5 0.5
-        . text . show @Int . floor . mag $ s ^. velocity
+    renderHeight = showText 300 . show @Int . floor $ s ^. position ^. _2
+    renderSpeed = showText 200 . show @Int . floor . mag $ s ^. velocity
+    renderAcceleration = showText 100 . show @Int . floor . mag $ getAcceleration s
+    showText y t = color (makeColor 0 0.8 0 1) . translate 450 y . scale 0.5 0.5 $ text t
     renderPlayer = polygon $ playerPoints s
     renderBlocks = s ^. blocks <&> \((x1, y1), (x2, y2)) ->
         polygon [(x1, y1), (x1, y2), (x2, y2), (x2, y1)]
@@ -75,17 +77,18 @@ handle _ s = s
 step :: Float -> State -> State
 step t = checkCollision . updatePosition . updateVelocity 
   where
-    aim s = unit $ s ^. rotation
-    norm s = (\(x, y) -> (-y, x)) $ aim s
-    dir s = unit $ s ^. velocity
-    offset s = uncurry (+) (norm s * dir s)
-    lift s = signum (offset s) * getLift (mag $ s ^. velocity) (abs $ offset s)
-    updateVelocity s = s
-        & velocity +~ (0, - gravity * t)
-        & velocity *~ ((1 - drag) ** t) .* 1
-        & velocity -~ lift s * t .* norm s
+    updateVelocity s = s & velocity +~ t .* getAcceleration s
     updatePosition s = s & position +~ t .* s ^. velocity
     checkCollision s = bool s (reset s) . or $ inBlock <$> playerPoints s <*> s ^. blocks
+
+getAcceleration :: State -> Point
+getAcceleration s = (0, - gravity) - drag .* s ^. velocity - lift .* norm
+  where
+    aim = unit $ s ^. rotation
+    norm = (\(x, y) -> (-y, x)) aim
+    offset = uncurry (+) (norm * dir)
+    dir = unit $ s ^. velocity
+    lift = signum offset * getLift (mag $ s ^. velocity) (abs offset)
 
 playerPoints :: State -> [Point]
 playerPoints s =
