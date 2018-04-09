@@ -1,12 +1,8 @@
 wingsuit
 ========
 
-* Install GHC 8.2.2
+* Install `haskell-stack`
 
-* `cabal install gloss-1.11.1.1`
+* `stack install --local-bin-path .`
 
-* `cabal install lens-4.15.4`
-
-* `ghc -O2 ./Wingsuit`
-
-* `./Wingsuit`
+* `./wingsuit`
