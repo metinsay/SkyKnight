@@ -16,7 +16,7 @@ drag :: Float
 drag = 0.01
 
 getLift :: Float -> Float -> Float
-getLift v x = 2 * v * x ** 0.3
+getLift v x = 0.002 * v ** 2 * x ** 0.3
 
 initialPlayer :: Point
 initialPlayer = (50, 10500)
