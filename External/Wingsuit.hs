@@ -48,18 +48,21 @@ framerate :: Int
 framerate = 60
 
 initial :: State
-initial = State initialPlayer (0, 0) 0 initialBlocks
+initial = State initialPlayer 0 (1, 0) initialBlocks
+
+reset :: State -> State
+reset s = s & position .~ initialPlayer & velocity .~ 0
 
 render :: State -> Picture
-render s = renderPlayer <> fold renderBlocks
+render s = translate (- s ^. position . _1) (- s ^. position . _2)
+    $ renderPlayer <> fold renderBlocks
   where
     renderPlayer = polygon $ playerPoints s
     renderBlocks = s ^. blocks <&> \((x1, y1), (x2, y2)) ->
         polygon [(x1, y1), (x1, y2), (x2, y2), (x2, y1)]
 
 handle :: Event -> State -> State
-handle (EventMotion (x, y)) s
-    = s & rotation .~ unit (x - s ^. position . _1, y - s ^. position . _2)
+handle (EventMotion (x, y)) s = s & rotation .~ unit (x, y)
 handle _ s = s
 
 step :: Float -> State -> State
@@ -75,7 +78,7 @@ step t s = s & updateVelocity & updatePosition & checkCollision
         & velocity *~ ((1 - drag) ** t) .* 1
         & velocity -~ lift * t * mag (s ^. velocity) .* norm
     updatePosition s = s & position +~ t .* s ^. velocity
-    checkCollision s = bool s initial . or $ inBlock <$> playerPoints s <*> s ^. blocks
+    checkCollision s = bool s (reset s) . or $ inBlock <$> playerPoints s <*> s ^. blocks
 
 playerPoints :: State -> [Point]
 playerPoints s =
