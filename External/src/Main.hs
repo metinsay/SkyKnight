@@ -19,18 +19,13 @@ getLift :: Float -> Float -> Float
 getLift v x = 0.002 * v ** 2 * x ** 0.3
 
 initialPlayer :: Point
-initialPlayer = (50, 10500)
+initialPlayer = (50, 11500)
 
 initialBlocks :: [(Point, Point)]
 initialBlocks = [ ((-1000, -1000), (0, 12000)) ]
-    <|> (\(x, y) -> ((x, -1000), (x + 50, y))) <$> zip [0, 50 ..] heights
+    <|> (\(x, y) -> ((x, y - 10000), (x + 50, y))) <$> zip [0, 50 ..] heights
   where
-    heights = [ x ** 4 / 10000 | x <- [-100 .. 69] ]
-           ++ [ 4802 - x ** 4 / 10000 | x <- [-70 .. 69] ]
-           ++ [ x ** 4 / 10000 | x <- [-70 .. 0] ]
-           ++ [ x * 10 | x <- [0 .. 300] ]
-           ++ replicate 50 3000
-           ++ replicate 50 10000
+    heights = [ (6000 + cos (x / 50) * 4000) * 0.9985 ** x | x <- [0 .. 2000] ]
 
 data State = State
     { _position :: Point
