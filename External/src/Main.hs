@@ -26,6 +26,7 @@ initialBlocks = [ ((-1000, -1000), (0, 12000)) ]
     <|> (\(x, y) -> ((x, y - 10000), (x + 50, y))) <$> zip [0, 50 ..] heights
   where
     heights = [ (6000 + cos (x / 50) * 4000) * 0.9985 ** x | x <- [0 .. 2000] ]
+    -- heights = [ 6000 * (sin (x / 50) / (2 ** ((x / 50 - pi / 2) / pi))) | x <- [2 * 50 .. 1500] ]
 
 data State = State
     { _position :: Point
@@ -55,12 +56,15 @@ reset s = s & position .~ initialPlayer & velocity .~ 0
 
 render :: State -> Picture
 render s = uncurry translate (- s ^. position) (renderPlayer <> fold renderBlocks)
-    <> renderHeight <> renderSpeed <> renderAcceleration
+    <> renderHeightText <> renderSpeedText <> renderAccelerationText
+    <> renderSpeed <> renderAcceleration
   where
-    renderHeight = showText 300 . show @Int . floor $ s ^. position ^. _2
-    renderSpeed = showText 200 . show @Int . floor . mag $ s ^. velocity
-    renderAcceleration = showText 100 . show @Int . floor . mag $ getAcceleration s
+    renderHeightText = showText 300 . show @Int . floor $ s ^. position ^. _2
+    renderSpeedText = showText 200 . show @Int . floor . mag $ s ^. velocity
+    renderAccelerationText = showText 100 . show @Int . floor . mag $ getAcceleration s
     showText y t = color (makeColor 0 0.8 0 1) . translate 400 y . scale 0.5 0.5 $ text t
+    renderSpeed = color (makeColor 0 0 1 1) $ line [0, 0.2 .* s ^. velocity]
+    renderAcceleration = color (makeColor 1 0 0 1) $ line [0, 0.2 .* getAcceleration s]
     renderPlayer = polygon $ playerPoints s
     renderBlocks = s ^. blocks <&> \((x1, y1), (x2, y2)) ->
         polygon [(x1, y1), (x1, y2), (x2, y2), (x2, y1)]
