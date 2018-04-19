@@ -5,18 +5,19 @@ module Main (main) where
 import Control.Applicative ((<|>))
 import Control.Lens
 import Data.Bool (bool)
-import Data.Foldable (fold)
 import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.Pure.Game
 
 import Base
+import Block (Block)
+import qualified Block as B
 import Player (Player)
 import qualified Player as P
 
 initialPlayer :: Point
 initialPlayer = (50, 11500)
 
-initialBlocks :: [(Point, Point)]
+initialBlocks :: [Block]
 initialBlocks = [ ((-1000, -1000), (0, 12000)) ]
     <|> (\(x, y) -> ((x, y - 10000), (x + 50, y))) <$> zip [0, 50 ..] heights
   where
@@ -25,7 +26,7 @@ initialBlocks = [ ((-1000, -1000), (0, 12000)) ]
 
 data State = State
     { _player :: Player
-    , _blocks :: [(Point, Point)]
+    , _blocks :: [Block]
     } deriving Show
 
 makeLenses ''State
@@ -46,7 +47,7 @@ initial :: State
 initial = State (P.create initialPlayer) initialBlocks
 
 render :: State -> Picture
-render s = uncurry translate (- P.getPosition p) (P.render p <> fold renderBlocks)
+render s = uncurry translate (- P.getPosition p) (P.render p <> foldMap B.render (s ^. blocks))
     <> renderHeightText <> renderSpeedText <> renderAccelerationText
   where
     p = s ^. player
@@ -54,8 +55,6 @@ render s = uncurry translate (- P.getPosition p) (P.render p <> fold renderBlock
     renderSpeedText = showText 200 . show @Int . floor . mag $ P.getVelocity p
     renderAccelerationText = showText 100 . show @Int . floor . mag $ P.getAcceleration p
     showText y t = color (makeColor 0 0.8 0 1) . translate 400 y . scale 0.5 0.5 $ text t
-    renderBlocks = s ^. blocks <&> \((x1, y1), (x2, y2)) ->
-        polygon [(x1, y1), (x1, y2), (x2, y2), (x2, y1)]
 
 handle :: Event -> State -> State
 handle e s = s & player %~ P.handle e
@@ -65,7 +64,6 @@ step t = checkCollision . (player %~ P.step t)
   where
     checkCollision s = s & player %~ \p -> bool p (P.reset initialPlayer p) . or
         $ inBlock <$> P.getPoints p <*> s ^. blocks
-    -- checkCollision s = bool s (reset s) . or $ inBlock <$> P.getPoints s <*> s ^. blocks
 
 inBlock :: Point -> (Point, Point) -> Bool
 inBlock (x, y) ((x1, y1), (x2, y2)) = x > x1 && x < x2 && y > y1 && y < y2

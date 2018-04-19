@@ -12,4 +12,5 @@ executable wingsuit
                      , lens >=4.16.1 && <4.17
   default-language:    Haskell2010
   other-modules:       Base
+                     , Block
                      , Player
