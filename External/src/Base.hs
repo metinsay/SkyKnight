@@ -1,5 +1,7 @@
 module Base
-    ( module Control.Lens
+    ( module Control.Applicative
+    , module Control.Lens
+    , module Data.Bool
     , module Data.Monoid
     , module Graphics.Gloss.Interface.Pure.Game
     , mag
@@ -7,10 +9,14 @@ module Base
     , (.*)
     ) where
 
-import Control.Lens (makeLenses, (&), (+~), (.~), (^.))
+import Control.Applicative ((<|>))
+import Control.Lens (makeLenses, (&), (%~), (+~), (.~), (^.))
+import Data.Bool (bool)
 import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.Pure.Game
-    ( Event(EventMotion), Picture, Point, color, line, makeColor, polygon )
+    ( Display(FullScreen), Event(EventMotion), Picture, Point
+    , color, line, makeColor, play, polygon, scale, text, translate
+    )
 
 unit :: Point -> Point
 unit p = if mag p == 0 then 0 else 1 / mag p .* p

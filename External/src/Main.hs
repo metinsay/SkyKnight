@@ -2,12 +2,6 @@
 
 module Main (main) where
 
-import Control.Applicative ((<|>))
-import Control.Lens
-import Data.Bool (bool)
-import Data.Monoid ((<>))
-import Graphics.Gloss.Interface.Pure.Game
-
 import Base
 import Block (Block)
 import qualified Block as B
@@ -32,16 +26,7 @@ data State = State
 makeLenses ''State
 
 main :: IO ()
-main = play display background framerate initial render handle step
-
-display :: Display
-display = FullScreen
-
-background :: Color
-background = makeColor 1 1 1 1
-
-framerate :: Int
-framerate = 60
+main = play FullScreen (makeColor 1 1 1 1) 60 initial render handle step
 
 initial :: State
 initial = State (P.create initialPlayer) initialBlocks
@@ -51,7 +36,7 @@ render s = uncurry translate (- P.getPosition p) (P.render p <> foldMap B.render
     <> renderHeightText <> renderSpeedText <> renderAccelerationText
   where
     p = s ^. player
-    renderHeightText = showText 300 . show @Int . floor $ P.getPosition p ^. _2
+    renderHeightText = showText 300 . show @Int . floor . snd $ P.getPosition p
     renderSpeedText = showText 200 . show @Int . floor . mag $ P.getVelocity p
     renderAccelerationText = showText 100 . show @Int . floor . mag $ P.getAcceleration p
     showText y t = color (makeColor 0 0.8 0 1) . translate 400 y . scale 0.5 0.5 $ text t
