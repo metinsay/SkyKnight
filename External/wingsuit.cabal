@@ -13,4 +13,5 @@ executable wingsuit
   default-language:    Haskell2010
   other-modules:       Base
                      , Block
+                     , Hud
                      , Player

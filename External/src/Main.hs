@@ -1,10 +1,11 @@
-{-# LANGUAGE TemplateHaskell, TypeApplications #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module Main (main) where
 
 import Base
 import Block (Block)
 import qualified Block as B
+import qualified Hud as H
 import Player (Player)
 import qualified Player as P
 
@@ -32,14 +33,9 @@ initial :: State
 initial = State (P.create initialPlayer) initialBlocks
 
 render :: State -> Picture
-render s = uncurry translate (- P.getPosition p) (P.render p <> foldMap B.render (s ^. blocks))
-    <> renderHeightText <> renderSpeedText <> renderAccelerationText
-  where
-    p = s ^. player
-    renderHeightText = showText 300 . show @Int . floor . snd $ P.getPosition p
-    renderSpeedText = showText 200 . show @Int . floor . mag $ P.getVelocity p
-    renderAccelerationText = showText 100 . show @Int . floor . mag $ P.getAcceleration p
-    showText y t = color (makeColor 0 0.8 0 1) . translate 400 y . scale 0.5 0.5 $ text t
+render s = uncurry translate (- P.getPosition (s ^. player)) (P.render $ s ^. player)
+        <> uncurry translate (- P.getPosition (s ^. player)) (foldMap B.render $ s ^. blocks)
+        <> H.render (s ^. player)
 
 handle :: Event -> State -> State
 handle e s = s & player %~ P.handle e
