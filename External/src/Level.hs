@@ -1,12 +1,27 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 module Level
-    ( Level(Level)
+    ( Level
+    , getBlocks
+    , getStart
     , level
     ) where
 
 import Base
 import Block
 
-data Level = Level Point [Block]
+data Level = Level
+    { _start :: Point
+    , _blocks :: [Block]
+    } deriving Show
+
+makeLenses ''Level
+
+getStart :: Level -> Point
+getStart = (^. start)
+
+getBlocks :: Level -> [Block]
+getBlocks = (^. blocks)
 
 level :: Level
 level = Level initialPlayer initialBlocks
