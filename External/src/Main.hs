@@ -9,14 +9,9 @@ import Data.Foldable (fold)
 import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.Pure.Game
 
-gravity :: Float
-gravity = 200
-
-drag :: Float
-drag = 0.01
-
-getLift :: Float -> Float -> Float
-getLift v x = 0.002 * v ** 2 * x ** 0.3
+import Base
+import Player (Player)
+import qualified Player as P
 
 initialPlayer :: Point
 initialPlayer = (50, 11500)
@@ -29,11 +24,10 @@ initialBlocks = [ ((-1000, -1000), (0, 12000)) ]
     -- heights = [ 6000 * (sin (x / 50) / (2 ** ((x / 50 - pi / 2) / pi))) | x <- [2 * 50 .. 1500] ]
 
 data State = State
-    { _position :: Point
-    , _velocity :: Point
-    , _rotation :: Point
+    { _player :: Player
     , _blocks :: [(Point, Point)]
     } deriving Show
+
 makeLenses ''State
 
 main :: IO ()
@@ -49,66 +43,29 @@ framerate :: Int
 framerate = 60
 
 initial :: State
-initial = State initialPlayer 0 (1, 0) initialBlocks
-
-reset :: State -> State
-reset s = s & position .~ initialPlayer & velocity .~ 0
+initial = State (P.create initialPlayer) initialBlocks
 
 render :: State -> Picture
-render s = uncurry translate (- s ^. position) (renderPlayer <> fold renderBlocks)
+render s = uncurry translate (- P.getPosition p) (P.render p <> fold renderBlocks)
     <> renderHeightText <> renderSpeedText <> renderAccelerationText
-    <> renderSpeed <> renderAcceleration
   where
-    renderHeightText = showText 300 . show @Int . floor $ s ^. position ^. _2
-    renderSpeedText = showText 200 . show @Int . floor . mag $ s ^. velocity
-    renderAccelerationText = showText 100 . show @Int . floor . mag $ getAcceleration s
+    p = s ^. player
+    renderHeightText = showText 300 . show @Int . floor $ P.getPosition p ^. _2
+    renderSpeedText = showText 200 . show @Int . floor . mag $ P.getVelocity p
+    renderAccelerationText = showText 100 . show @Int . floor . mag $ P.getAcceleration p
     showText y t = color (makeColor 0 0.8 0 1) . translate 400 y . scale 0.5 0.5 $ text t
-    renderSpeed = color (makeColor 0 0 1 1) $ line [0, 0.2 .* s ^. velocity]
-    renderAcceleration = color (makeColor 1 0 0 1) $ line [0, 0.2 .* getAcceleration s]
-    renderPlayer = polygon $ playerPoints s
     renderBlocks = s ^. blocks <&> \((x1, y1), (x2, y2)) ->
         polygon [(x1, y1), (x1, y2), (x2, y2), (x2, y1)]
 
 handle :: Event -> State -> State
-handle (EventMotion (x, y)) s = s & rotation .~ unit (x, y)
-handle _ s = s
+handle e s = s & player %~ P.handle e
 
 step :: Float -> State -> State
-step t = checkCollision . updatePosition . updateVelocity 
+step t = checkCollision . (player %~ P.step t)
   where
-    updateVelocity s = s & velocity +~ t .* getAcceleration s
-    updatePosition s = s & position +~ t .* s ^. velocity
-    checkCollision s = bool s (reset s) . or $ inBlock <$> playerPoints s <*> s ^. blocks
-
-getAcceleration :: State -> Point
-getAcceleration s = (0, - gravity) - drag .* s ^. velocity - lift .* norm
-  where
-    aim = unit $ s ^. rotation
-    norm = (\(x, y) -> (-y, x)) aim
-    offset = uncurry (+) (norm * dir)
-    dir = unit $ s ^. velocity
-    lift = signum offset * getLift (mag $ s ^. velocity) (abs offset)
-
-playerPoints :: State -> [Point]
-playerPoints s =
-    [ (x + 20 * dx - 5 * dy, y + 20 * dy + 5 * dx)
-    , (x + 20 * dx + 5 * dy, y + 20 * dy - 5 * dx)
-    , (x - 20 * dx + 5 * dy, y - 20 * dy - 5 * dx)
-    , (x - 20 * dx - 5 * dy, y - 20 * dy + 5 * dx)
-    ]
-  where
-    (x, y) = s ^. position
-    (dx, dy) = s ^. rotation
+    checkCollision s = s & player %~ \p -> bool p (P.reset initialPlayer p) . or
+        $ inBlock <$> P.getPoints p <*> s ^. blocks
+    -- checkCollision s = bool s (reset s) . or $ inBlock <$> P.getPoints s <*> s ^. blocks
 
 inBlock :: Point -> (Point, Point) -> Bool
 inBlock (x, y) ((x1, y1), (x2, y2)) = x > x1 && x < x2 && y > y1 && y < y2
-
-unit :: Point -> Point
-unit p = if mag p == 0 then 0 else 1 / mag p .* p
-
-mag :: Point -> Float
-mag (x, y) = sqrt $ x ** 2 + y ** 2
-
-(.*) :: Float -> Point -> Point
-m .* (x, y) = (m * x, m * y)
-infixl 7 .*
