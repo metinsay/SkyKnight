@@ -3,7 +3,6 @@
 module Hud (render) where
 
 import Base
-import Player (Player)
 import qualified Player as P
 import World (World)
 import qualified World as W
