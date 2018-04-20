@@ -3,19 +3,15 @@
 module Main (main) where
 
 import Base
-import Block (Block)
 import qualified Block as B
 import qualified Hud as H
 import qualified Level as L
-import Player (Player)
 import qualified Player as P
+import World (World)
+import qualified World as W
 
 data State = State
-    { _player :: Player
-    , _blocks :: [Block]
-    , _start :: Point
-    , _finish :: Block
-    , _time :: Float
+    { _world :: World
     , _done :: Bool
     } deriving Show
 
@@ -26,32 +22,25 @@ main = play FullScreen (makeColor 1 1 1 1) 60 initial render handle step
 
 initial :: State
 initial = State
-    { _player = P.create $ L.level ^. L.start
-    , _blocks = L.level ^. L.blocks
-    , _start = L.level ^. L.start
-    , _finish = L.level ^. L.finish
-    , _time = 0
+    { _world = W.create L.level
     , _done = False
     }
 
 render :: State -> Picture
-render s = join scale scaling (uncurry translate (- s ^. player . P.position) world)
-        <> H.render (s ^. time) (s ^. player)
+render s = renderWorld <> renderHud
   where
-    world = (P.render $ s ^. player)
-         <> (foldMap B.render $ s ^. blocks)
-         <> (color (makeColor 0 1 0 1) (B.render $ s ^. finish))
+    renderWorld = join scale scaling
+        . uncurry translate (- s ^. world . W.player . P.position)
+        $ W.render (s ^. world)
+    renderHud = H.render (s ^. world)
     scaling = 400 / sqrt (100000 + dist ** 2)
     dist = foldl' min 10000 $
-        mag . subtract (s ^. player . P.position) <$> (B.points =<< s ^. blocks)
+        mag . subtract (s ^. world . W.player . P.position) <$> (B.points =<< s ^. world . W.blocks)
 
 handle :: Event -> State -> State
-handle e s = s & player %~ P.handle e
+handle e s = bool (s & world %~ W.handle e) s (s ^. done)
 
 step :: Float -> State -> State
-step t = checkFinish . checkCollision . (player %~ P.step t) . updateTime
+step t s = bool (s & world .~ w' & done .~ d) s (s ^. done)
   where
-    updateTime s = bool (s & time +~ t) s (s ^. done)
-    checkFinish s = bool s (s & done .~ True) (B.inBlock (s ^. player . P.position) (s ^. finish))
-    checkCollision s = bool s (s & player %~ P.reset (s ^. start) & time .~ 0 & done .~ False)
-        . or $ B.inBlock <$> P.points (s ^. player) <*> s ^. blocks
+    (d, w') = W.step t (s ^. world)

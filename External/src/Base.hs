@@ -1,5 +1,6 @@
 module Base
     ( module Control.Applicative
+    , module Control.Arrow
     , module Control.Monad
     , module Control.Lens
     , module Data.Bool
@@ -12,6 +13,7 @@ module Base
     ) where
 
 import Control.Applicative ((<|>))
+import Control.Arrow ((&&&))
 import Control.Lens (makeLenses, (&), (%~), (+~), (.~), (^.))
 import Control.Monad (join)
 import Data.Bool (bool)

@@ -16,3 +16,4 @@ executable wingsuit
                      , Hud
                      , Level
                      , Player
+                     , World
