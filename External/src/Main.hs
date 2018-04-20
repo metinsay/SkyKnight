@@ -14,6 +14,7 @@ data State = State
     { _player :: Player
     , _blocks :: [Block]
     , _start :: Point
+    , _time :: Float
     } deriving Show
 
 makeLenses ''State
@@ -22,18 +23,23 @@ main :: IO ()
 main = play FullScreen (makeColor 1 1 1 1) 60 initial render handle step
 
 initial :: State
-initial = State (P.create $ L.level ^. L.start) (L.level ^. L.blocks) (L.level ^. L.start)
+initial = State
+    { _player = P.create $ L.level ^. L.start
+    , _blocks = L.level ^. L.blocks
+    , _start = L.level ^. L.start
+    , _time = 0
+    }
 
 render :: State -> Picture
 render s = uncurry translate (- s ^. player ^. P.position) (P.render $ s ^. player)
         <> uncurry translate (- s ^. player ^. P.position) (foldMap B.render $ s ^. blocks)
-        <> H.render (s ^. player)
+        <> H.render (s ^. time) (s ^. player)
 
 handle :: Event -> State -> State
 handle e s = s & player %~ P.handle e
 
 step :: Float -> State -> State
-step t = checkCollision . (player %~ P.step t)
+step t = checkCollision . (player %~ P.step t) . (time +~ t)
   where
     checkCollision s = s & player %~ \p -> bool p (P.reset (s ^. start) p) . or
         $ inBlock <$> P.points p <*> s ^. blocks
