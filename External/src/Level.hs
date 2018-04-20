@@ -2,9 +2,9 @@
 
 module Level
     ( Level
-    , getBlocks
-    , getStart
+    , blocks
     , level
+    , start
     ) where
 
 import Base
@@ -16,12 +16,6 @@ data Level = Level
     } deriving Show
 
 makeLenses ''Level
-
-getStart :: Level -> Point
-getStart = (^. start)
-
-getBlocks :: Level -> [Block]
-getBlocks = (^. blocks)
 
 level :: Level
 level = Level initialPlayer initialBlocks

@@ -22,11 +22,11 @@ main :: IO ()
 main = play FullScreen (makeColor 1 1 1 1) 60 initial render handle step
 
 initial :: State
-initial = State (P.create $ L.getStart L.level) (L.getBlocks L.level) (L.getStart L.level)
+initial = State (P.create $ L.level ^. L.start) (L.level ^. L.blocks) (L.level ^. L.start)
 
 render :: State -> Picture
-render s = uncurry translate (- P.getPosition (s ^. player)) (P.render $ s ^. player)
-        <> uncurry translate (- P.getPosition (s ^. player)) (foldMap B.render $ s ^. blocks)
+render s = uncurry translate (- s ^. player ^. P.position) (P.render $ s ^. player)
+        <> uncurry translate (- s ^. player ^. P.position) (foldMap B.render $ s ^. blocks)
         <> H.render (s ^. player)
 
 handle :: Event -> State -> State
@@ -36,7 +36,7 @@ step :: Float -> State -> State
 step t = checkCollision . (player %~ P.step t)
   where
     checkCollision s = s & player %~ \p -> bool p (P.reset (s ^. start) p) . or
-        $ inBlock <$> P.getPoints p <*> s ^. blocks
+        $ inBlock <$> P.points p <*> s ^. blocks
 
 inBlock :: Point -> (Point, Point) -> Bool
 inBlock (x, y) ((x1, y1), (x2, y2)) = x > x1 && x < x2 && y > y1 && y < y2
