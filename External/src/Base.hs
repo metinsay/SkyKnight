@@ -1,7 +1,9 @@
 module Base
     ( module Control.Applicative
+    , module Control.Monad
     , module Control.Lens
     , module Data.Bool
+    , module Data.List
     , module Data.Monoid
     , module Graphics.Gloss.Interface.Pure.Game
     , mag
@@ -11,7 +13,9 @@ module Base
 
 import Control.Applicative ((<|>))
 import Control.Lens (makeLenses, (&), (%~), (+~), (.~), (^.))
+import Control.Monad (join)
 import Data.Bool (bool)
+import Data.List (foldl')
 import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.Pure.Game
     ( Display(FullScreen), Event(EventMotion), Picture, Point

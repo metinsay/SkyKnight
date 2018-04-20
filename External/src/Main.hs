@@ -35,11 +35,15 @@ initial = State
     }
 
 render :: State -> Picture
-render s = uncurry translate (- s ^. player . P.position) (P.render $ s ^. player)
-        <> uncurry translate (- s ^. player . P.position) (foldMap B.render $ s ^. blocks)
-        <> uncurry translate (- s ^. player . P.position)
-              (color (makeColor 0 1 0 1) (B.render $ s ^. finish))
+render s = join scale scaling (uncurry translate (- s ^. player . P.position) world)
         <> H.render (s ^. time) (s ^. player)
+  where
+    world = (P.render $ s ^. player)
+         <> (foldMap B.render $ s ^. blocks)
+         <> (color (makeColor 0 1 0 1) (B.render $ s ^. finish))
+    scaling = 400 / sqrt (100000 + dist ** 2)
+    dist = foldl' min 10000 $
+        mag . subtract (s ^. player . P.position) <$> (B.points =<< s ^. blocks)
 
 handle :: Event -> State -> State
 handle e s = s & player %~ P.handle e
