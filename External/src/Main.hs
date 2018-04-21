@@ -38,6 +38,7 @@ render s = renderWorld <> renderHud
         mag . subtract (s ^. world . W.player . P.position) <$> (B.points =<< s ^. world . W.blocks)
 
 handle :: Event -> State -> State
+handle (EventKey (Char '1') Down _ _) s = s & world .~ W.create L.level & done .~ False
 handle e s = bool (s & world %~ W.handle e) s (s ^. done)
 
 step :: Float -> State -> State

@@ -35,6 +35,7 @@ render w = P.render (w ^. player)
         <> color (makeColor 0 1 0 1) (B.render $ w ^. finish)
 
 handle :: Event -> World -> World
+handle (EventKey (Char 'r') Down _ _) w = w & player %~ P.reset (w ^. start)
 handle e w = w & player %~ P.handle e
 
 step :: Float -> World -> (Bool, World)

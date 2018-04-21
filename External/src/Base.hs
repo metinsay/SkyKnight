@@ -20,7 +20,7 @@ import Data.Bool (bool)
 import Data.List (foldl')
 import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.Pure.Game
-    ( Display(FullScreen), Event(EventMotion), Picture, Point
+    ( Display(FullScreen), Event(EventKey, EventMotion), Key(Char), KeyState(Down), Picture, Point
     , color, line, makeColor, play, polygon, scale, text, translate
     )
 
