@@ -22,7 +22,7 @@ main = play FullScreen (makeColor 1 1 1 1) 60 initial render handle step
 
 initial :: State
 initial = State
-    { _world = W.create L.level
+    { _world = W.create L.level1
     , _done = False
     }
 
@@ -38,7 +38,8 @@ render s = renderWorld <> renderHud
         mag . subtract (s ^. world . W.player . P.position) <$> (B.points =<< s ^. world . W.blocks)
 
 handle :: Event -> State -> State
-handle (EventKey (Char '1') Down _ _) s = s & world .~ W.create L.level & done .~ False
+handle (EventKey (Char '1') Down _ _) s = s & world .~ W.create L.level1 & done .~ False
+handle (EventKey (Char '2') Down _ _) s = s & world .~ W.create L.level2 & done .~ False
 handle e s = bool (s & world %~ W.handle e) s (s ^. done)
 
 step :: Float -> State -> State
