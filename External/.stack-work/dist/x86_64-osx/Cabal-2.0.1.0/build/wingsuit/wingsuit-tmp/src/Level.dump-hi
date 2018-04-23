@@ -1,0 +1,590 @@
+
+==================== FINAL INTERFACE ====================
+2018-04-21 17:17:24.519632 UTC
+
+interface main:Level 8022
+  interface hash: e1c71baa77f4c72327264f702d793481
+  ABI hash: 956bf00399e1de03c905dde8967ee954
+  export-list hash: 2020eac753e56bd479c2a8920666da38
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: d7c563f0c2081cbfc8a99503f5883d3b
+  sig of: Nothing
+  used TH splices: True
+  where
+exports:
+  Level.blocks
+  Level.finish
+  Level.level1
+  Level.level2
+  Level.level3
+  Level.start
+  Level.Level
+module dependencies: Base Block
+package dependencies: GLURaw-2.0.0.4 GLUT-2.7.0.13
+                      ObjectName-1.1.0.1 OpenGL-3.0.2.1 OpenGLRaw-3.2.7.0
+                      StateVar-1.1.0.4 adjunctions-4.4 array-0.5.2.0 base-4.10.1.0
+                      base-orphans-0.7 bifunctors-5.5.2 binary-0.8.5.1 bmp-1.2.6.3
+                      bytestring-0.10.8.2 call-stack-0.1.0 comonad-5.0.3
+                      containers-0.5.10.2 contravariant-1.4.1 deepseq-1.4.3.0
+                      distributive-0.5.3 exceptions-0.8.3 fixed-0.2.1.1 free-5.0.1
+                      ghc-boot-th-8.2.2 ghc-prim-0.5.1.1 gloss-1.11.1.1
+                      gloss-rendering-1.11.1.1 half-0.2.2.3 hashable-1.2.7.0
+                      integer-gmp-1.0.1.0 kan-extensions-5.1 lens-4.16.1 mtl-2.2.2
+                      pretty-1.1.3.3 primitive-0.6.3.0 profunctors-5.2.2 reflection-2.1.3
+                      semigroupoids-5.2.2 stm-2.4.5.0 tagged-0.8.5
+                      template-haskell-2.12.0.0 text-1.2.3.0 th-abstraction-0.2.6.0
+                      transformers-0.5.2.0 transformers-base-0.4.4
+                      transformers-compat-0.5.1.4 unordered-containers-0.2.9.0
+                      vector-0.12.0.1
+orphans: reflection-2.1.3:Data.Reflection
+         vector-0.12.0.1:Data.Vector.Unboxed
+         vector-0.12.0.1:Data.Vector.Fusion.Bundle
+         hashable-1.2.7.0:Data.Hashable.Generic text-1.2.3.0:Data.Text.Lazy
+         base-orphans-0.7:Data.Orphans
+         transformers-0.5.2.0:Control.Monad.Trans.Error
+         gloss-rendering-1.11.1.1:Graphics.Gloss.Internals.Data.Picture
+         stm-2.4.5.0:Control.Monad.STM text-1.2.3.0:Data.Text
+         binary-0.8.5.1:Data.Binary.Generic text-1.2.3.0:Data.Text.Show
+         bytestring-0.10.8.2:Data.ByteString.Builder base-4.10.1.0:GHC.Float
+         base-4.10.1.0:GHC.Base
+family instance modules: adjunctions-4.4:Data.Functor.Rep
+                         base-4.10.1.0:Control.Applicative base-4.10.1.0:Data.Complex
+                         base-4.10.1.0:Data.Either base-4.10.1.0:Data.Functor.Compose
+                         base-4.10.1.0:Data.Functor.Const
+                         base-4.10.1.0:Data.Functor.Identity
+                         base-4.10.1.0:Data.Functor.Product base-4.10.1.0:Data.Functor.Sum
+                         base-4.10.1.0:Data.List.NonEmpty base-4.10.1.0:Data.Monoid
+                         base-4.10.1.0:Data.Semigroup base-4.10.1.0:Data.Type.Equality
+                         base-4.10.1.0:Data.Version base-4.10.1.0:Data.Void
+                         base-4.10.1.0:GHC.Exts base-4.10.1.0:GHC.Generics
+                         base-4.10.1.0:GHC.IO.Exception base-4.10.1.0:GHC.TypeLits
+                         base-4.10.1.0:GHC.TypeNats bifunctors-5.5.2:Data.Bifunctor.Biff
+                         bifunctors-5.5.2:Data.Bifunctor.Clown
+                         bifunctors-5.5.2:Data.Bifunctor.Fix
+                         bifunctors-5.5.2:Data.Bifunctor.Flip
+                         bifunctors-5.5.2:Data.Bifunctor.Join
+                         bifunctors-5.5.2:Data.Bifunctor.Joker
+                         bifunctors-5.5.2:Data.Bifunctor.Product
+                         bifunctors-5.5.2:Data.Bifunctor.Sum
+                         bifunctors-5.5.2:Data.Bifunctor.Tannen
+                         bifunctors-5.5.2:Data.Bifunctor.Wrapped
+                         containers-0.5.10.2:Data.IntMap.Internal
+                         containers-0.5.10.2:Data.IntSet.Internal
+                         containers-0.5.10.2:Data.Map.Internal
+                         containers-0.5.10.2:Data.Sequence.Internal
+                         containers-0.5.10.2:Data.Set.Internal containers-0.5.10.2:Data.Tree
+                         ghc-boot-th-8.2.2:GHC.ForeignSrcLang.Type
+                         ghc-boot-th-8.2.2:GHC.LanguageExtensions.Type
+                         kan-extensions-5.1:Data.Functor.Day
+                         kan-extensions-5.1:Data.Functor.Yoneda lens-4.16.1:Control.Lens.At
+                         lens-4.16.1:Control.Lens.Internal.Indexed
+                         lens-4.16.1:Control.Lens.Reified lens-4.16.1:Control.Lens.Tuple
+                         lens-4.16.1:Control.Lens.Wrapped lens-4.16.1:Control.Lens.Zoom
+                         pretty-1.1.3.3:Text.PrettyPrint.Annotated.HughesPJ
+                         pretty-1.1.3.3:Text.PrettyPrint.HughesPJ
+                         primitive-0.6.3.0:Control.Monad.Primitive
+                         primitive-0.6.3.0:Data.Primitive.Array
+                         primitive-0.6.3.0:Data.Primitive.ByteArray
+                         profunctors-5.2.2:Data.Profunctor.Composition
+                         profunctors-5.2.2:Data.Profunctor.Rep tagged-0.8.5:Data.Tagged
+                         template-haskell-2.12.0.0:Language.Haskell.TH.Syntax
+                         text-1.2.3.0:Data.Text text-1.2.3.0:Data.Text.Lazy
+                         th-abstraction-0.2.6.0:Language.Haskell.TH.Datatype
+                         unordered-containers-0.2.9.0:Data.HashMap.Base
+                         unordered-containers-0.2.9.0:Data.HashSet
+                         vector-0.12.0.1:Data.Vector vector-0.12.0.1:Data.Vector.Primitive
+                         vector-0.12.0.1:Data.Vector.Storable
+                         vector-0.12.0.1:Data.Vector.Unboxed
+                         vector-0.12.0.1:Data.Vector.Unboxed.Base
+import  -/  base-4.10.1.0:Data.Functor 2ffda4f936b8f474394d93205750aff3
+import  -/  base-4.10.1.0:GHC.Base 782fd99b5e36f3698a26179a49afca64
+import  -/  base-4.10.1.0:GHC.Float 28e3bf9e258278ac8084e9cab43fd542
+import  -/  base-4.10.1.0:GHC.List e3060fbeb44ce0038e6b4dedf2dd9cf1
+import  -/  base-4.10.1.0:GHC.Num 6e1dc5d36d99a802edb39b92bb1923b8
+import  -/  base-4.10.1.0:GHC.Real 3c62834bc25e762eabc44149c4cc142d
+import  -/  base-4.10.1.0:GHC.Show 0a8ce2b5e533d1c2cfb7954e6736be45
+import  -/  base-4.10.1.0:Prelude 31945b7d0084063347fc52506d3a4020
+import  -/  ghc-prim-0.5.1.1:GHC.Classes 93e2660065dce9329577e83d76d8f0d4
+import  -/  gloss-rendering-1.11.1.1:Graphics.Gloss.Internals.Data.Picture 4cfdf48333d4da0b95ccc85f821990f9
+import  -/  lens-4.16.1:Control.Lens.TH 27283fec2c9c197888588e6fd8cbf26e
+import  -/  lens-4.16.1:Control.Lens.Type aa7a812db6d306498bb9b92023fe6f42
+import  -/  Base 11cb7d834f2f99b375feed45c987dbb0
+  exports: 0ae00316f74b1d214781093a67933a66
+import  -/  Block 222cedfddedea4472d67745d44b3f8c4
+  exports: eaf9bf27707736eeaeb7019657988cbf
+  Block 5835155301605e8a91db85074b0f6eff
+b4790cf87a28d25b414ee3f250e03c03
+  $fShowLevel :: GHC.Show.Show Level.Level
+  DFunId
+  {- Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ Level.Level
+                  Level.$fShowLevel_$cshowsPrec
+                  Level.$fShowLevel_$cshow
+                  Level.$fShowLevel_$cshowList -}
+b4790cf87a28d25b414ee3f250e03c03
+  $fShowLevel1 :: Level.Level -> GHC.Show.ShowS
+  {- Arity: 2,
+     Strictness: <S,1*U(1*U(1*U(U),1*U(U)),1*U(1*U(1*U(U),1*U(U)),1*U(1*U(U),1*U(U))),1*U)><L,U>,
+     Unfolding: (\ (w :: Level.Level) (w1 :: GHC.Base.String) ->
+                 case w of ww { Level.Level ww1 ww2 ww3 ->
+                 Level.$w$cshowsPrec 0# ww1 ww2 ww3 w1 }) -}
+021f46776a98445704a1f775540d4389
+  $fShowLevel2 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 0#) -}
+b4790cf87a28d25b414ee3f250e03c03
+  $fShowLevel_$cshow :: Level.Level -> GHC.Base.String
+  {- Arity: 1,
+     Strictness: <S,1*U(1*U(1*U(U),1*U(U)),1*U(1*U(1*U(U),1*U(U)),1*U(1*U(U),1*U(U))),1*U)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (x1 :: Level.Level) ->
+                 Level.$fShowLevel_$cshowsPrec
+                   Level.$fShowLevel2
+                   x1
+                   (GHC.Types.[] @ GHC.Types.Char)) -}
+b4790cf87a28d25b414ee3f250e03c03
+  $fShowLevel_$cshowList :: [Level.Level] -> GHC.Show.ShowS
+  {- Arity: 2,
+     Unfolding: (GHC.Show.showList__
+                   @ Level.Level
+                   Level.$fShowLevel1) -}
+b4790cf87a28d25b414ee3f250e03c03
+  $fShowLevel_$cshowsPrec ::
+    GHC.Types.Int -> Level.Level -> GHC.Show.ShowS
+  {- Arity: 3,
+     Strictness: <S(S),1*U(U)><S,1*U(1*U(1*U(U),1*U(U)),1*U(1*U(1*U(U),1*U(U)),1*U(1*U(U),1*U(U))),1*U)><L,U>,
+     Inline: [0],
+     Unfolding: InlineRule (3, True, False)
+                (\ (w :: GHC.Types.Int)
+                   (w1 :: Level.Level)
+                   (w2 :: GHC.Base.String) ->
+                 case w of ww { GHC.Types.I# ww1 ->
+                 case w1 of ww2 { Level.Level ww3 ww4 ww5 ->
+                 Level.$w$cshowsPrec ww1 ww3 ww4 ww5 w2 } }) -}
+0907873e09bed1ee026b9824ce607e88
+  $tc'Level :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   17530623314119977595##
+                   9129364335771869625##
+                   Level.$trModule
+                   Level.$tc'Level2
+                   0#
+                   Level.$tc'Level1) -}
+520e18de0afb45b80ea7989800ae9ed8
+  $tc'Level1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+d147312f6a5ef1d8e38db7b7dd9c38b0
+  $tc'Level2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Level.$tc'Level3) -}
+0ab86b72be01a8c119a74ef1eb281817
+  $tc'Level3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Level"#) -}
+b0c6aab9d3b4614aa2e94f3c2002ae4d
+  $tcLevel :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   17064828768931461141##
+                   7494425180623583976##
+                   Level.$trModule
+                   Level.$trModule1
+                   0#
+                   GHC.Types.krep$*) -}
+78b98704262bee357b6ea3b0c631b252
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module Level.$trModule3 Level.$trModule1) -}
+447c6427308eb444085903676bb4a4fa
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Level.$trModule2) -}
+f6bffb05dedaf1a872cf70653205b3e2
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Level"#) -}
+d7f3735bb672b5e006e598496b400f72
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Level.$trModule4) -}
+683ccc4885dc99cdeaf5e10e1bbb0b33
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("main"#) -}
+8d004a8bdca1cad3b86fdaaae340393c
+  $w$cshowsPrec ::
+    GHC.Prim.Int#
+    -> Graphics.Gloss.Internals.Data.Picture.Point
+    -> Block.Block
+    -> [Block.Block]
+    -> GHC.Base.String
+    -> GHC.Base.String
+  {- Arity: 5,
+     Strictness: <S,U><L,1*U(1*U(U),1*U(U))><L,1*U(1*U(1*U(U),1*U(U)),1*U(1*U(U),1*U(U)))><L,1*U><L,U>,
+     Inline: [0] -}
+b4790cf87a28d25b414ee3f250e03c03
+  data Level
+    = Level {_start :: Graphics.Gloss.Internals.Data.Picture.Point,
+             _finish :: Block.Block,
+             _blocks :: [Block.Block]}
+b4790cf87a28d25b414ee3f250e03c03
+  _blocks :: Level.Level -> [Block.Block]
+  RecSel Left Level.Level
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(LLS),1*U(A,A,1*U)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Level.Level) ->
+                 case ds of wild { Level.Level ds1 ds2 ds3 -> ds3 }) -}
+b4790cf87a28d25b414ee3f250e03c03
+  _finish :: Level.Level -> Block.Block
+  RecSel Left Level.Level
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(LSL),1*U(A,1*U(U,U),A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Level.Level) ->
+                 case ds of wild { Level.Level ds1 ds2 ds3 -> ds2 }) -}
+b4790cf87a28d25b414ee3f250e03c03
+  _start ::
+    Level.Level -> Graphics.Gloss.Internals.Data.Picture.Point
+  RecSel Left Level.Level
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(SLL),1*U(1*U(U,U),A,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Level.Level) ->
+                 case ds of wild { Level.Level ds1 ds2 ds3 -> ds1 }) -}
+2d2aebed4466e3ea5d524a16c5753d7f
+  blocks :: Control.Lens.Type.Lens' Level.Level [Block.Block]
+  {- Arity: 3, HasNoCafRefs,
+     Strictness: <S(C(C(S))L),1*U(1*C1(C1(U)),A)><L,1*C1(U)><S,1*U(U,U,U)>,
+     Inline: (sat-args=2),
+     Unfolding: InlineRule (3, False, False)
+                (\ @ f :: * -> *
+                   ($dFunctor :: GHC.Base.Functor f)
+                   (f1 :: [Block.Block] -> f [Block.Block])
+                   (ds :: Level.Level) ->
+                 case ds of wild { Level.Level x1 x2 x3 ->
+                 GHC.Base.fmap
+                   @ f
+                   $dFunctor
+                   @ [Block.Block]
+                   @ Level.Level
+                   (\ (y1 :: [Block.Block]) -> Level.Level x1 x2 y1)
+                   (f1 x3) }) -}
+7d0bd06e8578a30615289144912f8907
+  finish :: Control.Lens.Type.Lens' Level.Level Block.Block
+  {- Arity: 3, HasNoCafRefs,
+     Strictness: <S(C(C(S))L),1*U(1*C1(C1(U)),A)><L,1*C1(U)><S,1*U(U,U,U)>,
+     Inline: (sat-args=2),
+     Unfolding: InlineRule (3, False, False)
+                (\ @ f :: * -> *
+                   ($dFunctor :: GHC.Base.Functor f)
+                   (f1 :: Block.Block -> f Block.Block)
+                   (ds :: Level.Level) ->
+                 case ds of wild { Level.Level x1 x2 x3 ->
+                 GHC.Base.fmap
+                   @ f
+                   $dFunctor
+                   @ Block.Block
+                   @ Level.Level
+                   (\ (y1 :: Block.Block) -> Level.Level x1 y1 x3)
+                   (f1 x2) }) -}
+dca15060c57352704a2c530641cefc55
+  level1 :: Level.Level
+  {- Strictness: m,
+     Unfolding: (Level.Level
+                   Level.level24
+                   Level.level17
+                   Level.level4) -}
+ca6393d4ba035e562398bbb4628b587b
+  level10 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 50.0#) -}
+88c6e520c0ae51307ad7aab2fe6276ba
+  level11 ::
+    ((GHC.Types.Float, GHC.Types.Float),
+     (GHC.Types.Float, GHC.Types.Float))
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level14, Level.level12)) -}
+1d387b28537843a516a7954e3d90476b
+  level12 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level8, Level.level13)) -}
+361e458fc8ea381b08892658cd0858ee
+  level13 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 14000.0#) -}
+87c80f4670a374fb506d3db5f0618d75
+  level14 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level16, Level.level15)) -}
+ed2c440c975f0db68ad134682f793ecc
+  level15 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# -1000.0#) -}
+16b29d2b5c40f890aa33d71f28ff99b0
+  level16 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# -4000.0#) -}
+2f528c820b72cb494e2a035987b0e016
+  level17 ::
+    ((GHC.Types.Float, GHC.Types.Float),
+     (GHC.Types.Float, GHC.Types.Float))
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level21, Level.level18)) -}
+c124d7f5b9dc0e0ca52d3d6e38426852
+  level18 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level20, Level.level19)) -}
+fb926a3826c459bafc3a43f4a7e86898
+  level19 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 300.0#) -}
+2427ceec013bb993f8f6d6f358752d26
+  level1_go :: [GHC.Types.Float] -> [GHC.Types.Float]
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+acffb7c9b2c08725aeddd4844e5fbcbb
+  level1_go2 ::
+    [GHC.Types.Float]
+    -> [GHC.Types.Float]
+    -> [((GHC.Types.Float, GHC.Types.Float),
+         (GHC.Types.Float, GHC.Types.Float))]
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,1*U><L,1*U> -}
+30068e56ec8341b6a91206eacb316f43
+  level2 :: Level.Level
+  {- Strictness: m,
+     Unfolding: (Level.Level
+                   Level.level37
+                   Level.level31
+                   Level.level26) -}
+da1cc9e465e2739d00dee2a3980ee4ad
+  level20 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 100050.0#) -}
+095ffa3bcab9dba851c5307a56b6cb3e
+  level21 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level23, Level.level22)) -}
+bff9c88fc89e82efb973a9f455b0f425
+  level22 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 200.0#) -}
+1504989fcef91bb652bdc98452096e82
+  level23 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 99950.0#) -}
+34ce70e65846ec72cae3bfab4af1e1f4
+  level24 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level10, Level.level25)) -}
+94306dfe08e559b630c330781b06c4e8
+  level25 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 11500.0#) -}
+c216d5d6db471a8d7f19e6ebbb222a2d
+  level26 ::
+    [((GHC.Types.Float, GHC.Types.Float),
+      (GHC.Types.Float, GHC.Types.Float))]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ ((GHC.Types.Float, GHC.Types.Float),
+                      (GHC.Types.Float, GHC.Types.Float))
+                   Level.level11
+                   Level.level27) -}
+58312144195bfc2d2226f82e195b17f3
+  level27 ::
+    [((GHC.Types.Float, GHC.Types.Float),
+      (GHC.Types.Float, GHC.Types.Float))]
+  {- Unfolding: (Level.level1_go2 Level.level9 Level.level28) -}
+5ee34c1e0cd1963befe286a9112e56fa
+  level28 :: [GHC.Types.Float]
+  {- Unfolding: (Level.level2_go
+                   (GHC.Real.numericEnumFromTo
+                      @ GHC.Types.Float
+                      GHC.Classes.$fOrdFloat
+                      GHC.Float.$fFractionalFloat
+                      Level.level30
+                      Level.level29)) -}
+87968e01ffd7352af0d1e68a0af92a11
+  level29 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 1500.0#) -}
+bdd42bbae393ca72944f44b775690f8e
+  level2_go :: [GHC.Types.Float] -> [GHC.Types.Float]
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U> -}
+492131f0c50e471770eb3a7a9a8209e7
+  level3 :: Level.Level
+  {- Strictness: m,
+     Unfolding: (Level.Level
+                   Level.level51
+                   Level.level44
+                   Level.level39) -}
+2e9a34a2bbe1662cee1ac1cddc0ccd9c
+  level30 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 100.0#) -}
+5e3b7583e82d0c2a9cca494fc4d373fc
+  level31 ::
+    ((GHC.Types.Float, GHC.Types.Float),
+     (GHC.Types.Float, GHC.Types.Float))
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level35, Level.level32)) -}
+a9ebb6df636f821b4b50c4a72ea2ec3e
+  level32 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level34, Level.level33)) -}
+a7076ff709f0b3f85fd84c4751e01f3d
+  level33 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 150.0#) -}
+91519efb7d7dd334a1e4b7a8c6568f12
+  level34 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 70050.0#) -}
+162d66711fb05ef8e39c0e883fb320f2
+  level35 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level36, Level.level10)) -}
+c651dfe2c3a8a27a990741af3111fc2d
+  level36 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 69950.0#) -}
+bfd48aa5c03e5423e31050c8a2c5873d
+  level37 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level10, Level.level38)) -}
+3c56dcfad8f432c9d30bb5d68ca08cd6
+  level38 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 8500.0#) -}
+1fad48267d45664288dfb8bd79e3dfec
+  level39 ::
+    [((GHC.Types.Float, GHC.Types.Float),
+      (GHC.Types.Float, GHC.Types.Float))]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ ((GHC.Types.Float, GHC.Types.Float),
+                      (GHC.Types.Float, GHC.Types.Float))
+                   Level.level11
+                   Level.level40) -}
+41278a84742b356c5a1ae6a22f730306
+  level3_go :: [GHC.Types.Float] -> [GHC.Types.Float]
+  {- Arity: 1, Strictness: <S,1*U> -}
+83ca1cc3f724c4d453165e446e437d38
+  level4 ::
+    [((GHC.Types.Float, GHC.Types.Float),
+      (GHC.Types.Float, GHC.Types.Float))]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ ((GHC.Types.Float, GHC.Types.Float),
+                      (GHC.Types.Float, GHC.Types.Float))
+                   Level.level11
+                   Level.level5) -}
+3860667e25f3e81355b3830fe40ccd82
+  level40 ::
+    [((GHC.Types.Float, GHC.Types.Float),
+      (GHC.Types.Float, GHC.Types.Float))]
+  {- Unfolding: (Level.level1_go2 Level.level9 Level.level41) -}
+704a86628f1669e32be5e6b673582d34
+  level41 :: [GHC.Types.Float]
+  {- Unfolding: (Level.level3_go
+                   (GHC.Real.numericEnumFromTo
+                      @ GHC.Types.Float
+                      GHC.Classes.$fOrdFloat
+                      GHC.Float.$fFractionalFloat
+                      Level.level43
+                      Level.level42)) -}
+255b75aed0ede691dbba107d2fb29bbd
+  level42 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 69.0#) -}
+e56769b6581e6c7a3366f3a86b83329b
+  level43 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# -100.0#) -}
+2b41776651465df355297484edf803c0
+  level44 ::
+    ((GHC.Types.Float, GHC.Types.Float),
+     (GHC.Types.Float, GHC.Types.Float))
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level48, Level.level45)) -}
+c17178ad6524e22f880c9e6691a151d7
+  level45 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level47, Level.level46)) -}
+986cf5449c813ecd4d4157865587ef3f
+  level46 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 3150.0#) -}
+c1918b6bfd750c2188561ffbbd6e48dd
+  level47 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 36650.0#) -}
+49a1efb396923fa788e82f6bb2e80926
+  level48 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level50, Level.level49)) -}
+2c8ed7a6b2f62af36559793d789e7d7d
+  level49 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 3050.0#) -}
+5d2d43420a1c9374651ca4adbc6f1c01
+  level5 ::
+    [((GHC.Types.Float, GHC.Types.Float),
+      (GHC.Types.Float, GHC.Types.Float))]
+  {- Unfolding: (Level.level1_go2 Level.level9 Level.level6) -}
+f6af16cd1408a3829616c1d7e2057963
+  level50 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 36550.0#) -}
+aabc03618397e6ecf8b6e00443bdf752
+  level51 :: (GHC.Types.Float, GHC.Types.Float)
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: ((Level.level10, Level.level52)) -}
+7d0ddac8992651536eeaab740a293a58
+  level52 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 10500.0#) -}
+b58e1980dbf5a6b82675d61b41c8771b
+  level6 :: [GHC.Types.Float]
+  {- Unfolding: (Level.level1_go
+                   (GHC.Real.numericEnumFromTo
+                      @ GHC.Types.Float
+                      GHC.Classes.$fOrdFloat
+                      GHC.Float.$fFractionalFloat
+                      Level.level8
+                      Level.level7)) -}
+63d686426b33ed46b6c532fd97ca714d
+  level7 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.F# 2000.0#) -}
+9fc0f4ef14129a640413d27895682df4
+  level8 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 0.0#) -}
+a26747e0cf45c0ee3be4a016889ed6fd
+  level9 :: [GHC.Types.Float]
+  {- Unfolding: (case GHC.Real.$wnumericEnumFromThen
+                        @ GHC.Types.Float
+                        GHC.Float.$fFractionalFloat
+                        Level.level8
+                        Level.level10 of ww { (#,#) ww1 ww2 ->
+                 GHC.Types.: @ GHC.Types.Float ww1 ww2 }) -}
+a37328759cd9a69e84c6b73a233c1c38
+  start ::
+    Control.Lens.Type.Lens'
+      Level.Level Graphics.Gloss.Internals.Data.Picture.Point
+  {- Arity: 3, HasNoCafRefs,
+     Strictness: <S(C(C(S))L),1*U(1*C1(C1(U)),A)><L,1*C1(U)><S,1*U(U,U,U)>,
+     Inline: (sat-args=2),
+     Unfolding: InlineRule (3, False, False)
+                (\ @ f :: * -> *
+                   ($dFunctor :: GHC.Base.Functor f)
+                   (f1 :: Graphics.Gloss.Internals.Data.Picture.Point
+                          -> f Graphics.Gloss.Internals.Data.Picture.Point)
+                   (ds :: Level.Level) ->
+                 case ds of wild { Level.Level x1 x2 x3 ->
+                 GHC.Base.fmap
+                   @ f
+                   $dFunctor
+                   @ Graphics.Gloss.Internals.Data.Picture.Point
+                   @ Level.Level
+                   (\ (y1 :: Graphics.Gloss.Internals.Data.Picture.Point) ->
+                    Level.Level y1 x2 x3)
+                   (f1 x1) }) -}
+instance GHC.Show.Show [Level.Level] = Level.$fShowLevel
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: none
+require own pkg trusted: False
+

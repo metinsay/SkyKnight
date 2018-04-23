@@ -1,0 +1,29 @@
+Configuring GLUT-2.7.0.13...
+Preprocessing library for GLUT-2.7.0.13..
+Building library for GLUT-2.7.0.13..
+[ 1 of 24] Compiling Graphics.UI.GLUT.Debugging ( src/Graphics/UI/GLUT/Debugging.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Debugging.o )
+[ 2 of 24] Compiling Graphics.UI.GLUT.Raw.Callbacks ( src/Graphics/UI/GLUT/Raw/Callbacks.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Raw/Callbacks.o )
+[ 3 of 24] Compiling Graphics.UI.GLUT.Raw.Fonts ( src/Graphics/UI/GLUT/Raw/Fonts.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Raw/Fonts.o )
+[ 4 of 24] Compiling Graphics.UI.GLUT.Raw.Functions ( src/Graphics/UI/GLUT/Raw/Functions.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Raw/Functions.o )
+[ 5 of 24] Compiling Graphics.UI.GLUT.Raw.Tokens ( src/Graphics/UI/GLUT/Raw/Tokens.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Raw/Tokens.o )
+[ 6 of 24] Compiling Graphics.UI.GLUT.Raw ( src/Graphics/UI/GLUT/Raw.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Raw.o )
+[ 7 of 24] Compiling Graphics.UI.GLUT.QueryUtils ( src/Graphics/UI/GLUT/QueryUtils.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/QueryUtils.o )
+[ 8 of 24] Compiling Graphics.UI.GLUT.Objects ( src/Graphics/UI/GLUT/Objects.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Objects.o )
+[ 9 of 24] Compiling Graphics.UI.GLUT.Fonts ( src/Graphics/UI/GLUT/Fonts.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Fonts.o )
+[10 of 24] Compiling Graphics.UI.GLUT.DeviceControl ( src/Graphics/UI/GLUT/DeviceControl.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/DeviceControl.o )
+[11 of 24] Compiling Graphics.UI.GLUT.Begin ( src/Graphics/UI/GLUT/Begin.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Begin.o )
+[12 of 24] Compiling Graphics.UI.GLUT.Types ( src/Graphics/UI/GLUT/Types.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Types.o )
+[13 of 24] Compiling Graphics.UI.GLUT.Overlay ( src/Graphics/UI/GLUT/Overlay.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Overlay.o )
+[14 of 24] Compiling Graphics.UI.GLUT.Initialization ( src/Graphics/UI/GLUT/Initialization.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Initialization.o )
+[15 of 24] Compiling Graphics.UI.GLUT.GameMode ( src/Graphics/UI/GLUT/GameMode.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/GameMode.o )
+[16 of 24] Compiling Graphics.UI.GLUT.Colormap ( src/Graphics/UI/GLUT/Colormap.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Colormap.o )
+[17 of 24] Compiling Graphics.UI.GLUT.Window ( src/Graphics/UI/GLUT/Window.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Window.o )
+[18 of 24] Compiling Graphics.UI.GLUT.State ( src/Graphics/UI/GLUT/State.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/State.o )
+[19 of 24] Compiling Graphics.UI.GLUT.Callbacks.Registration ( src/Graphics/UI/GLUT/Callbacks/Registration.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Callbacks/Registration.o )
+[20 of 24] Compiling Graphics.UI.GLUT.Menu ( src/Graphics/UI/GLUT/Menu.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Menu.o )
+[21 of 24] Compiling Graphics.UI.GLUT.Callbacks.Window ( src/Graphics/UI/GLUT/Callbacks/Window.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Callbacks/Window.o )
+[22 of 24] Compiling Graphics.UI.GLUT.Callbacks.Global ( src/Graphics/UI/GLUT/Callbacks/Global.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Callbacks/Global.o )
+[23 of 24] Compiling Graphics.UI.GLUT.Callbacks ( src/Graphics/UI/GLUT/Callbacks.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT/Callbacks.o )
+[24 of 24] Compiling Graphics.UI.GLUT ( src/Graphics/UI/GLUT.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/UI/GLUT.o )
+Installing library in /Users/drew/.stack/snapshots/x86_64-osx/lts-11.4/8.2.2/lib/x86_64-osx-ghc-8.2.2/GLUT-2.7.0.13-LgLY3p8NRtN91EW5RCCSuP
+Registering library for GLUT-2.7.0.13..

@@ -1,0 +1,158 @@
+
+==================== FINAL INTERFACE ====================
+2018-04-21 17:17:25.471702 UTC
+
+interface main:Hud 8022
+  interface hash: 177e2ed1a665668b629029aa2bbe8ce4
+  ABI hash: ed8af3cd468ac05d4c14be765b490510
+  export-list hash: eca90c23be171a67962510e561d763b3
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: 218937346cb784a3a30fb2c72201dd88
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  Hud.render
+module dependencies: Base Block Level Player World
+package dependencies: GLURaw-2.0.0.4 GLUT-2.7.0.13
+                      ObjectName-1.1.0.1 OpenGL-3.0.2.1 OpenGLRaw-3.2.7.0
+                      StateVar-1.1.0.4 adjunctions-4.4 array-0.5.2.0 base-4.10.1.0
+                      base-orphans-0.7 bifunctors-5.5.2 binary-0.8.5.1 bmp-1.2.6.3
+                      bytestring-0.10.8.2 call-stack-0.1.0 comonad-5.0.3
+                      containers-0.5.10.2 contravariant-1.4.1 deepseq-1.4.3.0
+                      distributive-0.5.3 exceptions-0.8.3 fixed-0.2.1.1 free-5.0.1
+                      ghc-boot-th-8.2.2 ghc-prim-0.5.1.1 gloss-1.11.1.1
+                      gloss-rendering-1.11.1.1 half-0.2.2.3 hashable-1.2.7.0
+                      integer-gmp-1.0.1.0 kan-extensions-5.1 lens-4.16.1 mtl-2.2.2
+                      pretty-1.1.3.3 primitive-0.6.3.0 profunctors-5.2.2 reflection-2.1.3
+                      semigroupoids-5.2.2 stm-2.4.5.0 tagged-0.8.5
+                      template-haskell-2.12.0.0 text-1.2.3.0 th-abstraction-0.2.6.0
+                      transformers-0.5.2.0 transformers-base-0.4.4
+                      transformers-compat-0.5.1.4 unordered-containers-0.2.9.0
+                      vector-0.12.0.1
+orphans: reflection-2.1.3:Data.Reflection
+         vector-0.12.0.1:Data.Vector.Unboxed
+         vector-0.12.0.1:Data.Vector.Fusion.Bundle
+         hashable-1.2.7.0:Data.Hashable.Generic text-1.2.3.0:Data.Text.Lazy
+         base-orphans-0.7:Data.Orphans
+         transformers-0.5.2.0:Control.Monad.Trans.Error
+         gloss-rendering-1.11.1.1:Graphics.Gloss.Internals.Data.Picture
+         stm-2.4.5.0:Control.Monad.STM text-1.2.3.0:Data.Text
+         binary-0.8.5.1:Data.Binary.Generic text-1.2.3.0:Data.Text.Show
+         bytestring-0.10.8.2:Data.ByteString.Builder base-4.10.1.0:GHC.Float
+         base-4.10.1.0:GHC.Base
+family instance modules: adjunctions-4.4:Data.Functor.Rep
+                         base-4.10.1.0:Control.Applicative base-4.10.1.0:Data.Complex
+                         base-4.10.1.0:Data.Either base-4.10.1.0:Data.Functor.Compose
+                         base-4.10.1.0:Data.Functor.Const
+                         base-4.10.1.0:Data.Functor.Identity
+                         base-4.10.1.0:Data.Functor.Product base-4.10.1.0:Data.Functor.Sum
+                         base-4.10.1.0:Data.List.NonEmpty base-4.10.1.0:Data.Monoid
+                         base-4.10.1.0:Data.Semigroup base-4.10.1.0:Data.Type.Equality
+                         base-4.10.1.0:Data.Version base-4.10.1.0:Data.Void
+                         base-4.10.1.0:GHC.Exts base-4.10.1.0:GHC.Generics
+                         base-4.10.1.0:GHC.IO.Exception base-4.10.1.0:GHC.TypeLits
+                         base-4.10.1.0:GHC.TypeNats bifunctors-5.5.2:Data.Bifunctor.Biff
+                         bifunctors-5.5.2:Data.Bifunctor.Clown
+                         bifunctors-5.5.2:Data.Bifunctor.Fix
+                         bifunctors-5.5.2:Data.Bifunctor.Flip
+                         bifunctors-5.5.2:Data.Bifunctor.Join
+                         bifunctors-5.5.2:Data.Bifunctor.Joker
+                         bifunctors-5.5.2:Data.Bifunctor.Product
+                         bifunctors-5.5.2:Data.Bifunctor.Sum
+                         bifunctors-5.5.2:Data.Bifunctor.Tannen
+                         bifunctors-5.5.2:Data.Bifunctor.Wrapped
+                         containers-0.5.10.2:Data.IntMap.Internal
+                         containers-0.5.10.2:Data.IntSet.Internal
+                         containers-0.5.10.2:Data.Map.Internal
+                         containers-0.5.10.2:Data.Sequence.Internal
+                         containers-0.5.10.2:Data.Set.Internal containers-0.5.10.2:Data.Tree
+                         ghc-boot-th-8.2.2:GHC.ForeignSrcLang.Type
+                         ghc-boot-th-8.2.2:GHC.LanguageExtensions.Type
+                         kan-extensions-5.1:Data.Functor.Day
+                         kan-extensions-5.1:Data.Functor.Yoneda lens-4.16.1:Control.Lens.At
+                         lens-4.16.1:Control.Lens.Internal.Indexed
+                         lens-4.16.1:Control.Lens.Reified lens-4.16.1:Control.Lens.Tuple
+                         lens-4.16.1:Control.Lens.Wrapped lens-4.16.1:Control.Lens.Zoom
+                         pretty-1.1.3.3:Text.PrettyPrint.Annotated.HughesPJ
+                         pretty-1.1.3.3:Text.PrettyPrint.HughesPJ
+                         primitive-0.6.3.0:Control.Monad.Primitive
+                         primitive-0.6.3.0:Data.Primitive.Array
+                         primitive-0.6.3.0:Data.Primitive.ByteArray
+                         profunctors-5.2.2:Data.Profunctor.Composition
+                         profunctors-5.2.2:Data.Profunctor.Rep tagged-0.8.5:Data.Tagged
+                         template-haskell-2.12.0.0:Language.Haskell.TH.Syntax
+                         text-1.2.3.0:Data.Text text-1.2.3.0:Data.Text.Lazy
+                         th-abstraction-0.2.6.0:Language.Haskell.TH.Datatype
+                         unordered-containers-0.2.9.0:Data.HashMap.Base
+                         unordered-containers-0.2.9.0:Data.HashSet
+                         vector-0.12.0.1:Data.Vector vector-0.12.0.1:Data.Vector.Primitive
+                         vector-0.12.0.1:Data.Vector.Storable
+                         vector-0.12.0.1:Data.Vector.Unboxed
+                         vector-0.12.0.1:Data.Vector.Unboxed.Base
+import  -/  base-4.10.1.0:Data.Monoid c0108b166e27f747671c7fe4ffb11019
+import  -/  base-4.10.1.0:Data.Tuple 8fa1305aa5032ea35e2a54fa5f1e78f9
+import  -/  base-4.10.1.0:GHC.Base 782fd99b5e36f3698a26179a49afca64
+import  -/  base-4.10.1.0:GHC.Real 3c62834bc25e762eabc44149c4cc142d
+import  -/  base-4.10.1.0:GHC.Show 0a8ce2b5e533d1c2cfb7954e6736be45
+import  -/  base-4.10.1.0:Prelude 31945b7d0084063347fc52506d3a4020
+import  -/  gloss-1.11.1.1:Graphics.Gloss.Data.Picture 094569b26fc286aa3a5e9a7de50bb734
+import  -/  gloss-rendering-1.11.1.1:Graphics.Gloss.Internals.Data.Color b996ae71d8859d230763c9d9f29aeedf
+import  -/  gloss-rendering-1.11.1.1:Graphics.Gloss.Internals.Data.Picture 4cfdf48333d4da0b95ccc85f821990f9
+import  -/  lens-4.16.1:Control.Lens.Getter c35decfdb371768220da83f721a88717
+import  -/  Base 11cb7d834f2f99b375feed45c987dbb0
+  exports: 0ae00316f74b1d214781093a67933a66
+  mag 161c1c731dd36f3ad18280468005e943
+import  -/  Player 3e6739225a30abf4aea9ecfc2d972f9b
+  exports: dc270cca6c68bb502908d6ea2c2a66fb
+  acceleration 9f0a135164723af52fe2818529a3e0a6
+  position 3faa007b96c22ab02db2525a774d6349
+  velocity 9f8ed8789bce84b8b32f20bf709da308
+import  -/  World 981e840c22727921992edae4064a9d80
+  exports: 016924779c634a7cc34ef8870d1881d4
+  World 94f038cb77274e6505de4b66b61ff4ee
+  player 8927dfe34e9c38c681179971f312326c
+  time 9a584466a26a73dd31b86ae067013813
+50686e0bd71e97d0f3977938e35d81d3
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module Hud.$trModule3 Hud.$trModule1) -}
+df511be64665c37e53d2122d8337f64d
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Hud.$trModule2) -}
+ec46ce0aa98484257266f9d3d26153ed
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Hud"#) -}
+53a946324eb8a72c2b23ca6989c9be35
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Hud.$trModule4) -}
+a0b631ec8d1e7fc68c4b786002163a0c
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("main"#) -}
+6b347f4d4dcadff7a7690388ac2cd96b
+  $wrender ::
+    World.World
+    -> (# [Graphics.Gloss.Internals.Data.Picture.Picture] #)
+  {- Arity: 1,
+     Strictness: <L,U(U(1*U(A,1*U(U)),U(U(U),U(U)),1*U(1*U(U),1*U(U))),A,A,A,1*U(U))>,
+     Inline: [0] -}
+410501e9384278c53fa8b3c949fa9622
+  render ::
+    World.World -> Graphics.Gloss.Internals.Data.Picture.Picture
+  {- Arity: 1,
+     Strictness: <L,U(U(U(A,U(U)),U(U(U),U(U)),U(U(U),U(U))),A,A,A,U(U))>m14,
+     Inline: [0],
+     Unfolding: InlineRule (1, True, False)
+                (\ (w :: World.World) ->
+                 case Hud.$wrender w of ww { Unit# ww1 ->
+                 Graphics.Gloss.Internals.Data.Picture.Pictures ww1 }) -}
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: none
+require own pkg trusted: False
+

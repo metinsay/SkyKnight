@@ -1,0 +1,6 @@
+Configuring fixed-0.2.1.1...
+Preprocessing library for fixed-0.2.1.1..
+Building library for fixed-0.2.1.1..
+[1 of 1] Compiling Numeric.Fixed    ( src/Numeric/Fixed.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Numeric/Fixed.o )
+Installing library in /Users/drew/.stack/snapshots/x86_64-osx/lts-11.4/8.2.2/lib/x86_64-osx-ghc-8.2.2/fixed-0.2.1.1-J9WHGxR9I1CIjc5apYlaPz
+Registering library for fixed-0.2.1.1..

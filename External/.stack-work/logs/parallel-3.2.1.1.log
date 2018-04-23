@@ -1,0 +1,8 @@
+Configuring parallel-3.2.1.1...
+Preprocessing library for parallel-3.2.1.1..
+Building library for parallel-3.2.1.1..
+[1 of 3] Compiling Control.Parallel ( Control/Parallel.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Control/Parallel.o )
+[2 of 3] Compiling Control.Seq      ( Control/Seq.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Control/Seq.o )
+[3 of 3] Compiling Control.Parallel.Strategies ( Control/Parallel/Strategies.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Control/Parallel/Strategies.o )
+Installing library in /Users/drew/.stack/snapshots/x86_64-osx/lts-11.4/8.2.2/lib/x86_64-osx-ghc-8.2.2/parallel-3.2.1.1-6PIhrl6oqe7Af1Z2sa6T1
+Registering library for parallel-3.2.1.1..
