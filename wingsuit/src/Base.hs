@@ -1,5 +1,6 @@
 module Base
-    ( module Control.Applicative
+    ( module Codec.Picture
+    , module Control.Applicative
     , module Control.Arrow
     , module Control.Monad
     , module Control.Lens
@@ -8,11 +9,13 @@ module Base
     , module Data.Map
     , module Data.Monoid
     , module Graphics.Gloss.Interface.IO.Game
+    , module Graphics.Gloss.Juicy
     , mag
     , unit
     , (.*)
     ) where
 
+import Codec.Picture (readImage)
 import Control.Applicative ((<|>))
 import Control.Arrow ((&&&))
 import Control.Lens (makeLenses, makePrisms, (&), (%~), (+~), (.~), (^.))
@@ -29,8 +32,9 @@ import Graphics.Gloss.Interface.IO.Game
     , MouseButton(LeftButton)
     , Picture
     , Point
-    , color, line, makeColor, playIO, polygon, scale, text, translate
+    , color, line, makeColor, playIO, polygon, rotate, scale, text, translate
     )
+import Graphics.Gloss.Juicy (fromDynamicImage)
 
 unit :: Point -> Point
 unit p = if mag p == 0 then 0 else 1 / mag p .* p

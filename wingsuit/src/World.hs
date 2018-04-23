@@ -46,8 +46,9 @@ create :: Level -> IO World
 create l = do
     isTer <- l ^. L.getIsTerrain
     ter <- l ^. L.getTerrain
+    p <- P.create $ l ^. L.start
     pure $ World
-        { _player = P.create $ l ^. L.start
+        { _player = p
         , _isTerrain = isTer
         , _terrain = ter
         , _start = l ^. L.start
