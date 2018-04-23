@@ -10,20 +10,23 @@ import Button (Button(Button))
 import qualified Button as B
 import Level (Level)
 import qualified Level as L
+import Scores (Scores, getScore)
 
-render :: Picture
-render = foldMap B.render $ fst <$> levelButtons
+render :: Scores -> Picture
+render ss = foldMap B.render $ fst <$> levelButtons ss
 
-handle :: Event -> Maybe Level
-handle e = go levelButtons
+handle :: Scores -> Event -> Maybe (String, Level)
+handle ss e = go $ levelButtons ss
   where
     go [] = Nothing
-    go ((b, l) : bs)
-        | B.handle e b = Just l
+    go ((b@(Button n _ _), l) : bs)
+        | B.handle e b = Just (n, l)
         | otherwise = go bs
 
-levelButtons :: [(Button, Level)]
-levelButtons = zipWith mkLevelButton [-offset .. offset] (M.toList L.levels)
+levelButtons :: Scores -> [(Button, Level)]
+levelButtons ss = zipWith mkLevelButton [-offset .. offset] (M.toList L.levels)
   where
-    mkLevelButton i (n, l) = ( Button n (-200, 100 * i - 25) (200, 100 * i + 25), l )
+    mkLevelButton i (n, l) = case getScore n ss of
+        Nothing -> ( Button n (-200, 100 * i - 25) (200, 100 * i + 25), l )
+        Just s -> ( Button (n ++ " - " ++ show s) (-200, 100 * i - 25) (200, 100 * i + 25), l )
     offset = fromIntegral (length L.levels - 1) / 2

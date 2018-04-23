@@ -17,15 +17,17 @@ import World (World)
 import qualified World as W
 
 data Game = Game
-    { _world :: World
+    { _name :: String
+    , _world :: World
     , _done :: Bool
     }
 
 makeLenses ''Game
 
-create :: Level -> Game
-create l = Game
-    { _world = W.create l
+create :: String -> Level -> Game
+create n l = Game
+    { _name = n
+    , _world = W.create l
     , _done = False
     }
 
@@ -40,8 +42,12 @@ render g = renderWorld <> renderHud
     dist = foldl' min 10000 $
         mag . subtract (g ^. world . W.player . P.position) <$> (B.points =<< g ^. world . W.blocks)
 
-handle :: Event -> Game -> Game
-handle e g = bool (g & world %~ W.handle e) g (g ^. done)
+handle :: Event -> Game -> Either (String, Float) Game
+handle e g = case g ^. done of
+    False -> Right $ g & world %~ W.handle e
+    True -> case e of
+        EventKey _ Down _ _ -> Left (g ^. name, g ^. world . W.time)
+        _ -> Right g
 
 step :: Float -> Game -> Game
 step t g = bool (g & world .~ w' & done .~ d) g (g ^. done)

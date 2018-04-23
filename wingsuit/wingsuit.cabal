@@ -20,4 +20,5 @@ executable wingsuit
                      , Level
                      , Menu
                      , Player
+                     , Scores
                      , World
