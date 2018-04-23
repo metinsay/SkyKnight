@@ -5,8 +5,8 @@ module Levels.Block (levels) where
 import Data.Map (Map)
 
 import Base
-import Block (Block)
-import qualified Block as B
+import Level.Block (Block)
+import qualified Level.Block as B
 import Level (Level(Level), _getIsTerrain, _getTerrain, _isFinish, _start)
 
 levels :: Map String Level

@@ -1,4 +1,4 @@
-module Block
+module Level.Block
     ( Block
     , inBlock
     , points
