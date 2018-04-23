@@ -3,47 +3,31 @@
 module Main (main) where
 
 import Base
-import qualified Block as B
-import qualified Hud as H
+import Game (Game)
+import qualified Game as G
 import qualified Level as L
-import qualified Player as P
-import World (World)
-import qualified World as W
+import qualified Menu as M
 
-data State = State
-    { _world :: World
-    , _done :: Bool
-    } deriving Show
+data State
+    = Menu
+    | Game Game
 
-makeLenses ''State
+makePrisms ''State
 
 main :: IO ()
-main = play FullScreen (makeColor 1 1 1 1) 60 initial render handle step
-
-initial :: State
-initial = State
-    { _world = W.create L.level1
-    , _done = False
-    }
+main = play FullScreen (makeColor 1 1 1 1) 60 Menu render handle step
 
 render :: State -> Picture
-render s = renderWorld <> renderHud
-  where
-    renderWorld = join scale scaling
-        . uncurry translate (- s ^. world . W.player . P.position)
-        $ W.render (s ^. world)
-    renderHud = H.render (s ^. world)
-    scaling = 400 / sqrt (100000 + dist ** 2)
-    dist = foldl' min 10000 $
-        mag . subtract (s ^. world . W.player . P.position) <$> (B.points =<< s ^. world . W.blocks)
+render Menu = M.render
+render (Game g) = G.render g
 
 handle :: Event -> State -> State
-handle (EventKey (Char '1') Down _ _) s = s & world .~ W.create L.level1 & done .~ False
-handle (EventKey (Char '2') Down _ _) s = s & world .~ W.create L.level2 & done .~ False
-handle (EventKey (Char '3') Down _ _) s = s & world .~ W.create L.level3 & done .~ False
-handle e s = bool (s & world %~ W.handle e) s (s ^. done)
+handle (EventKey (Char '0') Down _ _) _ = Menu
+handle (EventKey (Char '1') Down _ _) _ = Game $ G.create L.level1
+handle (EventKey (Char '2') Down _ _) _ = Game $ G.create L.level2
+handle (EventKey (Char '3') Down _ _) _ = Game $ G.create L.level3
+handle e Menu = maybe Menu (Game . G.create) (M.handle e)
+handle e (Game g) = Game $ G.handle e g
 
 step :: Float -> State -> State
-step t s = bool (s & world .~ w' & done .~ d) s (s ^. done)
-  where
-    (d, w') = W.step t (s ^. world)
+step t s = s & _Game %~ G.step t

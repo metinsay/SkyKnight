@@ -13,7 +13,10 @@ executable wingsuit
   default-language:    Haskell2010
   other-modules:       Base
                      , Block
+                     , Button
+                     , Game
                      , Hud
                      , Level
+                     , Menu
                      , Player
                      , World
