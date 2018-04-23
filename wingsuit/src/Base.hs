@@ -14,13 +14,19 @@ module Base
 
 import Control.Applicative ((<|>))
 import Control.Arrow ((&&&))
-import Control.Lens (makeLenses, (&), (%~), (+~), (.~), (^.))
+import Control.Lens (makeLenses, makePrisms, (&), (%~), (+~), (.~), (^.))
 import Control.Monad (join)
 import Data.Bool (bool)
 import Data.List (foldl')
 import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.Pure.Game
-    ( Display(FullScreen), Event(EventKey, EventMotion), Key(Char), KeyState(Down), Picture, Point
+    ( Display(FullScreen)
+    , Event(EventKey, EventMotion)
+    , Key(Char, MouseButton)
+    , KeyState(Down)
+    , MouseButton(LeftButton)
+    , Picture
+    , Point
     , color, line, makeColor, play, polygon, scale, text, translate
     )
 
