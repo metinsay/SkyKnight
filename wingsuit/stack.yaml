@@ -1,4 +1,5 @@
 resolver: lts-11.4
 packages:
 - '.'
-extra-deps: []
+extra-deps:
+- gloss-juicy-0.2.2
