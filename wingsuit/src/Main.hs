@@ -6,6 +6,7 @@ import Base
 import qualified Block as B
 import qualified Hud as H
 import qualified Level as L
+import qualified Image as I
 import qualified Player as P
 import World (World)
 import qualified World as W
@@ -18,7 +19,10 @@ data State = State
 makeLenses ''State
 
 main :: IO ()
-main = play FullScreen (makeColor 1 1 1 1) 60 initial render handle step
+main = do
+    level4 <- I.loadLevel "levels/level1/art.bmp"
+    let levels = [('1', L.level1), ('2', L.level2), ('3', L.level3), ('4', level4)]
+    play FullScreen (makeColor 1 1 1 1) 60 initial render (handle(levels)) step
 
 initial :: State
 initial = State
@@ -37,11 +41,15 @@ render s = renderWorld <> renderHud
     dist = foldl' min 10000 $
         mag . subtract (s ^. world . W.player . P.position) <$> (B.points =<< s ^. world . W.blocks)
 
-handle :: Event -> State -> State
-handle (EventKey (Char '1') Down _ _) s = s & world .~ W.create L.level1 & done .~ False
-handle (EventKey (Char '2') Down _ _) s = s & world .~ W.create L.level2 & done .~ False
-handle (EventKey (Char '3') Down _ _) s = s & world .~ W.create L.level3 & done .~ False
-handle e s = bool (s & world %~ W.handle e) s (s ^. done)
+type Levels = [(Char, L.Level)]
+handle :: Levels -> Event -> State -> State
+handle l e s = case e of
+            (EventKey (Char k) Down _ _) ->
+                case lookup k l of
+                    Just level -> s & world .~ W.create level & done .~ False
+                    Nothing -> bool (s & world %~ W.handle e) s (s ^. done)
+            _ -> bool (s & world %~ W.handle e) s (s ^. done)
+
 
 step :: Float -> State -> State
 step t s = bool (s & world .~ w' & done .~ d) s (s ^. done)

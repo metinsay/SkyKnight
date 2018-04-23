@@ -1,7 +1,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 
 module Level
-    ( Level
+    ( Level (Level)
     , blocks
     , finish
     , level1
