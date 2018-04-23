@@ -5,6 +5,7 @@ module Base
     , module Control.Lens
     , module Data.Bool
     , module Data.List
+    , module Data.Map
     , module Data.Monoid
     , module Graphics.Gloss.Interface.Pure.Game
     , mag
@@ -18,6 +19,7 @@ import Control.Lens (makeLenses, makePrisms, (&), (%~), (+~), (.~), (^.))
 import Control.Monad (join)
 import Data.Bool (bool)
 import Data.List (foldl')
+import Data.Map (Map)
 import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.Pure.Game
     ( Display(FullScreen)

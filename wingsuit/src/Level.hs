@@ -1,12 +1,10 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE OverloadedLists, TemplateHaskell #-}
 
 module Level
     ( Level
     , blocks
     , finish
-    , level1
-    , level2
-    , level3
+    , levels
     , start
     ) where
 
@@ -20,6 +18,13 @@ data Level = Level
     } deriving Show
 
 makeLenses ''Level
+
+levels :: Map String Level
+levels =
+    [ ("level1", level1)
+    , ("level2", level2)
+    , ("level3", level3)
+    ]
 
 level1 :: Level
 level1 = mkLevel 11500 ((99950, 200), (100050, 300))

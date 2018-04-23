@@ -22,10 +22,7 @@ render Menu = M.render
 render (Game g) = G.render g
 
 handle :: Event -> State -> State
-handle (EventKey (Char '0') Down _ _) _ = Menu
-handle (EventKey (Char '1') Down _ _) _ = Game $ G.create L.level1
-handle (EventKey (Char '2') Down _ _) _ = Game $ G.create L.level2
-handle (EventKey (Char '3') Down _ _) _ = Game $ G.create L.level3
+handle (EventKey (Char 'm') Down _ _) _ = Menu
 handle e Menu = maybe Menu (Game . G.create) (M.handle e)
 handle e (Game g) = Game $ G.handle e g
 
