@@ -1,6 +1,0 @@
-Configuring void-0.7.2...
-Preprocessing library for void-0.7.2..
-Building library for void-0.7.2..
-[1 of 1] Compiling Data.Void.Unsafe ( src/Data/Void/Unsafe.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Data/Void/Unsafe.o )
-Installing library in /Users/drew/.stack/snapshots/x86_64-osx/lts-11.4/8.2.2/lib/x86_64-osx-ghc-8.2.2/void-0.7.2-BaCvWtelk6X2yBHg8R7RQm
-Registering library for void-0.7.2..
