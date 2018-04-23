@@ -9,7 +9,7 @@ import Base
 import Button (Button(Button))
 import qualified Button as B
 import Level (Level)
-import qualified Level as L
+import Levels (levels)
 import Scores (Scores, getScore)
 
 render :: Scores -> Picture
@@ -24,9 +24,9 @@ handle ss e = go $ levelButtons ss
         | otherwise = go bs
 
 levelButtons :: Scores -> [(Button, Level)]
-levelButtons ss = zipWith mkLevelButton [-offset .. offset] (M.toList L.levels)
+levelButtons ss = zipWith mkLevelButton [-offset .. offset] (M.toList levels)
   where
     mkLevelButton i (n, l) = case getScore n ss of
         Nothing -> ( Button n (-200, 100 * i - 25) (200, 100 * i + 25), l )
         Just s -> ( Button (n ++ " - " ++ show s) (-200, 100 * i - 25) (200, 100 * i + 25), l )
-    offset = fromIntegral (length L.levels - 1) / 2
+    offset = fromIntegral (length levels - 1) / 2

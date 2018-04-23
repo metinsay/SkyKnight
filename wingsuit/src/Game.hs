@@ -9,7 +9,6 @@ module Game
     ) where
 
 import Base
-import qualified Block as B
 import qualified Hud as H
 import Level (Level)
 import qualified Player as P
@@ -24,23 +23,20 @@ data Game = Game
 
 makeLenses ''Game
 
-create :: String -> Level -> Game
-create n l = Game
-    { _name = n
-    , _world = W.create l
-    , _done = False
-    }
+create :: String -> Level -> IO Game
+create n l = do
+    w <- W.create l
+    pure $ Game
+        { _name = n
+        , _world = w
+        , _done = False
+        }
 
 render :: Game -> Picture
 render g = renderWorld <> renderHud
   where
-    renderWorld = join scale scaling
-        . uncurry translate (- g ^. world . W.player . P.position)
-        $ W.render (g ^. world)
+    renderWorld = uncurry translate (- g ^. world . W.player . P.position) $ W.render (g ^. world)
     renderHud = H.render (g ^. world)
-    scaling = 400 / sqrt (100000 + dist ** 2)
-    dist = foldl' min 10000 $
-        mag . subtract (g ^. world . W.player . P.position) <$> (B.points =<< g ^. world . W.blocks)
 
 handle :: Event -> Game -> Either (String, Float) Game
 handle e g = case g ^. done of

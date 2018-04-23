@@ -7,7 +7,7 @@ module Base
     , module Data.List
     , module Data.Map
     , module Data.Monoid
-    , module Graphics.Gloss.Interface.Pure.Game
+    , module Graphics.Gloss.Interface.IO.Game
     , mag
     , unit
     , (.*)
@@ -21,7 +21,7 @@ import Data.Bool (bool)
 import Data.List (foldl')
 import Data.Map (Map)
 import Data.Monoid ((<>))
-import Graphics.Gloss.Interface.Pure.Game
+import Graphics.Gloss.Interface.IO.Game
     ( Display(FullScreen)
     , Event(EventKey, EventMotion)
     , Key(Char, MouseButton)
@@ -29,7 +29,7 @@ import Graphics.Gloss.Interface.Pure.Game
     , MouseButton(LeftButton)
     , Picture
     , Point
-    , color, line, makeColor, play, polygon, scale, text, translate
+    , color, line, makeColor, playIO, polygon, scale, text, translate
     )
 
 unit :: Point -> Point

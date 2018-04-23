@@ -2,7 +2,6 @@
 
 module World
     ( World
-    , blocks
     , create
     , handle
     , player
@@ -12,8 +11,6 @@ module World
     ) where
 
 import Base
-import Block (Block)
-import qualified Block as B
 import Level (Level)
 import qualified Level as L
 import Player (Player)
@@ -21,18 +18,18 @@ import qualified Player as P
 
 data World = World
     { _player :: Player
-    , _blocks :: [Block]
     , _start :: Point
-    , _finish :: Block
+    , _isFinish :: Point -> Bool
+    , _isTerrain :: Point -> Bool
+    , _terrain :: Picture
     , _time :: Float
-    } deriving Show
+    }
 
 makeLenses ''World
 
 render :: World -> Picture
 render w = P.render (w ^. player)
-        <> foldMap B.render (w ^. blocks)
-        <> color (makeColor 0 1 0 1) (B.render $ w ^. finish)
+        <> w ^. terrain
 
 handle :: Event -> World -> World
 handle (EventKey (Char 'r') Down _ _) w = w & player %~ P.reset (w ^. start)
@@ -41,15 +38,19 @@ handle e w = w & player %~ P.handle e
 step :: Float -> World -> (Bool, World)
 step t = (checkFinish &&& id) . checkCollision . (player %~ P.step t) . (time +~ t)
   where
-    checkFinish w = B.inBlock (w ^. player . P.position) (w ^. finish)
+    checkFinish w = w ^. isFinish $ w ^. player . P.position
     checkCollision w = bool w (w & player %~ P.reset (w ^. start) & time .~ 0)
-        . or $ B.inBlock <$> P.points (w ^. player) <*> w ^. blocks
+        . or $ w ^. isTerrain <$> P.points (w ^. player)
 
-create :: Level -> World
-create l = World
-    { _player = P.create $ l ^. L.start
-    , _blocks = l ^. L.blocks
-    , _start = l ^. L.start
-    , _finish = l ^. L.finish
-    , _time = 0
-    }
+create :: Level -> IO World
+create l = do
+    isTer <- l ^. L.getIsTerrain
+    ter <- l ^. L.getTerrain
+    pure $ World
+        { _player = P.create $ l ^. L.start
+        , _isTerrain = isTer
+        , _terrain = ter
+        , _start = l ^. L.start
+        , _isFinish = l ^. L.isFinish
+        , _time = 0
+        }

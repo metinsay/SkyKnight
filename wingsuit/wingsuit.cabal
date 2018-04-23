@@ -18,6 +18,8 @@ executable wingsuit
                      , Game
                      , Hud
                      , Level
+                     , Levels
+                     , Levels.Block
                      , Menu
                      , Player
                      , Scores
