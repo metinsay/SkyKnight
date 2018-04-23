@@ -18,7 +18,7 @@ module Base
 import Codec.Picture (readImage)
 import Control.Applicative ((<|>))
 import Control.Arrow ((&&&))
-import Control.Lens (makeLenses, makePrisms, (&), (%~), (+~), (.~), (^.))
+import Control.Lens (_1, makeLenses, makePrisms, (&), (%~), (+~), (.~), (^.))
 import Control.Monad (join)
 import Data.Bool (bool)
 import Data.List (foldl')
