@@ -28,8 +28,8 @@ data World = World
 makeLenses ''World
 
 render :: World -> Picture
-render w = P.render (w ^. player)
-        <> w ^. terrain
+render w = w ^. terrain
+        <> P.render (w ^. player)
 
 handle :: Event -> World -> World
 handle (EventKey (Char 'r') Down _ _) w = w & player %~ P.reset (w ^. start)
