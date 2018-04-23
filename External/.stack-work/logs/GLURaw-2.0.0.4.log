@@ -1,0 +1,11 @@
+Configuring GLURaw-2.0.0.4...
+Preprocessing library for GLURaw-2.0.0.4..
+Building library for GLURaw-2.0.0.4..
+[1 of 6] Compiling Graphics.GLU.Callbacks ( src/Graphics/GLU/Callbacks.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/GLU/Callbacks.o )
+[2 of 6] Compiling Graphics.GLU.Tokens ( src/Graphics/GLU/Tokens.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/GLU/Tokens.o )
+[3 of 6] Compiling Graphics.GLU.TypesInternal ( src/Graphics/GLU/TypesInternal.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/GLU/TypesInternal.o )
+[4 of 6] Compiling Graphics.GLU.Types ( src/Graphics/GLU/Types.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/GLU/Types.o )
+[5 of 6] Compiling Graphics.GLU.Functions ( src/Graphics/GLU/Functions.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/GLU/Functions.o )
+[6 of 6] Compiling Graphics.GLU     ( src/Graphics/GLU.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/GLU.o )
+Installing library in /Users/drew/.stack/snapshots/x86_64-osx/lts-11.4/8.2.2/lib/x86_64-osx-ghc-8.2.2/GLURaw-2.0.0.4-409xLnqehM7Ccw3Acpfc5q
+Registering library for GLURaw-2.0.0.4..

@@ -1,0 +1,14 @@
+Configuring gloss-rendering-1.11.1.1...
+Preprocessing library for gloss-rendering-1.11.1.1..
+Building library for gloss-rendering-1.11.1.1..
+[1 of 9] Compiling Graphics.Gloss.Internals.Data.Color ( Graphics/Gloss/Internals/Data/Color.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/Gloss/Internals/Data/Color.o )
+[2 of 9] Compiling Graphics.Gloss.Internals.Rendering.Bitmap ( Graphics/Gloss/Internals/Rendering/Bitmap.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/Gloss/Internals/Rendering/Bitmap.o )
+[3 of 9] Compiling Graphics.Gloss.Internals.Data.Picture ( Graphics/Gloss/Internals/Data/Picture.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/Gloss/Internals/Data/Picture.o )
+[4 of 9] Compiling Graphics.Gloss.Internals.Rendering.Color ( Graphics/Gloss/Internals/Rendering/Color.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/Gloss/Internals/Rendering/Color.o )
+[5 of 9] Compiling Graphics.Gloss.Internals.Rendering.Common ( Graphics/Gloss/Internals/Rendering/Common.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/Gloss/Internals/Rendering/Common.o )
+[6 of 9] Compiling Graphics.Gloss.Internals.Rendering.Circle ( Graphics/Gloss/Internals/Rendering/Circle.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/Gloss/Internals/Rendering/Circle.o )
+[7 of 9] Compiling Graphics.Gloss.Internals.Rendering.State ( Graphics/Gloss/Internals/Rendering/State.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/Gloss/Internals/Rendering/State.o )
+[8 of 9] Compiling Graphics.Gloss.Internals.Rendering.Picture ( Graphics/Gloss/Internals/Rendering/Picture.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/Gloss/Internals/Rendering/Picture.o )
+[9 of 9] Compiling Graphics.Gloss.Rendering ( Graphics/Gloss/Rendering.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/Gloss/Rendering.o )
+Installing library in /Users/drew/.stack/snapshots/x86_64-osx/lts-11.4/8.2.2/lib/x86_64-osx-ghc-8.2.2/gloss-rendering-1.11.1.1-yupv7wmdQs9NcGmKK3Fc
+Registering library for gloss-rendering-1.11.1.1..
