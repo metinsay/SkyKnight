@@ -14,10 +14,10 @@ levels = [ ("level4", level1)
          ]
 
 level1 :: Level
-level1 = loadLevel "levels/level1" (100, 100) (const False)
+level1 = loadLevel "levels/level1" (-1350, 480) (const False)
 
 level2 :: Level
 level2 = loadLevel "levels/level2" (-1400, 400) (const False)
 
 level3 :: Level
-level3 = loadLevel "levels/level3" (100, 100) (const False)
+level3 = loadLevel "levels/level3" (-1400, 400) (const False)
