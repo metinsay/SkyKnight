@@ -22,7 +22,9 @@ data World = World
     , _isFinish :: Point -> Bool
     , _isTerrain :: Point -> Bool
     , _terrain :: Picture
+    , _startTime :: Float
     , _time :: Float
+    , _score :: Float
     }
 
 makeLenses ''World
@@ -35,12 +37,13 @@ handle :: Event -> World -> World
 handle (EventKey (Char 'r') Down _ _) w = w & player %~ P.reset (w ^. start)
 handle e w = w & player %~ P.handle e
 
-step :: Float -> World -> (Bool, World)
-step t = (checkFinish &&& id) . checkCollision . (player %~ P.step t) . (time +~ t)
+step :: Float -> World -> (Maybe Float, World)
+step t = (checkFinish &&& id) . checkTime . checkCollision . (player %~ P.step t) . (time -~ t)
   where
-    checkFinish w = w ^. isFinish $ w ^. player . P.position
-    checkCollision w = bool w (w & player %~ P.reset (w ^. start) & time .~ 0)
-        . or $ w ^. isTerrain <$> P.points (w ^. player)
+    checkFinish w = bool Nothing (Just $ w ^. time + w ^. score)
+        $ (w ^. isFinish $ w ^. player . P.position)
+    checkTime w = bool w (reset w) (w ^. time < 0)
+    checkCollision w = bool w (reset w) . or $ w ^. isTerrain <$> P.points (w ^. player)
 
 create :: Level -> IO World
 create l = do
@@ -53,5 +56,10 @@ create l = do
         , _terrain = ter
         , _start = l ^. L.start
         , _isFinish = l ^. L.isFinish
-        , _time = 0
+        , _startTime = l ^. L.startTime
+        , _time = l ^. L.startTime
+        , _score = 0
         }
+
+reset :: World -> World
+reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime

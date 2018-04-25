@@ -18,7 +18,7 @@ import qualified World as W
 data Game = Game
     { _name :: String
     , _world :: World
-    , _done :: Bool
+    , _done :: Maybe Float
     }
 
 makeLenses ''Game
@@ -29,7 +29,7 @@ create n l = do
     pure $ Game
         { _name = n
         , _world = w
-        , _done = False
+        , _done = Nothing
         }
 
 render :: Game -> Picture
@@ -40,11 +40,11 @@ render g = renderWorld <> renderHud
 
 handle :: Event -> Game -> Either (String, Float) Game
 handle e g = case g ^. done of
-    False -> Right $ g & world %~ W.handle e
-    True -> case e of
-        EventKey _ Down _ _ -> Left (g ^. name, g ^. world . W.time)
+    Nothing -> Right $ g & world %~ W.handle e
+    Just s -> case e of
+        EventKey _ Down _ _ -> Left (g ^. name, s)
         _ -> Right g
 
 step :: Float -> Game -> Game
-step t g = bool (g & world .~ w' & done .~ d) g (g ^. done)
+step t g = maybe (g & world .~ w' & done .~ d) (const g) (g ^. done)
     where (d, w') = W.step t (g ^. world)

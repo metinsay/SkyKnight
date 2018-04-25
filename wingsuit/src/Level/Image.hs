@@ -9,7 +9,7 @@ import Data.Maybe (fromJust)
 import Graphics.Gloss.Juicy (fromDynamicImage)
 
 import Base
-import Level (Level(Level), _getIsTerrain, _getTerrain, _isFinish, _start)
+import Level (Level(Level), _getIsTerrain, _getTerrain, _isFinish, _start, _startTime)
 
 isTerrain :: FilePath -> IO (Point -> Bool)
 isTerrain path = readImage path >>= \case
@@ -27,10 +27,11 @@ terrain path = readImage path >>= \case
     Left err -> error err
     Right img -> return $ scale scaleFactor scaleFactor $ fromJust $ fromDynamicImage img
 
-loadLevel :: FilePath -> Point -> (Point -> Bool) -> Level
-loadLevel path start isFinish = Level
+loadLevel :: FilePath -> Point -> (Point -> Bool) -> Float -> Level
+loadLevel path start isFinish startTime = Level
     { _start = start
     , _isFinish = isFinish
     , _getIsTerrain = isTerrain $ path ++ "/collision.bmp"
     , _getTerrain = terrain $ path ++ "/art.bmp"
+    , _startTime = startTime
     }

@@ -6,10 +6,12 @@ module Level
     , _getTerrain
     , _isFinish
     , _start
+    , _startTime
     , getIsTerrain
     , getTerrain
     , isFinish
     , start
+    , startTime
     ) where
 
 import Base
@@ -19,6 +21,7 @@ data Level = Level
     , _isFinish :: Point -> Bool
     , _getIsTerrain :: IO (Point -> Bool)
     , _getTerrain :: IO Picture
+    , _startTime :: Float
     }
 
 makeLenses ''Level
