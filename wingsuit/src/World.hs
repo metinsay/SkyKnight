@@ -5,6 +5,7 @@ module World
     , create
     , handle
     , player
+    , playerGroundDist
     , render
     , step
     , time
@@ -63,3 +64,9 @@ create l = do
 
 reset :: World -> World
 reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime
+
+playerGroundDist :: World -> Float
+playerGroundDist w = groundDist w $ w ^. player ^. P.position
+
+groundDist :: World -> Point -> Float
+groundDist w (x, y) = if (w ^. isTerrain) (x, y) then 0 else 1 + groundDist w (x, y-1)
