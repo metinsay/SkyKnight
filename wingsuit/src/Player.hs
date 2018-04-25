@@ -65,10 +65,13 @@ points p =
     (dx, dy) = p ^. rotation
 
 acceleration :: Player -> Point
-acceleration p = (0, - 200) - 0.01 .* p ^. velocity - lift .* norm
+acceleration p = gravity - drag + lift
   where
     aim = unit $ p ^. rotation
     norm = (\(x, y) -> (-y, x)) aim
     offset = uncurry (+) (norm * dir)
     dir = unit $ p ^. velocity
-    lift = signum offset * 0.002 * mag (p ^. velocity) ** 2 * abs offset ** 0.3
+    liftMag = signum offset * 0.002 * mag (p ^. velocity) ** 2 * abs offset ** 0.3 * (1 / physicsFactor)
+    lift = -liftMag .* norm
+    gravity = (0, -200 * physicsFactor)
+    drag = 0.01 .* p ^. velocity

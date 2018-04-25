@@ -18,14 +18,14 @@ isTerrain path = readImage path >>= \case
         conv = convertRGBA8 img
         pixel = pixelAt
             conv
-            (imageWidth conv `div` 2 + round x)
-            (imageHeight conv `div` 2 - round y)
+            (imageWidth conv `div` 2 + round (x / scaleFactor))
+            (imageHeight conv `div` 2 - round (y / scaleFactor))
         in pixel /= PixelRGBA8 0 0 0 0
 
 terrain :: FilePath -> IO Picture
 terrain path = readImage path >>= \case
     Left err -> error err
-    Right img -> return $ fromJust $ fromDynamicImage img
+    Right img -> return $ scale scaleFactor scaleFactor $ fromJust $ fromDynamicImage img
 
 loadLevel :: FilePath -> Point -> (Point -> Bool) -> Level
 loadLevel path start isFinish = Level

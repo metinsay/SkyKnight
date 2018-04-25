@@ -11,6 +11,8 @@ module Base
     , module Graphics.Gloss.Interface.IO.Game
     , module Graphics.Gloss.Juicy
     , mag
+    , physicsFactor
+    , scaleFactor
     , unit
     , (.*)
     ) where
@@ -45,3 +47,9 @@ mag (x, y) = sqrt $ x ** 2 + y ** 2
 (.*) :: Float -> Point -> Point
 m .* (x, y) = (m * x, m * y)
 infixl 7 .*
+
+scaleFactor :: Float
+scaleFactor = 5
+
+physicsFactor :: Float
+physicsFactor = 0.5

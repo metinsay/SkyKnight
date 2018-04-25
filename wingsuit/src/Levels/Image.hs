@@ -6,6 +6,7 @@ import Data.Map (Map)
 import Level.Image (loadLevel)
 
 import Level (Level)
+import Base (scaleFactor)
 
 levels :: Map String Level
 levels = [ ("level4", level1)
@@ -14,7 +15,7 @@ levels = [ ("level4", level1)
          ]
 
 level1 :: Level
-level1 = loadLevel "levels/level1" (-1350, 480) (const False)
+level1 = loadLevel "levels/level1" (-1350 * scaleFactor, 480 * scaleFactor) (const False)
 
 level2 :: Level
 level2 = loadLevel "levels/level2" (-1400, 400) (const False)
