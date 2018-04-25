@@ -9,9 +9,9 @@ import Level (Level)
 import Base (scaleFactor)
 
 levels :: Map String Level
-levels = [ ("level4", level1)
-         , ("level5", level2)
-         , ("level6", level3)
+levels = [ ("level1", level1)
+         , ("level2", level2)
+         , ("level3", level3)
          ]
 
 level1 :: Level
