@@ -5,6 +5,7 @@ module World
     , create
     , handle
     , player
+    , playerGroundDist
     , render
     , step
     , time
@@ -55,3 +56,9 @@ create l = do
         , _isFinish = l ^. L.isFinish
         , _time = 0
         }
+
+playerGroundDist :: World -> Float
+playerGroundDist w = groundDist w $ w ^. player ^. P.position
+
+groundDist :: World -> Point -> Float
+groundDist w (x, y) = if (w ^. isTerrain) (x, y) then 0 else 1 + groundDist w (x, y-1)
