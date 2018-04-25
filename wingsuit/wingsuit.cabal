@@ -19,10 +19,8 @@ executable wingsuit
                      , Game
                      , Hud
                      , Level
-                     , Level.Block
                      , Level.Image
                      , Levels
-                     , Levels.Block
                      , Levels.Image
                      , Menu
                      , Player
