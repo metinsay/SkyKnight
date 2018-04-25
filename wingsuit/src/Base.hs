@@ -52,4 +52,4 @@ scaleFactor :: Float
 scaleFactor = 5
 
 physicsFactor :: Float
-physicsFactor = 0.5
+physicsFactor = 1 --0.5

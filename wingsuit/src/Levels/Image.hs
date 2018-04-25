@@ -15,7 +15,7 @@ levels = [ ("level4", level1)
          ]
 
 level1 :: Level
-level1 = loadLevel "levels/level1" (-1350 * scaleFactor, 480 * scaleFactor) (const False)
+level1 = loadLevel "levels/level1" (-3950 * scaleFactor, 950 * scaleFactor) (const False)
 
 level2 :: Level
 level2 = loadLevel "levels/level2" (-1400, 400) (const False)
