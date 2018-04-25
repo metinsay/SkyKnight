@@ -10,6 +10,7 @@ module Base
     , module Data.Monoid
     , module Graphics.Gloss.Interface.IO.Game
     , module Graphics.Gloss.Juicy
+    , module Numeric
     , mag
     , physicsFactor
     , scaleFactor
@@ -37,6 +38,7 @@ import Graphics.Gloss.Interface.IO.Game
     , color, line, makeColor, playIO, polygon, rotate, scale, text, translate
     )
 import Graphics.Gloss.Juicy (fromDynamicImage)
+import Numeric (showFFloat)
 
 unit :: Point -> Point
 unit p = if mag p == 0 then 0 else 1 / mag p .* p

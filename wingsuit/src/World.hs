@@ -7,6 +7,7 @@ module World
     , player
     , playerGroundDist
     , render
+    , score
     , step
     , time
     ) where
@@ -39,12 +40,13 @@ handle (EventKey (Char 'r') Down _ _) w = w & player %~ P.reset (w ^. start)
 handle e w = w & player %~ P.handle e
 
 step :: Float -> World -> (Maybe Float, World)
-step t = (checkFinish &&& id) . checkTime . checkCollision . (player %~ P.step t) . (time -~ t)
+step t = checkFinish . checkTime . checkCollision . updateScore . (time -~ t) . (player %~ P.step t)
   where
-    checkFinish w = bool Nothing (Just $ w ^. time + w ^. score)
+    checkFinish w = bool (Nothing, w) (Just $ w ^. time + w ^. score, w)
         $ (w ^. isFinish $ w ^. player . P.position)
     checkTime w = bool w (reset w) (w ^. time < 0)
     checkCollision w = bool w (reset w) . or $ w ^. isTerrain <$> P.points (w ^. player)
+    updateScore w = w & score +~ max 0 (t * (1 - playerGroundDist w / 500))
 
 create :: Level -> IO World
 create l = do
@@ -63,10 +65,10 @@ create l = do
         }
 
 reset :: World -> World
-reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime
+reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime & score .~ 0
 
 playerGroundDist :: World -> Float
 playerGroundDist w = groundDist w $ w ^. player ^. P.position
 
 groundDist :: World -> Point -> Float
-groundDist w (x, y) = if (w ^. isTerrain) (x, y) then 0 else 1 + groundDist w (x, y-1)
+groundDist w (x, y) = if (w ^. isTerrain) (x, y) then 0 else 1 + groundDist w (x, y - 1)
