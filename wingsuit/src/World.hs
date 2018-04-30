@@ -14,6 +14,8 @@ module World
     ) where
 
 import Base
+import Block (Block)
+import qualified Block as B
 import Level (Level)
 import qualified Level as L
 import Player (Player)
@@ -22,7 +24,7 @@ import qualified Player as P
 data World = World
     { _player :: Player
     , _start :: Point
-    , _isFinish :: Point -> Bool
+    , _finish :: Block
     , _isTerrain :: Point -> Bool
     , _terrain :: Picture
     , _startTime :: Float
@@ -50,7 +52,7 @@ step t c
     . (player %~ P.step t c)
   where
     checkFinish w = bool (Nothing, w) (Just $ w ^. time + w ^. score, w)
-        $ (w ^. isFinish $ w ^. player . P.position)
+        . or $ flip B.inBlock (w ^. finish) <$> P.points (w ^. player)
     checkTime w = bool w (reset w) (w ^. time < 0)
     checkCollision w = bool w (reset w) . or $ w ^. isTerrain <$> P.points (w ^. player)
     updateScore w = w & score +~ max 0 (t * (1 - playerGroundDist w / 500))
@@ -65,7 +67,7 @@ create l = do
         , _isTerrain = isTer
         , _terrain = ter
         , _start = l ^. L.start
-        , _isFinish = l ^. L.isFinish
+        , _finish = l ^. L.finish
         , _startTime = l ^. L.startTime
         , _time = l ^. L.startTime
         , _score = 0
