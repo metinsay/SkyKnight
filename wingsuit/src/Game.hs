@@ -18,8 +18,10 @@ import qualified World as W
 data Game = Game
     { _name :: String
     , _world :: World
-    , _done :: Maybe Float
+    , _status :: Status
     }
+
+data Status = Playing | Paused | Finished Float
 
 makeLenses ''Game
 
@@ -29,7 +31,7 @@ create n l = do
     pure $ Game
         { _name = n
         , _world = w
-        , _done = Nothing
+        , _status = Playing
         }
 
 render :: Game -> Picture
@@ -39,12 +41,19 @@ render g = renderWorld <> renderHud
     renderHud = H.render (g ^. world)
 
 handle :: Event -> Game -> Either (String, Float) Game
-handle e g = case g ^. done of
-    Nothing -> Right $ g & world %~ W.handle e
-    Just s -> case e of
+handle (EventKey (Char 'p') Down _ _) g = Right $ g & status .~ case g ^. status of
+    Playing -> Paused
+    Paused -> Playing
+    Finished s -> Finished s
+handle e g = case g ^. status of
+    Finished s -> case e of
         EventKey _ Down _ _ -> Left (g ^. name, s)
         _ -> Right g
+    _ -> Right $ g & world %~ W.handle e
 
 step :: Float -> Game -> Game
-step t g = maybe (g & world .~ w' & done .~ d) (const g) (g ^. done)
-    where (d, w') = W.step t (g ^. world)
+step t g = case g ^. status of
+    Playing -> g & world .~ w' & status .~ maybe (g ^. status) Finished s
+    _ -> g
+  where
+    (s, w') = W.step t (g ^. world)
