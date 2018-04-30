@@ -6,7 +6,6 @@ import Data.Map (Map)
 import Level.Image (loadLevel)
 
 import Level (Level)
-import Base (scaleFactor)
 
 levels :: Map String Level
 levels = [ ("level1", level1)

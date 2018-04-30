@@ -78,7 +78,11 @@ playerGroundDist :: World -> Float
 playerGroundDist w = groundDist w (w ^. player ^. P.position) (0, -1)
 
 groundDist :: World -> Point -> Point -> Float
-groundDist w (x, y) (dx, dy) = if (w ^. isTerrain) (x, y) then 0 else 1 + groundDist w (x + dx, y + dy) (dx, dy)
+groundDist w (x, y) (dx, dy) = if (w ^. isTerrain) (x, y)
+    then 0
+    else 1 + groundDist w (x + dx, y + dy) (dx, dy)
 
 playerTerrainDist :: World -> Float
-playerTerrainDist w = minimum $ map (\angle -> groundDist w (w ^. player ^. P.position) angle) [(0, -1), (-1, -1), (1, -1), (-1, -2), (1, -2)]
+playerTerrainDist w = minimum
+      $ (\angle -> groundDist w (w ^. player ^. P.position) angle)
+    <$> [(0, -1), (-1, -1), (1, -1), (-1, -2), (1, -2)]
