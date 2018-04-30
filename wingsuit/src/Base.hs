@@ -51,7 +51,7 @@ m .* (x, y) = (m * x, m * y)
 infixl 7 .*
 
 scaleFactor :: Float
-scaleFactor = 5
+scaleFactor = 20
 
 physicsFactor :: Float
 physicsFactor = 1
