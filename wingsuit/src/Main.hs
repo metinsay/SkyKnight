@@ -11,6 +11,7 @@ import Scores (Scores, updateScore)
 data State = State
     { _scores :: Scores
     , _mode :: Mode
+    , _cursor :: Point
     }
 
 data Mode
@@ -28,6 +29,7 @@ initial :: State
 initial = State
     { _scores = mempty
     , _mode = Menu
+    , _cursor = 0
     }
 
 render :: State -> IO Picture
@@ -37,6 +39,7 @@ render s = pure $ case s ^. mode of
 
 handle :: Event -> State -> IO State
 handle (EventKey (Char 'm') Down _ _) s = pure $ s & mode .~ Menu
+handle (EventMotion p) s = pure $ s & cursor .~ p
 handle e s = case s ^. mode of
     Menu -> case M.handle (s ^. scores) e of
         Nothing -> pure s
@@ -48,4 +51,4 @@ handle e s = case s ^. mode of
         Right g' -> s & mode .~ Game g'
 
 step :: Float -> State -> IO State
-step t s = pure $ s & mode . _Game %~ G.step t
+step t s = pure $ s & mode . _Game %~ G.step t (s ^. cursor)

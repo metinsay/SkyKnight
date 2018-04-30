@@ -51,9 +51,9 @@ handle e g = case g ^. status of
         _ -> Right g
     _ -> Right $ g & world %~ W.handle e
 
-step :: Float -> Game -> Game
-step t g = case g ^. status of
+step :: Float -> Point -> Game -> Game
+step t c g = case g ^. status of
     Playing -> g & world .~ w' & status .~ maybe (g ^. status) Finished s
     _ -> g
   where
-    (s, w') = W.step t (g ^. world)
+    (s, w') = W.step t c (g ^. world)
