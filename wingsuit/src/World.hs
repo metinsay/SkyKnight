@@ -37,10 +37,16 @@ render w = w ^. terrain
 
 handle :: Event -> World -> World
 handle (EventKey (Char 'r') Down _ _) w = w & player %~ P.reset (w ^. start)
-handle e w = w & player %~ P.handle e
+handle _ w = w
 
-step :: Float -> World -> (Maybe Float, World)
-step t = checkFinish . checkTime . checkCollision . updateScore . (time -~ t) . (player %~ P.step t)
+step :: Float -> Point -> World -> (Maybe Float, World)
+step t c
+    = checkFinish
+    . checkTime
+    . checkCollision
+    . updateScore
+    . (time -~ t)
+    . (player %~ P.step t c)
   where
     checkFinish w = bool (Nothing, w) (Just $ w ^. time + w ^. score, w)
         $ (w ^. isFinish $ w ^. player . P.position)

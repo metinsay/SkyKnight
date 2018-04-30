@@ -4,7 +4,6 @@ module Player
     ( Player
     , acceleration
     , create
-    , handle
     , points
     , position
     , render
@@ -35,15 +34,12 @@ render p = renderPlayer <> renderSpeed <> renderAcceleration
     renderAcceleration = color (makeColor 1 0 0 1)
         $ line [p ^. position, p ^. position + 0.2 .* acceleration p]
 
-handle :: Event -> Player -> Player
-handle (EventMotion (x, y)) p = p & rotation .~ unit (x, y)
-handle _ p = p
-
-step :: Float -> Player -> Player
-step t = updatePosition . updateVelocity
+step :: Float -> Point -> Player -> Player
+step t c = updatePosition . updateVelocity . updateRotation
   where
     updateVelocity p = p & velocity +~ t .* acceleration p
     updatePosition p = p & position +~ t .* p ^. velocity
+    updateRotation p = p & rotation .~ unit c
 
 create :: Point -> IO Player
 create pos = do
