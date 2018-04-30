@@ -6,6 +6,7 @@ module World
     , handle
     , player
     , playerGroundDist
+    , playerTerrainDist
     , render
     , score
     , step
@@ -74,7 +75,10 @@ reset :: World -> World
 reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime & score .~ 0
 
 playerGroundDist :: World -> Float
-playerGroundDist w = groundDist w $ w ^. player ^. P.position
+playerGroundDist w = groundDist w (w ^. player ^. P.position) (0, -1)
 
-groundDist :: World -> Point -> Float
-groundDist w (x, y) = if (w ^. isTerrain) (x, y) then 0 else 1 + groundDist w (x, y - 1)
+groundDist :: World -> Point -> Point -> Float
+groundDist w (x, y) (dx, dy) = if (w ^. isTerrain) (x, y) then 0 else 1 + groundDist w (x + dx, y + dy) (dx, dy)
+
+playerTerrainDist :: World -> Float
+playerTerrainDist w = minimum $ map (\angle -> groundDist w (w ^. player ^. P.position) angle) [(0, -1), (-1, -1), (1, -1), (-1, -2), (1, -2)]
