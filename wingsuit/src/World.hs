@@ -3,12 +3,14 @@
 module World
     ( World
     , create
+    , finish
     , handle
     , player
     , playerGroundDist
     , playerTerrainDist
     , render
     , score
+    , start
     , step
     , time
     ) where
