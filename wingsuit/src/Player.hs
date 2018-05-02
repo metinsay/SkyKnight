@@ -51,10 +51,10 @@ reset pos p = p & position .~ pos & velocity .~ 0
 
 points :: Player -> [Point]
 points p =
-    [ (x + 20 * dx - 5 * dy, y + 20 * dy + 5 * dx)
-    , (x + 20 * dx + 5 * dy, y + 20 * dy - 5 * dx)
-    , (x - 20 * dx + 5 * dy, y - 20 * dy - 5 * dx)
-    , (x - 20 * dx - 5 * dy, y - 20 * dy + 5 * dx)
+    [ (x + 18 * dx - 6 * dy, y + 18 * dy + 6 * dx)
+    , (x + 18 * dx + 18 * dy, y + 18 * dy - 18 * dx)
+    , (x - 40 * dx + 18 * dy, y - 40 * dy - 18 * dx)
+    , (x - 40 * dx - 6 * dy, y - 40 * dy + 6 * dx)
     ]
   where
     (x, y) = p ^. position
