@@ -47,7 +47,10 @@ create n l = do
 render :: Game -> Picture
 render g = renderParallax <> renderWorld <> renderHud
   where
-    renderParallax = Px.render (g ^. world ^. W.player ^. P.position) (g ^. parallax)
+    renderParallax = case g ^. status of
+        Start -> Px.render (viewTrans) ((1200.0 / viewSize) ** 0.1) (g ^. parallax)
+        Zooming x -> Px.render (x .* viewTrans + (1 - x) .* playTrans) ((1200.0 / (x * viewSize + (1 - x) * 1200)) ** 0.1) (g ^. parallax)
+        _ -> Px.render (playTrans) 1 (g ^. parallax)
     renderWorld = case g ^. status of
         Start -> join scale (1200 / viewSize) . uncurry translate viewTrans $ W.render (g ^. world)
         Zooming x -> join scale (1200 / (x * viewSize + (1 - x) * 1200))
