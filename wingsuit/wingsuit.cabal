@@ -24,6 +24,7 @@ executable wingsuit
                      , Levels
                      , Levels.Image
                      , Menu
+                     , Parallax
                      , Player
                      , Scores
                      , World

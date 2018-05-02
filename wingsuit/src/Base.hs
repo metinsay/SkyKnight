@@ -33,7 +33,7 @@ import Graphics.Gloss.Interface.IO.Game
     , Key(Char, MouseButton)
     , KeyState(Down)
     , MouseButton(LeftButton)
-    , Picture
+    , Picture(Pictures)
     , Point
     , color, line, makeColor, playIO, polygon, rotate, scale, text, translate
     )

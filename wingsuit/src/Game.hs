@@ -13,11 +13,13 @@ import qualified Block as B
 import qualified Hud as H
 import Level (Level)
 import qualified Player as P
+import qualified Parallax as Px
 import World (World)
 import qualified World as W
 
 data Game = Game
     { _name :: String
+    , _parallax :: [Picture]
     , _world :: World
     , _status :: Status
     }
@@ -34,15 +36,18 @@ makeLenses ''Game
 create :: String -> Level -> IO Game
 create n l = do
     w <- W.create l
+    px <- Px.load
     pure $ Game
         { _name = n
         , _world = w
+        , _parallax = px
         , _status = Start
         }
 
 render :: Game -> Picture
-render g = renderWorld <> renderHud
+render g = renderParallax <> renderWorld <> renderHud
   where
+    renderParallax = Px.render (g ^. world ^. W.player ^. P.position) (g ^. parallax)
     renderWorld = case g ^. status of
         Start -> join scale (1200 / viewSize) . uncurry translate viewTrans $ W.render (g ^. world)
         Zooming x -> join scale (1200 / (x * viewSize + (1 - x) * 1200))
