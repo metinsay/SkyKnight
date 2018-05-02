@@ -41,7 +41,7 @@ render w = w ^. terrain
         <> P.render (w ^. player)
 
 handle :: Event -> World -> World
-handle (EventKey (Char 'r') Down _ _) w = w & player %~ P.reset (w ^. start)
+handle (EventKey (Char 'r') Down _ _) w = reset w
 handle _ w = w
 
 step :: Float -> Point -> World -> (Maybe Float, World)
