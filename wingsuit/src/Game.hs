@@ -85,7 +85,7 @@ handleClick g = case g ^. status of
 step :: Float -> Point -> Game -> Game
 step t c g = case g ^. status of
     Playing -> g & world .~ w' & status .~ maybe (g ^. status) Finished s
-    Zooming x -> g & status .~ bool Paused (Zooming $ x - 0.4 * (1 + x) * t) (x > 0)
+    Zooming x -> g & status .~ bool Playing (Zooming $ x - 0.4 * (1 + x) * t) (x > 0)
     _ -> g
   where
     (s, w') = W.step t c (g ^. world)
