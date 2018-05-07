@@ -12,6 +12,7 @@ levels = [ ("level1", level1)
          , ("level2", level2)
          , ("level3", level3)
          , ("level4", level4)
+         , ("chris_01", chris_01)
          ]
 
 level1 :: Level
@@ -25,3 +26,6 @@ level3 = loadLevel "levels/level3" (-19500, 4750) ((19900, -5000), (20000, 5000)
 
 level4 :: Level
 level4 = loadLevel "levels/level4" (-19750, 4750) ((19900, -5000), (20000, 5000)) 100
+
+chris_01 :: Level
+chris_01 = loadLevel "levels/chris_01" (-19750, 4750) ((19900, -5000), (20000, 5000)) 100
