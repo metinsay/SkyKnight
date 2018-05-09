@@ -65,22 +65,29 @@ render g = renderParallax <> renderWorld <> renderHud
     viewTrans = - 0.5 .* (g ^. world . W.start + B.center (g ^. world . W.finish))
     playTrans = - g ^. world . W.player . P.position
 
-handle :: Event -> Game -> Either (String, Float) Game
-handle (EventKey (Char 'p') Down _ _) g = case g ^. status of
-    Playing -> Right $ g & status .~ Paused
-    _ -> handleClick g
+handle :: Event -> Game -> Either (String, Maybe Float) Game
+handle (EventKey (Char 'q') Down _ _) g = case g ^. status of
+    Paused -> Left (g ^. name, Nothing)
+    _ -> Right g
+handle (EventKey (Char 'p') Down _ _) g = handlePause g
+handle (EventKey (SpecialKey KeyEsc) Down _ _) g = handlePause g
 handle (EventKey (MouseButton _) Down _ _) g = handleClick g
 handle e g = case g ^. status of
     Playing -> Right $ g & world %~ W.handle e
     _ -> Right g
 
-handleClick :: Game -> Either (String, Float) Game
+handlePause :: Game -> Either (String, Maybe Float) Game
+handlePause g = case g ^. status of
+    Playing -> Right $ g & status .~ Paused
+    _ -> handleClick g
+
+handleClick :: Game -> Either (String, Maybe Float) Game
 handleClick g = case g ^. status of
     Start -> Right $ g & status .~ Zooming 1
     Zooming _ -> Right g
     Playing -> Right g
     Paused -> Right $ g & status .~ Playing
-    Finished s -> Left (g ^. name, s)
+    Finished s -> Left (g ^. name, Just s)
 
 step :: Float -> Point -> Game -> Game
 step t c g = case g ^. status of

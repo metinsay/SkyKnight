@@ -11,6 +11,7 @@ module Base
     , module Graphics.Gloss.Interface.IO.Game
     , module Graphics.Gloss.Juicy
     , module Numeric
+    , module System.Exit
     , mag
     , physicsFactor
     , scaleFactor
@@ -30,15 +31,17 @@ import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.IO.Game
     ( Display(FullScreen)
     , Event(EventKey, EventMotion)
-    , Key(Char, MouseButton)
+    , Key(Char, MouseButton, SpecialKey)
     , KeyState(Down)
     , MouseButton(LeftButton)
     , Picture(Pictures)
     , Point
+    , SpecialKey(KeyEsc)
     , color, line, makeColor, playIO, polygon, rotate, scale, text, translate
     )
 import Graphics.Gloss.Juicy (fromDynamicImage)
 import Numeric (showFFloat)
+import System.Exit (exitSuccess)
 
 unit :: Point -> Point
 unit p = if mag p == 0 then 0 else 1 / mag p .* p

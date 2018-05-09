@@ -15,12 +15,13 @@ import Scores (Scores, getScore)
 render :: Scores -> Picture
 render ss = foldMap B.render $ (^. _1) <$> levelButtons ss
 
-handle :: Scores -> Event -> Maybe (String, Level)
-handle ss e = go $ levelButtons ss
+handle :: Event -> Scores -> Maybe (Maybe (String, Level))
+handle (EventKey (SpecialKey KeyEsc) Down _ _) _ = Just Nothing
+handle e ss = go $ levelButtons ss
   where
     go [] = Nothing
     go ((b, n, l) : bs)
-        | B.handle e b = Just (n, l)
+        | B.handle e b = Just (Just (n, l))
         | otherwise = go bs
 
 levelButtons :: Scores -> [(Button, String, Level)]
