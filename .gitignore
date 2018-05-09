@@ -36,3 +36,5 @@ sysinfo.txt
 
 *.DS_Store
 *.exe
+
+*.swp

@@ -22,6 +22,7 @@ import Level (Level)
 import qualified Level as L
 import Player (Player)
 import qualified Player as P
+import qualified Acorn as A
 
 data World = World
     { _player :: Player
@@ -32,6 +33,7 @@ data World = World
     , _startTime :: Float
     , _time :: Float
     , _score :: Float
+    , _acorns :: [A.Acorn]
     }
 
 makeLenses ''World
@@ -39,6 +41,7 @@ makeLenses ''World
 render :: World -> Picture
 render w = w ^. terrain
         <> P.render (w ^. player)
+        <> Pictures (A.render <$> w ^. acorns)
 
 handle :: Event -> World -> World
 handle (EventKey (Char 'r') Down _ _) w = reset w
@@ -64,6 +67,7 @@ create l = do
     isTer <- l ^. L.getIsTerrain
     ter <- l ^. L.getTerrain
     p <- P.create $ l ^. L.start
+    ac <- l ^. L.acorns
     pure $ World
         { _player = p
         , _isTerrain = isTer
@@ -73,6 +77,7 @@ create l = do
         , _startTime = l ^. L.startTime
         , _time = l ^. L.startTime
         , _score = 0
+        , _acorns = ac
         }
 
 reset :: World -> World
