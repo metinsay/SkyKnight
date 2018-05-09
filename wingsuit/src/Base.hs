@@ -14,7 +14,6 @@ module Base
     , module System.Exit
     , mag
     , physicsFactor
-    , scaleFactor
     , unit
     , (.*)
     ) where
@@ -53,9 +52,6 @@ mag (x, y) = sqrt $ x ** 2 + y ** 2
 (.*) :: Float -> Point -> Point
 m .* (x, y) = (m * x, m * y)
 infixl 7 .*
-
-scaleFactor :: Float
-scaleFactor = 20
 
 physicsFactor :: Float
 physicsFactor = 1

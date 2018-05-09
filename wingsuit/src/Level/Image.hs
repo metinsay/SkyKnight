@@ -12,7 +12,10 @@ loadLevel :: FilePath -> Point -> Block -> Float -> Level
 loadLevel path start finish startTime = Level
     { _start = start
     , _finish = finish
-    , _getIsTerrain = fmap isSolid <$> imgToFunc (path ++ "/collision.bmp")
-    , _getTerrain = imgToPic $ path ++ "/art.bmp"
+    , _getIsTerrain = fmap isSolid <$> imgToFunc scaleFactor (path ++ "/collision.bmp")
+    , _getTerrain = imgToPic scaleFactor $ path ++ "/art.bmp"
     , _startTime = startTime
     }
+
+scaleFactor :: Float
+scaleFactor = 20

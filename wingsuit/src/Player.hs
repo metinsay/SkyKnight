@@ -43,7 +43,7 @@ step t c = updatePosition . updateVelocity . updateRotation
     updateRotation p = p & rotation .~ unit c
 
 create :: Point -> IO Player
-create pos = Player pos 0 (1, 0) <$> imgToPic "assets/player.png"
+create pos = Player pos 0 (1, 0) <$> imgToPic 1 "assets/player.png"
 
 reset :: Point -> Player -> Player
 reset pos p = p & position .~ pos & velocity .~ 0

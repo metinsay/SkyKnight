@@ -1,5 +1,9 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 module Menu
-    ( handle
+    ( Menu
+    , create
+    , handle
     , render
     ) where
 
@@ -8,12 +12,23 @@ import qualified Data.Map as M
 import Base
 import Button (Button(Button))
 import qualified Button as B
+import Image
 import Level (Level)
 import Levels (levels)
 import Scores (Scores, getScore)
 
-render :: Scores -> Picture
-render ss = foldMap B.render $ (^. _1) <$> levelButtons ss
+data Menu = Menu
+    { _image :: Picture
+    }
+
+makeLenses ''Menu
+
+create :: IO Menu
+create = Menu <$> imgToPic 0.75 "assets/menu.png"
+
+render :: Scores -> Menu -> Picture
+render ss m = m ^. image
+           <> foldMap B.render ((^. _1) <$> levelButtons ss)
 
 handle :: Event -> Scores -> Maybe (Maybe (String, Level))
 handle (EventKey (SpecialKey KeyEsc) Down _ _) _ = Just Nothing
