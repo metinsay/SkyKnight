@@ -53,6 +53,7 @@ step t c
     . checkTime
     . checkCollision
     . updateScore
+    . updateAcorns
     . (time -~ t)
     . (player %~ P.step t c)
   where
@@ -60,7 +61,11 @@ step t c
         . or $ flip B.inBlock (w ^. finish) <$> P.points (w ^. player)
     checkTime w = bool w (reset w) (w ^. time < 0)
     checkCollision w = bool w (reset w) . or $ w ^. isTerrain <$> P.points (w ^. player)
+    updateAcorns w = w & acorns %~ map (updateAcorn $ P.points (w ^. player))
     updateScore w = w & score +~ max 0 (t * (1 - playerGroundDist w / 500))
+
+updateAcorn :: [Point] -> A.Acorn -> A.Acorn
+updateAcorn ps a = bool a (a & A.collected .~ True) $ any (A.isCollision a) ps
 
 create :: Level -> IO World
 create l = do
