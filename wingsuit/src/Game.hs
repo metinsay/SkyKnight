@@ -10,6 +10,7 @@ module Game
 
 import Base
 import qualified Block as B
+import Hud (Hud)
 import qualified Hud as H
 import Level (Level)
 import qualified Player as P
@@ -21,6 +22,7 @@ data Game = Game
     { _name :: String
     , _parallax :: [Picture]
     , _world :: World
+    , _hud :: Hud
     , _status :: Status
     }
 
@@ -37,15 +39,17 @@ create :: String -> Level -> IO Game
 create n l = do
     w <- W.create l
     px <- Px.load
+    h <- H.create
     pure $ Game
         { _name = n
         , _world = w
         , _parallax = px
         , _status = Start
+        , _hud = h
         }
 
 render :: Game -> Picture
-render g = renderParallax <> renderWorld <> renderHud
+render g = renderParallax <> renderWorld <> renderHud (g ^. hud)
   where
     renderParallax = case g ^. status of
         Start -> Px.render (viewTrans) ((1200.0 / viewSize) ** 0.1) (g ^. parallax)
