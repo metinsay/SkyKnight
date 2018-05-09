@@ -13,6 +13,7 @@ module Player
     ) where
 
 import Base
+import Image
 
 data Player = Player
     { _position :: Point
@@ -42,9 +43,7 @@ step t c = updatePosition . updateVelocity . updateRotation
     updateRotation p = p & rotation .~ unit c
 
 create :: Point -> IO Player
-create pos = do
-    Right (Just img) <- fmap fromDynamicImage <$> readImage "assets/player.png"
-    pure $ Player pos 0 (1, 0) img
+create pos = Player pos 0 (1, 0) <$> imgToPic "assets/player.png"
 
 reset :: Point -> Player -> Player
 reset pos p = p & position .~ pos & velocity .~ 0

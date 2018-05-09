@@ -2,9 +2,7 @@
 
 module Image (imgToFunc, imgToPic) where
 
-import Codec.Picture (PixelRGBA8, convertRGBA8, imageHeight, imageWidth, pixelAt, readImage)
 import Data.Maybe (fromJust)
-import Graphics.Gloss.Juicy (fromDynamicImage)
 
 import Base
 

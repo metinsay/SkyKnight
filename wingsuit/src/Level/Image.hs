@@ -1,10 +1,8 @@
 module Level.Image (loadLevel) where
 
-import Codec.Picture (PixelRGBA8(PixelRGBA8))
-
 import Base
-import Image
 import Block (Block)
+import Image
 import Level (Level(Level), _finish, _getIsTerrain, _getTerrain, _start, _startTime)
 
 isSolid :: PixelRGBA8 -> Bool

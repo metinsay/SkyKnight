@@ -19,7 +19,8 @@ module Base
     , (.*)
     ) where
 
-import Codec.Picture (readImage)
+import Codec.Picture
+    ( PixelRGBA8(PixelRGBA8), convertRGBA8, imageHeight, imageWidth, pixelAt, readImage )
 import Control.Applicative ((<|>))
 import Control.Arrow ((&&&))
 import Control.Lens (_1, makeLenses, makePrisms, (&), (%~), (+~), (-~), (.~), (<&>), (^.))
