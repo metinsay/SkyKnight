@@ -13,6 +13,7 @@ import qualified Block as B
 import Hud (Hud)
 import qualified Hud as H
 import Level (Level)
+import Log
 import qualified Player as P
 import qualified Parallax as Px
 import World (World)
@@ -93,10 +94,11 @@ handleClick g = case g ^. status of
     Paused -> Right $ g & status .~ Playing
     Finished s -> Left (g ^. name, Just s)
 
-step :: Float -> Point -> Game -> Game
+step :: Float -> Point -> Game -> IO Game
 step t c g = case g ^. status of
-    Playing -> g & world .~ w' & status .~ maybe (g ^. status) Finished s
-    Zooming x -> g & status .~ bool Playing (Zooming $ x - 0.4 * (1 + x) * t) (x > 0)
-    _ -> g
-  where
-    (s, w') = W.step t c (g ^. world)
+    Playing -> do
+        let (s, w') = W.step t c (g ^. world)
+        log_ (g ^. name) (g ^. world . W.player)
+        pure $ g & world .~ w' & status .~ maybe (g ^. status) Finished s
+    Zooming x -> pure $ g & status .~ bool Playing (Zooming $ x - 0.4 * (1 + x) * t) (x > 0)
+    _ -> pure g

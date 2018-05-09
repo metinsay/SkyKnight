@@ -20,6 +20,7 @@ executable wingsuit
                      , Button
                      , Game
                      , Hud
+                     , Log
                      , Image
                      , Level
                      , Level.Image
