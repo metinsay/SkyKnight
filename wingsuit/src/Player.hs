@@ -8,6 +8,7 @@ module Player
     , position
     , render
     , reset
+    , rotation
     , step
     , velocity
     ) where

@@ -61,4 +61,4 @@ handle e s = case s ^. mode of
         Right g' -> pure $ s & mode .~ Game g'
 
 step :: Float -> State -> IO State
-step t s = pure $ s & mode . _Game %~ G.step t (s ^. cursor)
+step t s = (mode . _Game) (G.step t $ s ^. cursor) s
