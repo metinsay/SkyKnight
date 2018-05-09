@@ -14,7 +14,8 @@ executable wingsuit
                      , JuicyPixels
                      , gloss-juicy
   default-language:    Haskell2010
-  other-modules:       Base
+  other-modules:       Acorn
+                     , Base
                      , Block
                      , Button
                      , Game
