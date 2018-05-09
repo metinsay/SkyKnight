@@ -41,13 +41,14 @@ handle :: Event -> State -> IO State
 handle (EventKey (Char 'm') Down _ _) s = pure $ s & mode .~ Menu
 handle (EventMotion p) s = pure $ s & cursor .~ p
 handle e s = case s ^. mode of
-    Menu -> case M.handle (s ^. scores) e of
+    Menu -> case M.handle e (s ^. scores) of
         Nothing -> pure s
-        Just (n, l) -> do
+        Just Nothing -> exitSuccess
+        Just (Just (n, l)) -> do
             g <- G.create n l
             pure $ s & mode .~ Game g
     Game g -> pure $ case G.handle e g of
-        Left (n, t) -> s & scores %~ updateScore n t & mode .~ Menu
+        Left (n, ms) -> s & scores %~ maybe id (updateScore n) ms & mode .~ Menu
         Right g' -> s & mode .~ Game g'
 
 step :: Float -> State -> IO State
