@@ -6,7 +6,7 @@ import Image
 import Level (Level(Level), _finish, _getIsTerrain, _getTerrain, _start, _startTime)
 
 isSolid :: PixelRGBA8 -> Bool
-isSolid (PixelRGBA8 _ _ _ a) = a >= 128
+isSolid (PixelRGBA8 _ _ _ a) = a >= 1
 
 loadLevel :: FilePath -> Point -> Block -> Float -> Level
 loadLevel path start finish startTime = Level
