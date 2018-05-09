@@ -19,6 +19,7 @@ executable wingsuit
                      , Button
                      , Game
                      , Hud
+                     , Image
                      , Level
                      , Level.Image
                      , Levels
