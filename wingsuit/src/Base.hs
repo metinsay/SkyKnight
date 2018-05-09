@@ -13,7 +13,6 @@ module Base
     , module Numeric
     , module System.Exit
     , mag
-    , physicsFactor
     , unit
     , (.*)
     ) where
@@ -52,6 +51,3 @@ mag (x, y) = sqrt $ x ** 2 + y ** 2
 (.*) :: Float -> Point -> Point
 m .* (x, y) = (m * x, m * y)
 infixl 7 .*
-
-physicsFactor :: Float
-physicsFactor = 1
