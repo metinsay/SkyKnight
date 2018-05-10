@@ -39,4 +39,4 @@ isCollision :: Acorn -> Point -> Bool
 isCollision a (x, y) = let
         (ax, ay) = a ^. position
         mappedPoint = (x - ax, y - ay)
-        in x - ax > -200 && x - ax < 200 && y - ay > -200 && y - ay < 200 && (isSolid <$> a ^. getRGB) mappedPoint
+        in x - ax > -190 && x - ax < 190 && y - ay > -190 && y - ay < 190 && (isSolid <$> a ^. getRGB) mappedPoint
