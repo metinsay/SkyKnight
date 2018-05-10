@@ -86,7 +86,7 @@ create l = do
         }
 
 reset :: World -> World
-reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime & score .~ 0
+reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime & score .~ 0 & acorns %~ map (\a -> a & A.collected .~ False)
 
 playerGroundDist :: World -> Float
 playerGroundDist w = groundDist w (w ^. player ^. P.position) (0, -1)
