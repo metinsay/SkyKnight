@@ -71,15 +71,16 @@ render g = renderParallax <> renderWorld <> renderHud (g ^. hud)
     playTrans = - g ^. world . W.player . P.position
 
 handle :: Event -> Game -> Either (String, Maybe Float) Game
+handle (EventKey (Char 'p') Down _ _) g = handlePause g
 handle (EventKey (Char 'q') Down _ _) g = case g ^. status of
     Paused -> Left (g ^. name, Nothing)
     _ -> Right g
-handle (EventKey (Char 'p') Down _ _) g = handlePause g
+handle (EventKey (Char 'r') Down _ _) g = case g ^. status of
+    Finished _ -> Right g
+    _ -> Right $ g & status .~ Start & world %~ W.reset
 handle (EventKey (SpecialKey KeyEsc) Down _ _) g = handlePause g
 handle (EventKey (MouseButton _) Down _ _) g = handleClick g
-handle e g = case g ^. status of
-    Playing -> Right $ g & world %~ W.handle e
-    _ -> Right g
+handle _ g = Right g
 
 handlePause :: Game -> Either (String, Maybe Float) Game
 handlePause g = case g ^. status of
@@ -89,7 +90,7 @@ handlePause g = case g ^. status of
 handleClick :: Game -> Either (String, Maybe Float) Game
 handleClick g = case g ^. status of
     Start -> Right $ g & status .~ Zooming 1
-    Zooming _ -> Right g
+    Zooming _ -> Right $ g & status .~ Playing
     Playing -> Right g
     Paused -> Right $ g & status .~ Playing
     Finished s -> Left (g ^. name, Just s)
@@ -97,8 +98,11 @@ handleClick g = case g ^. status of
 step :: Float -> Point -> Game -> IO Game
 step t c g = case g ^. status of
     Playing -> do
-        let (s, w') = W.step t c (g ^. world)
-        log_ (g ^. name) (g ^. world . W.player)
-        pure $ g & world .~ w' & status .~ maybe (g ^. status) Finished s
+        let (e, w') = W.step t c (g ^. world)
+        log_ (g ^. name) (g ^. world . W.player) e
+        pure $ case e of
+            Nothing -> g & world .~ w'
+            Just Nothing -> g & world %~ W.reset & status .~ Start
+            Just (Just s) -> g & world .~ w' & status .~ Finished s
     Zooming x -> pure $ g & status .~ bool Playing (Zooming $ x - 0.4 * (1 + x) * t) (x > 0)
     _ -> pure g

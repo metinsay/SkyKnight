@@ -4,11 +4,11 @@ module World
     ( World
     , create
     , finish
-    , handle
     , player
     , playerGroundDist
     , playerTerrainDist
     , render
+    , reset
     , score
     , start
     , step
@@ -43,24 +43,22 @@ render w = w ^. terrain
         <> P.render (w ^. player)
         <> Pictures (A.render <$> w ^. acorns)
 
-handle :: Event -> World -> World
-handle (EventKey (Char 'r') Down _ _) w = reset w
-handle _ w = w
-
-step :: Float -> Point -> World -> (Maybe Float, World)
+step :: Float -> Point -> World -> (Maybe (Maybe Float), World)
 step t c
     = checkFinish
-    . checkTime
     . checkCollision
+    . checkTime
+    . (,) Nothing
     . updateScore
     . updateAcorns
     . (time -~ t)
     . (player %~ P.step t c)
   where
-    checkFinish w = bool (Nothing, w) (Just $ w ^. time + w ^. score, w)
+    checkFinish (e, w) = bool (e, w) (Just . Just $ w ^. time + w ^. score, w)
         . or $ flip B.inBlock (w ^. finish) <$> P.points (w ^. player)
-    checkTime w = bool w (reset w) (w ^. time < 0)
-    checkCollision w = bool w (reset w) . or $ w ^. isTerrain <$> P.points (w ^. player)
+    checkCollision (e, w) = bool (e, w) (Just Nothing, w)
+        . or $ w ^. isTerrain <$> P.points (w ^. player)
+    checkTime (e, w) = bool (e, w) (Just Nothing, w) (w ^. time < 0)
     updateAcorns w = w & acorns %~ map (updateAcorn $ P.points (w ^. player))
     updateScore w = w & score +~ max 0 (t * (1 - playerGroundDist w / 500))
 
@@ -86,7 +84,8 @@ create l = do
         }
 
 reset :: World -> World
-reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime & score .~ 0 & acorns %~ map (\a -> a & A.collected .~ False)
+reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime & score .~ 0
+        & acorns %~ map (\a -> a & A.collected .~ False)
 
 playerGroundDist :: World -> Float
 playerGroundDist w = groundDist w (w ^. player ^. P.position) (0, -1)
