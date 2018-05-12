@@ -2,11 +2,10 @@
 
 module World
     ( World
+    , acorns
     , create
     , finish
     , player
-    , playerGroundDist
-    , playerTerrainDist
     , render
     , reset
     , score
@@ -15,6 +14,8 @@ module World
     , time
     ) where
 
+import Acorn (Acorn)
+import qualified Acorn as A
 import Base
 import Block (Block)
 import qualified Block as B
@@ -22,7 +23,6 @@ import Level (Level)
 import qualified Level as L
 import Player (Player)
 import qualified Player as P
-import qualified Acorn as A
 
 data World = World
     { _player :: Player
@@ -33,7 +33,7 @@ data World = World
     , _startTime :: Float
     , _time :: Float
     , _score :: Float
-    , _acorns :: [A.Acorn]
+    , _acorns :: [Acorn]
     }
 
 makeLenses ''World
@@ -49,7 +49,6 @@ step t c
     . checkCollision
     . checkTime
     . (,) Nothing
-    . updateScore
     . updateAcorns
     . (time -~ t)
     . (player %~ P.step t c)
@@ -60,7 +59,6 @@ step t c
         . or $ w ^. isTerrain <$> P.points (w ^. player)
     checkTime (e, w) = bool (e, w) (Just Nothing, w) (w ^. time < 0)
     updateAcorns w = w & acorns %~ map (updateAcorn $ P.points (w ^. player))
-    updateScore w = w & score +~ max 0 (t * (1 - playerGroundDist w / 500))
 
 updateAcorn :: [Point] -> A.Acorn -> A.Acorn
 updateAcorn ps a = bool a (a & A.collected .~ True) $ any (A.isCollision a) ps
@@ -86,16 +84,3 @@ create l = do
 reset :: World -> World
 reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime & score .~ 0
         & acorns %~ map (\a -> a & A.collected .~ False)
-
-playerGroundDist :: World -> Float
-playerGroundDist w = groundDist w (w ^. player ^. P.position) (0, -1)
-
-groundDist :: World -> Point -> Point -> Float
-groundDist w (x, y) (dx, dy) = if (w ^. isTerrain) (x, y)
-    then 0
-    else 1 + groundDist w (x + dx, y + dy) (dx, dy)
-
-playerTerrainDist :: World -> Float
-playerTerrainDist w = minimum
-      $ (\angle -> groundDist w (w ^. player ^. P.position) angle)
-    <$> [(0, -1), (-1, -1), (1, -1), (-1, -2), (1, -2)]
