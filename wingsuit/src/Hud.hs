@@ -28,8 +28,15 @@ create = Hud <$> imgToPic 1 "assets/progress_bar.png"
              <*> imgToPic 0.2 "assets/acorn.png"
 
 render :: World -> Hud -> Picture
-render w h = renderProgress <> renderAcorns <> renderSpeed
+render w h = renderTime <> renderProgress <> renderAcorns <> renderSpeed
   where
+    renderTime
+        = color (makeColor 1 1 0 1)
+        . translate (-50) 350
+        . scale 0.3 0.3
+        . text
+        $ showFFloat (Just 2) (w ^. W.time) "s"
+
     renderProgress
          = translate 0 300 (h ^. progressBar)
         <> translate (getProgress (w ^. W.player . P.position)) 300 (h ^. progressLoc)

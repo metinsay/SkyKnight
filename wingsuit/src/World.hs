@@ -8,7 +8,6 @@ module World
     , player
     , render
     , reset
-    , score
     , start
     , step
     , time
@@ -32,7 +31,6 @@ data World = World
     , _terrain :: Picture
     , _startTime :: Float
     , _time :: Float
-    , _score :: Float
     , _acorns :: [Acorn]
     }
 
@@ -53,14 +51,17 @@ step t c
     . (time -~ t)
     . (player %~ P.step t c)
   where
-    checkFinish (e, w) = bool (e, w) (Just . Just $ w ^. time + w ^. score, w)
+    checkFinish (e, w) = bool (e, w) (Just . Just $ w ^. time + 5 * accornCount w, w)
         . or $ flip B.inBlock (w ^. finish) <$> P.points (w ^. player)
     checkCollision (e, w) = bool (e, w) (Just Nothing, w)
         . or $ w ^. isTerrain <$> P.points (w ^. player)
     checkTime (e, w) = bool (e, w) (Just Nothing, w) (w ^. time < 0)
     updateAcorns w = w & acorns %~ map (updateAcorn $ P.points (w ^. player))
 
-updateAcorn :: [Point] -> A.Acorn -> A.Acorn
+accornCount :: World -> Float
+accornCount = fromIntegral . length . filter (^. A.collected) . (^. acorns)
+
+updateAcorn :: [Point] -> Acorn -> Acorn
 updateAcorn ps a = bool a (a & A.collected .~ True) $ any (A.isCollision a) ps
 
 create :: Level -> IO World
@@ -77,10 +78,9 @@ create l = do
         , _finish = l ^. L.finish
         , _startTime = l ^. L.startTime
         , _time = l ^. L.startTime
-        , _score = 0
         , _acorns = ac
         }
 
 reset :: World -> World
-reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime & score .~ 0
+reset w = w & player %~ P.reset (w ^. start) & time .~ w ^. startTime
         & acorns %~ map (\a -> a & A.collected .~ False)
