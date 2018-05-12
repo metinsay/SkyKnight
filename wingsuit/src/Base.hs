@@ -5,6 +5,7 @@ module Base
     , module Control.Monad
     , module Control.Lens
     , module Data.Bool
+    , module Data.Foldable
     , module Data.List
     , module Data.Map
     , module Data.Monoid
@@ -24,6 +25,7 @@ import Control.Arrow ((&&&))
 import Control.Lens (_1, _2, makeLenses, makePrisms, (&), (%~), (+~), (-~), (.~), (<&>), (^.))
 import Control.Monad (join)
 import Data.Bool (bool)
+import Data.Foldable (fold)
 import Data.List (foldl', intercalate)
 import Data.Map (Map)
 import Data.Monoid ((<>))

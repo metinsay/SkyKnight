@@ -10,6 +10,8 @@ module Game
 
 import Base
 import qualified Block as B
+import Camera (Camera(Camera))
+import qualified Camera as C
 import Hud (Hud)
 import qualified Hud as H
 import Level (Level)
@@ -39,7 +41,7 @@ makeLenses ''Game
 create :: String -> Level -> IO Game
 create n l = do
     w <- W.create l
-    px <- Px.load
+    px <- Px.create
     h <- H.create
     pure $ Game
         { _name = n
@@ -50,25 +52,18 @@ create n l = do
         }
 
 render :: Game -> Picture
-render g = renderParallax <> renderWorld <> renderHud (g ^. hud)
+render g = Px.render camera (g ^. parallax)
+        <> W.render camera (g ^. world)
+        <> H.render (g ^. world) (g ^. hud)
   where
-    renderParallax = case g ^. status of
-        Start -> Px.render (viewTrans) ((1200.0 / viewSize) ** 0.1) (g ^. parallax)
-        Zooming x -> Px.render
-            (x .* viewTrans + (1 - x) .* playTrans)
-            ((1200.0 / (x * viewSize + (1 - x) * 1200)) ** 0.1)
-            (g ^. parallax)
-        _ -> Px.render (playTrans) 1 (g ^. parallax)
-    renderWorld = case g ^. status of
-        Start -> join scale (1200 / viewSize) . uncurry translate viewTrans $ W.render (g ^. world)
-        Zooming x -> join scale (1200 / (x * viewSize + (1 - x) * 1200))
-                   . uncurry translate (x .* viewTrans + (1 - x) .* playTrans)
-                   $ W.render (g ^. world)
-        _ -> uncurry translate playTrans $ W.render (g ^. world)
-    renderHud = H.render (g ^. world)
-    viewSize = mag (B.center (g ^. world . W.finish) - g ^. world . W.start)
-    viewTrans = - 0.5 .* (g ^. world . W.start + B.center (g ^. world . W.finish))
-    playTrans = - g ^. world . W.player . P.position
+    camera = case g ^. status of
+        Start -> levelCamera
+        Zooming x -> C.combine x playerCamera levelCamera
+        _ -> playerCamera
+    playerCamera = uncurry Camera (g ^. world ^. W.player . P.position) 1
+    levelCamera = uncurry Camera levelCenter levelSize
+    levelCenter = - 0.5 .* (g ^. world . W.start + B.center (g ^. world . W.finish))
+    levelSize = mag (B.center (g ^. world . W.finish) - g ^. world . W.start) / 1200
 
 handle :: Event -> Game -> Either (String, Maybe Float) Game
 handle (EventKey (Char 'p') Down _ _) g = handlePause g

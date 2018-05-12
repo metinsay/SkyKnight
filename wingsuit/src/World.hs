@@ -17,6 +17,8 @@ import Acorn (Acorn)
 import qualified Acorn as A
 import Base
 import Block (Block)
+import Camera (Camera)
+import qualified Camera as C
 import qualified Block as B
 import Level (Level)
 import qualified Level as L
@@ -36,10 +38,11 @@ data World = World
 
 makeLenses ''World
 
-render :: World -> Picture
-render w = w ^. terrain
-        <> P.render (w ^. player)
-        <> Pictures (A.render <$> w ^. acorns)
+render :: Camera -> World -> Picture
+render c w = C.render c 0
+           $ w ^. terrain
+          <> P.render (w ^. player)
+          <> Pictures (A.render <$> w ^. acorns)
 
 step :: Float -> Point -> World -> (Maybe (Maybe Float), World)
 step t c
