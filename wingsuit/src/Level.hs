@@ -6,12 +6,14 @@ module Level
     , _acorns
     , _getIsTerrain
     , _getTerrain
+    , _getScaleXY
     , _start
     , _startTime
     , finish
     , acorns
     , getIsTerrain
     , getTerrain
+    , getScaleXY
     , start
     , startTime
     ) where
@@ -25,6 +27,7 @@ data Level = Level
     , _finish :: Block
     , _getIsTerrain :: IO (Point -> Bool)
     , _getTerrain :: IO Picture
+    , _getScaleXY :: IO (Point -> (Float, Float, Float))
     , _startTime :: Float
     , _acorns :: IO [Acorn]
     }

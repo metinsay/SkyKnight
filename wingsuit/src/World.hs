@@ -2,6 +2,7 @@
 
 module World
     ( World
+    , getScaleXY
     , acorns
     , create
     , finish
@@ -31,6 +32,7 @@ data World = World
     , _finish :: Block
     , _isTerrain :: Point -> Bool
     , _terrain :: Picture
+    , _getScaleXY :: Point -> (Float, Float, Float)
     , _startTime :: Float
     , _time :: Float
     , _acorns :: [Acorn]
@@ -73,10 +75,12 @@ create l = do
     ter <- l ^. L.getTerrain
     p <- P.create $ l ^. L.start
     ac <- l ^. L.acorns
+    getScale <- l ^. L.getScaleXY
     pure $ World
         { _player = p
         , _isTerrain = isTer
         , _terrain = ter
+        , _getScaleXY = getScale
         , _start = l ^. L.start
         , _finish = l ^. L.finish
         , _startTime = l ^. L.startTime
