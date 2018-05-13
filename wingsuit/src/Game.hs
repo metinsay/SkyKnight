@@ -26,6 +26,7 @@ import qualified World as W
 data Game = Game
     { _name :: String
     , _parallax :: [Picture]
+    , _pause :: PM.PauseMenu
     , _world :: World
     , _hud :: Hud
     , _status :: Status
@@ -45,10 +46,12 @@ create n l = do
     w <- W.create l
     px <- Px.create
     h <- H.create
+    pm <- PM.create
     pure $ Game
         { _name = n
         , _world = w
         , _parallax = px
+        , _pause = pm
         , _status = Start
         , _hud = h
         }
@@ -58,7 +61,7 @@ render g = Px.render camera (g ^. parallax)
         <> W.render camera (g ^. world)
         <> H.render (g ^. world) (g ^. hud)
         <> case g ^. status of
-            Paused -> PM.render
+            Paused -> PM.render (g ^. pause)
             Finished s -> FH.render s (g ^. world)
             _ -> mempty
   where
