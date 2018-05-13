@@ -60,8 +60,7 @@ render g = Px.render camera (g ^. parallax)
         Start -> levelCamera
         Zooming x -> C.combine x playerCamera levelCamera
         _ -> playerCamera
-    playerCamera = uncurry Camera (g ^. world ^. W.player . P.position) (camZ * 1)
-    --playerCamera = Camera (camX * 1200 + playerX) (camY * (-500) + playerY) camZ
+    playerCamera = uncurry Camera (g ^. world ^. W.player . P.position) camZ
     (_, _, camZ) = g ^. world ^. W.getScaleXY $ (playerX, playerY)
     (playerX, playerY) = g ^. world ^. W.player . P.position
     levelCamera = uncurry Camera levelCenter levelSize
