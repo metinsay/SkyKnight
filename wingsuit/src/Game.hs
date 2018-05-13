@@ -12,12 +12,14 @@ import Base
 import qualified Block as B
 import Camera (Camera(Camera))
 import qualified Camera as C
+import qualified FinishHud as FH
 import Hud (Hud)
 import qualified Hud as H
 import Level (Level)
 import Log
-import qualified Player as P
 import qualified Parallax as Px
+import qualified PauseMenu as PM
+import qualified Player as P
 import World (World)
 import qualified World as W
 
@@ -55,6 +57,10 @@ render :: Game -> Picture
 render g = Px.render camera (g ^. parallax)
         <> W.render camera (g ^. world)
         <> H.render (g ^. world) (g ^. hud)
+        <> case g ^. status of
+            Paused -> PM.render
+            Finished s -> FH.render s (g ^. world)
+            _ -> mempty
   where
     camera = case g ^. status of
         Start -> levelCamera
