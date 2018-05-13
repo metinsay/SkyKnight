@@ -19,6 +19,7 @@ executable wingsuit
                      , Block
                      , Button
                      , Camera
+                     , Credits
                      , FinishHud
                      , Game
                      , Hud

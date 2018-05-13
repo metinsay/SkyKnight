@@ -22,7 +22,7 @@ create :: IO PauseMenu
 create = PauseMenu <$> imgToPic 1 "assets/pause.png"
 
 render :: PauseMenu -> Picture
-render p = p ^. image <> p ^. image
+render p = p ^. image
 
 
 handle :: Event -> Maybe PauseAction
