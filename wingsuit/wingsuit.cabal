@@ -19,6 +19,7 @@ executable wingsuit
                      , Block
                      , Button
                      , Camera
+                     , FinishHud
                      , Game
                      , Hud
                      , Log
@@ -29,6 +30,7 @@ executable wingsuit
                      , Levels.Image
                      , Menu
                      , Parallax
+                     , PauseMenu
                      , Player
                      , Scores
                      , World
