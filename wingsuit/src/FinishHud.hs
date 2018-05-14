@@ -22,7 +22,7 @@ render score w = wonText <> timeText <> acornText <> scoreText
               . color (makeColor 1 1 0 1)
               . translate (-500) (-200)
               . text
-              $ "Acorns: 5 * " ++ show (acornCount w)
+              $ "Acorns: 3 * " ++ show (acornCount w)
 
     scoreText = scale 0.4 0.4
               . color (makeColor 1 1 0 1)

@@ -61,7 +61,7 @@ step t c
     . (time -~ t)
     . (player %~ P.step t c)
   where
-    checkFinish (e, w) = bool (e, w) (Just . Just $ w ^. time + 5 * acornCount w, w)
+    checkFinish (e, w) = bool (e, w) (Just . Just $ w ^. time + 3 * acornCount w, w)
         . or $ flip B.inBlock (w ^. finish) <$> P.points (w ^. player)
     checkCollision (e, w) = bool (e, w) (Just Nothing, w & deaths %~ (w ^. player . P.position :))
         . or $ w ^. isTerrain <$> P.points (w ^. player)
