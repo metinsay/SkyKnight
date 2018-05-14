@@ -11,16 +11,16 @@ levels :: Map String Level
 levels = [ ("Level 4", level3_easy)
          , ("Level 3", level2_easy)
          , ("Level 2", level4)
-         , ("Level 1", level1)
+         , ("Level 1", level1_easy)
          ]
 
-level1 :: Level
-level1 = loadLevel
-    "levels/level1"
+level1_easy :: Level
+level1_easy = loadLevel
+    "levels/level1_easy"
     (-19750, 4750)
     ((19900, -5000), (20000, 5000))
     100
-    [(-19500, 4000), (-15000, -2900), (-7500, -1050), (0, -1400), (6000, -4400), (13500,-1900)]
+    [(-19500, 4000), (-15000, -2900), (-7500, -850), (0, -1250), (6000, -4400), (13500,-1900)]
 
 level2_easy :: Level
 level2_easy = loadLevel
