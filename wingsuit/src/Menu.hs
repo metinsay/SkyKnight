@@ -97,22 +97,22 @@ handleHelp _ m = m
 
 homeButtons :: IO [(ImageButton, Maybe Location)]
 homeButtons = do
-                 startButton <- IB.create "assets/buttons/start_button.png" (200, 100)
-                 credits <- IB.create "assets/buttons/credits_button.png" (200, -50)
-                 quit <- IB.create "assets/buttons/quit_button.png" (200, -200)
-                 pure $ [ (startButton , Just Play), (credits, Just Credits), (quit, Nothing) ]
+     startButton <- IB.create "assets/buttons/start_button.png" (200, 100)
+     creditsButton <- IB.create "assets/buttons/credits_button.png" (200, -50)
+     quit <- IB.create "assets/buttons/quit_button.png" (200, -200)
+     pure $ [ (startButton, Just Play), (creditsButton, Just Credits), (quit, Nothing) ]
 
 playButtons :: Scores -> [(Button, String, Level)]
 playButtons ss = zipWith mkLevelButton [-offset .. offset] (M.toList levels)
   where
     offset = fromIntegral (length levels - 1) / 2
     mkLevelButton i (n, l) = case getScore n ss of
-        Nothing -> ( Button n (-200, 100 * i - 25) (200, 100 * i + 25), n, l )
+        Nothing -> ( Button n (-160, 100 * i - 25) (160, 100 * i + 25), n, l )
         Just s ->
             ( Button
                 (n ++ " - " ++ showFFloat (Just 2) s "")
-                (-200, 100 * i - 25)
-                (200, 100 * i + 25)
+                (-160, 100 * i - 25)
+                (160, 100 * i + 25)
             , n
             , l
             )
