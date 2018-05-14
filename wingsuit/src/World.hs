@@ -2,10 +2,11 @@
 
 module World
     ( World
-    , getScaleXY
+    , acornCount
     , acorns
     , create
     , finish
+    , getScaleXY
     , player
     , render
     , reset
@@ -56,15 +57,15 @@ step t c
     . (time -~ t)
     . (player %~ P.step t c)
   where
-    checkFinish (e, w) = bool (e, w) (Just . Just $ w ^. time + 5 * accornCount w, w)
+    checkFinish (e, w) = bool (e, w) (Just . Just $ w ^. time + 5 * acornCount w, w)
         . or $ flip B.inBlock (w ^. finish) <$> P.points (w ^. player)
     checkCollision (e, w) = bool (e, w) (Just Nothing, w)
         . or $ w ^. isTerrain <$> P.points (w ^. player)
     checkTime (e, w) = bool (e, w) (Just Nothing, w) (w ^. time < 0)
     updateAcorns w = w & acorns %~ map (updateAcorn $ P.points (w ^. player))
 
-accornCount :: World -> Float
-accornCount = fromIntegral . length . filter (^. A.collected) . (^. acorns)
+acornCount :: World -> Float
+acornCount = fromIntegral . length . filter (^. A.collected) . (^. acorns)
 
 updateAcorn :: [Point] -> Acorn -> Acorn
 updateAcorn ps a = bool a (a & A.collected .~ True) $ any (A.isCollision a) ps
