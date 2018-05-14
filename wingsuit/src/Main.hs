@@ -48,10 +48,10 @@ handle (EventKey (Char 'm') Down _ _) s = do
     pure $ s & mode .~ Menu menu
 handle (EventMotion p) s = pure $ s & cursor .~ p
 handle e s = case s ^. mode of
-    Menu _ -> case M.handle e (s ^. scores) of
-        Nothing -> pure s
-        Just Nothing -> exitSuccess
-        Just (Just (n, l)) -> do
+    Menu m -> case M.handle e (s ^. scores) m of
+        Right m' -> pure $ s & mode .~ Menu m'
+        Left Nothing -> exitSuccess
+        Left (Just (n, l)) -> do
             g <- G.create n l
             pure $ s & mode .~ Game g
     Game g -> case G.handle e g of

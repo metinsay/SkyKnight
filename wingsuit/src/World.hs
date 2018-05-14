@@ -19,9 +19,10 @@ import Acorn (Acorn)
 import qualified Acorn as A
 import Base
 import Block (Block)
+import qualified Block as B
 import Camera (Camera)
 import qualified Camera as C
-import qualified Block as B
+import Image
 import Level (Level)
 import qualified Level as L
 import Player (Player)
@@ -37,6 +38,8 @@ data World = World
     , _startTime :: Float
     , _time :: Float
     , _acorns :: [Acorn]
+    , _deaths :: [Point]
+    , _tomb :: Picture
     }
 
 makeLenses ''World
@@ -46,6 +49,7 @@ render c w = C.render c 0
            $ w ^. terrain
           <> P.render (w ^. player)
           <> Pictures (A.render <$> w ^. acorns)
+          <> foldMap (\(x, y) -> translate x (y + 50) (w ^. tomb)) (w ^. deaths)
 
 step :: Float -> Point -> World -> (Maybe (Maybe Float), World)
 step t c
@@ -59,7 +63,7 @@ step t c
   where
     checkFinish (e, w) = bool (e, w) (Just . Just $ w ^. time + 5 * acornCount w, w)
         . or $ flip B.inBlock (w ^. finish) <$> P.points (w ^. player)
-    checkCollision (e, w) = bool (e, w) (Just Nothing, w)
+    checkCollision (e, w) = bool (e, w) (Just Nothing, w & deaths %~ (w ^. player . P.position :))
         . or $ w ^. isTerrain <$> P.points (w ^. player)
     checkTime (e, w) = bool (e, w) (Just Nothing, w) (w ^. time < 0)
     updateAcorns w = w & acorns %~ map (updateAcorn $ P.points (w ^. player))
@@ -77,6 +81,7 @@ create l = do
     p <- P.create $ l ^. L.start
     ac <- l ^. L.acorns
     getScale <- l ^. L.getScaleXY
+    tm <- imgToPic 1 "assets/tomb.png"
     pure $ World
         { _player = p
         , _isTerrain = isTer
@@ -87,6 +92,8 @@ create l = do
         , _startTime = l ^. L.startTime
         , _time = l ^. L.startTime
         , _acorns = ac
+        , _deaths = []
+        , _tomb = tm
         }
 
 reset :: World -> World
