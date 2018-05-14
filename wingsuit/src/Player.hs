@@ -26,15 +26,10 @@ data Player = Player
 makeLenses ''Player
 
 render :: Player -> Picture
-render p = renderPlayer <> renderSpeed <> renderAcceleration
- where
+render p = translate px py $ rotate (atan2 (- ry) rx * 180 / pi) (p ^. image)
+  where
     (px, py) = p ^. position
     (rx, ry) = p ^. rotation
-    renderPlayer = translate px py $ rotate (atan2 (- ry) rx * 180 / pi) (p ^. image)
-    renderSpeed = color (makeColor 0 0 1 1)
-        $ line [p ^. position, p ^. position + 0.2 .* p ^. velocity]
-    renderAcceleration = color (makeColor 1 0 0 1)
-        $ line [p ^. position, p ^. position + 0.2 .* acceleration p]
 
 step :: Float -> Point -> Player -> Player
 step t c = updatePosition . updateVelocity . updateRotation
