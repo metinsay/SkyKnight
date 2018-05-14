@@ -117,7 +117,7 @@ step t c g = case g ^. status of
         log_ (g ^. name) (g ^. world . W.player) e (W.acornCount $ g ^. world)
         pure $ case e of
             Nothing -> g & world .~ w'
-            Just Nothing -> g & world %~ W.reset & status .~ Start
+            Just Nothing -> g & world .~ w' & world %~ W.reset & status .~ Start
             Just (Just s) -> g & world .~ w' & status .~ Finished s
     Zooming x -> pure $ g & status .~ bool Playing (Zooming $ x - 0.4 * (1 + x) * t) (x > 0)
     _ -> pure g
