@@ -26,7 +26,10 @@ makePrisms ''Mode
 main :: IO ()
 main = do
     initial <- create
-    playIO (InWindow "skyknight" (1280, 800) (0, 0)) (makeColor 1 1 1 1) 60 initial render handle step
+    playIO display (makeColor 0 0 0 1) 60 initial render handle step
+
+display :: Display
+display = InWindow "skyknight" (1280, 800) (0, 0)
 
 create :: IO State
 create = do
