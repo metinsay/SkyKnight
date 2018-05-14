@@ -11,7 +11,7 @@ levels :: Map String Level
 levels = [ ("Level 4", level3_easy)
          , ("Level 3", level2_easy)
          , ("Level 2", level4)
-         , ("Level 1", level1)
+         , ("Level 1", level1_easy)
          ]
 
 level1 :: Level
