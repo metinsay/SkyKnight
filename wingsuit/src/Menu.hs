@@ -20,6 +20,7 @@ import Scores (Scores, getScore)
 data Menu = Menu
     { _location :: Location
     , _image :: Picture
+    , _playImage :: Picture
     , _credits :: Picture
     }
 
@@ -30,6 +31,7 @@ makeLenses ''Menu
 create :: IO Menu
 create = Menu Home
     <$> imgToPic 0.75 "assets/menu.png"
+    <*> imgToPic 0.75 "assets/level_menu.png"
     <*> imgToPic 0.75 "assets/credits.png"
 
 render :: Scores -> Menu -> Picture
@@ -42,7 +44,7 @@ renderHome :: Menu -> Picture
 renderHome m = m ^. image <> foldMap B.render (fst <$> homeButtons)
 
 renderPlay :: Scores -> Menu -> Picture
-renderPlay ss m = m ^. image <> foldMap B.render ((^. _1) <$> playButtons ss)
+renderPlay ss m = m ^. playImage <> foldMap B.render ((^. _1) <$> playButtons ss)
 
 renderCredits :: Menu -> Picture
 renderCredits m = m ^. credits

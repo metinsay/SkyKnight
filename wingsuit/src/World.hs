@@ -49,7 +49,7 @@ render c w = C.render c 0
            $ w ^. terrain
           <> P.render (w ^. player)
           <> Pictures (A.render <$> w ^. acorns)
-          <> foldMap (\(x, y) -> translate x (y + 50) (w ^. tomb)) (w ^. deaths)
+          <> foldMap (\(x, y) -> translate x y (w ^. tomb)) (w ^. deaths)
 
 step :: Float -> Point -> World -> (Maybe (Maybe Float), World)
 step t c
@@ -81,7 +81,7 @@ create l = do
     p <- P.create $ l ^. L.start
     ac <- l ^. L.acorns
     getScale <- l ^. L.getScaleXY
-    tm <- imgToPic 1 "assets/tomb.png"
+    tm <- imgToPic 0.5 "assets/tomb.png"
     pure $ World
         { _player = p
         , _isTerrain = isTer
