@@ -20,30 +20,38 @@ import Scores (Scores, getScore)
 data Menu = Menu
     { _location :: Location
     , _image :: Picture
+    , _credits :: Picture
     }
 
-data Location = Home | Play
+data Location = Home | Play | Credits
 
 makeLenses ''Menu
 
 create :: IO Menu
-create = Menu Home <$> imgToPic 0.75 "assets/menu.png"
+create = Menu Home
+    <$> imgToPic 0.75 "assets/menu.png"
+    <*> imgToPic 0.75 "assets/credits.png"
 
 render :: Scores -> Menu -> Picture
-render ss m = m ^. image <> case m ^. location of
-    Home -> renderHome
-    Play -> renderPlay ss
+render ss m = case m ^. location of
+    Home -> renderHome m
+    Play -> renderPlay ss m
+    Credits -> renderCredits m
 
-renderHome :: Picture
-renderHome = foldMap B.render (fst <$> homeButtons)
+renderHome :: Menu -> Picture
+renderHome m = m ^. image <> foldMap B.render (fst <$> homeButtons)
 
-renderPlay :: Scores -> Picture
-renderPlay ss = foldMap B.render ((^. _1) <$> playButtons ss)
+renderPlay :: Scores -> Menu -> Picture
+renderPlay ss m = m ^. image <> foldMap B.render ((^. _1) <$> playButtons ss)
+
+renderCredits :: Menu -> Picture
+renderCredits m = m ^. credits
 
 handle :: Event -> Scores -> Menu -> Either (Maybe (String, Level)) Menu
 handle e ss m = case m ^. location of
     Home -> maybe (Left Nothing) Right (handleHome e m)
     Play -> either (Left . Just) Right (handlePlay e ss m)
+    Credits -> Right $ handleCredits e m
 
 handleHome :: Event -> Menu -> Maybe Menu
 handleHome (EventKey (SpecialKey KeyEsc) Down _ _) _ = Nothing
@@ -62,10 +70,16 @@ handlePlay e ss m = go $ playButtons ss
         | B.handle e b = Left (n, l)
         | otherwise = go bs
 
+handleCredits :: Event -> Menu -> Menu
+handleCredits (EventKey (SpecialKey KeyEsc) Down _ _) m = m & location .~ Home
+handleCredits (EventKey (MouseButton LeftButton) Down _ _) m = m & location .~ Home
+handleCredits _ m = m
+
 homeButtons :: [(Button, Maybe Location)]
 homeButtons =
     [ (Button "Play" (-200, 25) (200, 75), Just Play)
-    , (Button "Quit (Esc)" (-200, -75) (200, -25), Nothing)
+    , (Button "Credits" (-200, -75) (200, -25), Just Credits)
+    , (Button "Quit (Esc)" (-200, -175) (200, -125), Nothing)
     ]
 
 playButtons :: Scores -> [(Button, String, Level)]
