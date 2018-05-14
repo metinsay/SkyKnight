@@ -90,7 +90,10 @@ handle (EventKey (Char 'q') Down _ _) g = case g ^. status of
 handle (EventKey (Char 'r') Down _ _) g = case g ^. status of
     Finished _ -> Right g
     _ -> Right $ g & status .~ Start & world %~ W.reset
-handle (EventKey (SpecialKey KeyEsc) Down _ _) g = handlePause g
+handle (EventKey (SpecialKey KeyEsc) Down _ _) g = case g ^. status of
+    Start -> Left (g ^. name, Nothing)
+    Zooming _ -> Left (g ^. name, Nothing)
+    _ -> handlePause g
 handle (EventKey (MouseButton _) Down _ _) g = handleClick g
 handle _ g = Right g
 
