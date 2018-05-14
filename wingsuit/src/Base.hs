@@ -13,6 +13,7 @@ module Base
     , module Graphics.Gloss.Juicy
     , module Numeric
     , module System.Exit
+    , fuzz
     , mag
     , unit
     , (.*)
@@ -43,6 +44,12 @@ import Graphics.Gloss.Interface.IO.Game
 import Graphics.Gloss.Juicy (fromDynamicImage)
 import Numeric (showFFloat)
 import System.Exit (exitSuccess)
+
+fuzz :: Picture -> Picture
+fuzz p = translate 0 0 p
+      <> translate 0 1 p
+      <> translate 1 0 p
+      <> translate 1 1 p
 
 unit :: Point -> Point
 unit p = if mag p == 0 then 0 else 1 / mag p .* p

@@ -6,25 +6,29 @@ import World (World, acornCount, time)
 render :: Float -> World -> Picture
 render score w = wonText <> timeText <> acornText <> scoreText
   where
-    wonText   = scale 0.4 0.4
+    wonText   = fuzz
+              . scale 0.4 0.4
               . color (makeColor 1 1 0 1)
               . translate (-500) 400
               . text
               $ "You won!"
 
-    timeText  = scale 0.4 0.4
+    timeText  = fuzz
+              . scale 0.4 0.4
               . color (makeColor 1 1 0 1)
               . translate (-500) 100
               . text
               $ "Time: " ++ showFFloat (Just 2) (w ^. time) "s"
 
-    acornText = scale 0.4 0.4
+    acornText = fuzz
+              . scale 0.4 0.4
               . color (makeColor 1 1 0 1)
               . translate (-500) (-200)
               . text
-              $ "Acorns: 3 * " ++ show (acornCount w)
+              $ "Acorns: 3 * " ++ showFFloat (Just 0) (acornCount w) ""
 
-    scoreText = scale 0.4 0.4
+    scoreText = fuzz
+              . scale 0.4 0.4
               . color (makeColor 1 1 0 1)
               . translate (-500) (-500)
               . text
