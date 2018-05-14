@@ -111,7 +111,7 @@ step :: Float -> Point -> Game -> IO Game
 step t c g = case g ^. status of
     Playing -> do
         let (e, w') = W.step t c (g ^. world)
-        log_ (g ^. name) (g ^. world . W.player) e
+        log_ (g ^. name) (g ^. world . W.player) e (W.acornCount $ g ^. world)
         pure $ case e of
             Nothing -> g & world .~ w'
             Just Nothing -> g & world %~ W.reset & status .~ Start
