@@ -9,6 +9,8 @@ module PauseMenu
     ) where
 
 import Base
+import Button (Button(Button))
+import qualified Button as B
 import Image
 
 data PauseAction = Play | Quit | Reset
@@ -23,7 +25,18 @@ create :: IO PauseMenu
 create = PauseMenu <$> imgToPic 1 "assets/pause.png"
 
 render :: PauseMenu -> Picture
-render p = p ^. image
+render p = translate 0 100 (p ^. image)
+        <> foldMap B.render ((^. _1) <$> pauseButtons)
 
 handle :: Event -> Maybe PauseAction
-handle _ = Nothing
+handle e = case filter (B.handle e . fst) pauseButtons of
+    [] -> case e of
+        EventKey (MouseButton LeftButton) Down _ _ -> Just Play
+        _ -> Nothing
+    ((_, a) : _) -> Just a
+
+pauseButtons :: [(Button, PauseAction)]
+pauseButtons =
+    [ (Button "Restart (r)" (-200, -125) (200, -75), Reset)
+    , (Button "Quit (q)" (-200, -225) (200, -175), Quit)
+    ]

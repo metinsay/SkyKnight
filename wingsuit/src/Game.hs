@@ -18,6 +18,7 @@ import qualified Hud as H
 import Level (Level)
 import Log
 import qualified Parallax as Px
+import PauseMenu (PauseAction(Play, Quit, Reset))
 import qualified PauseMenu as PM
 import qualified Player as P
 import World (World)
@@ -77,6 +78,11 @@ render g = Px.render camera (g ^. parallax)
     levelSize = mag (B.center (g ^. world . W.finish) - g ^. world . W.start) / 1200
 
 handle :: Event -> Game -> Either (String, Maybe Float) Game
+handle e g
+    | Paused <- g ^. status, Just a <- PM.handle e = case a of
+        Play -> Right $ g & status .~ Playing
+        Quit -> Left (g ^. name, Nothing)
+        Reset -> Right $ g & status .~ Start & world %~ W.reset
 handle (EventKey (Char 'p') Down _ _) g = handlePause g
 handle (EventKey (Char 'q') Down _ _) g = case g ^. status of
     Paused -> Left (g ^. name, Nothing)
