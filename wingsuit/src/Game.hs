@@ -75,7 +75,7 @@ render g = Px.render camera (g ^. parallax)
     (playerX, playerY) = g ^. world ^. W.player . P.position
     levelCamera = uncurry Camera levelCenter levelSize
     levelCenter = - 0.5 .* (g ^. world . W.start + B.center (g ^. world . W.finish))
-    levelSize = mag (B.center (g ^. world . W.finish) - g ^. world . W.start) / 1200
+    levelSize = mag (B.center (g ^. world . W.finish) - g ^. world . W.start) / 1300
 
 handle :: Event -> Game -> Either (String, Maybe Float) Game
 handle e g
