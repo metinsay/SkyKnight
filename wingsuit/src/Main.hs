@@ -23,11 +23,10 @@ makeLenses ''State
 
 makePrisms ''Mode
 
-
 main :: IO ()
 main = do
     initial <- create
-    playIO FullScreen (makeColor 1 1 1 1) 60 initial render handle step
+    playIO (InWindow "skyknight" (1280, 800) (0, 0)) (makeColor 1 1 1 1) 60 initial render handle step
 
 create :: IO State
 create = do

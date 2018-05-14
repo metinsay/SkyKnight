@@ -97,9 +97,9 @@ handleHelp _ m = m
 homeButtons :: IO [(ImageButton, Maybe Location)]
 homeButtons = do
     s <- IB.create "assets/buttons/start_button.png" (33, -70)
-    c <- IB.create "assets/buttons/credits_button.png" (580, -300)
-    q <- IB.create "assets/buttons/quit_button.png" (-580, -300)
-    h <- IB.create "assets/buttons/help_button.png" (33, -340)
+    c <- IB.create "assets/buttons/credits_button.png" (520, -300)
+    q <- IB.create "assets/buttons/quit_button.png" (-520, -300)
+    h <- IB.create "assets/buttons/help_button.png" (33, -320)
     pure $ [ (s , Just Play), (c, Just Credits), (q, Nothing), (h, Just Help) ]
 
 playButtons :: Scores -> [(Button, String, Level)]

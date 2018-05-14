@@ -30,7 +30,7 @@ import Data.List (foldl', intercalate)
 import Data.Map (Map)
 import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.IO.Game
-    ( Display(FullScreen)
+    ( Display(FullScreen, InWindow)
     , Event(EventKey, EventMotion)
     , Key(Char, MouseButton, SpecialKey)
     , KeyState(Down)
