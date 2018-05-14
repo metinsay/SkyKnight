@@ -75,7 +75,7 @@ render g = Px.render camera (g ^. parallax)
     (playerX, playerY) = g ^. world ^. W.player . P.position
     levelCamera = uncurry Camera levelCenter levelSize
     levelCenter = - 0.5 .* (g ^. world . W.start + B.center (g ^. world . W.finish))
-    levelSize = mag (B.center (g ^. world . W.finish) - g ^. world . W.start) / 1200
+    levelSize = mag (B.center (g ^. world . W.finish) - g ^. world . W.start) / 1300
 
 handle :: Event -> Game -> Either (String, Maybe Float) Game
 handle e g
@@ -90,7 +90,10 @@ handle (EventKey (Char 'q') Down _ _) g = case g ^. status of
 handle (EventKey (Char 'r') Down _ _) g = case g ^. status of
     Finished _ -> Right g
     _ -> Right $ g & status .~ Start & world %~ W.reset
-handle (EventKey (SpecialKey KeyEsc) Down _ _) g = handlePause g
+handle (EventKey (SpecialKey KeyEsc) Down _ _) g = case g ^. status of
+    Start -> Left (g ^. name, Nothing)
+    Zooming _ -> Left (g ^. name, Nothing)
+    _ -> handlePause g
 handle (EventKey (MouseButton _) Down _ _) g = handleClick g
 handle _ g = Right g
 
@@ -111,7 +114,7 @@ step :: Float -> Point -> Game -> IO Game
 step t c g = case g ^. status of
     Playing -> do
         let (e, w') = W.step t c (g ^. world)
-        log_ (g ^. name) (g ^. world . W.player) e
+        log_ (g ^. name) (g ^. world . W.player) e (W.acornCount $ g ^. world)
         pure $ case e of
             Nothing -> g & world .~ w'
             Just Nothing -> g & world %~ W.reset & status .~ Start
