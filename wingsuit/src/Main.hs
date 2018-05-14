@@ -43,9 +43,6 @@ render s = pure $ case s ^. mode of
     Game g -> G.render g
 
 handle :: Event -> State -> IO State
-handle (EventKey (Char 'm') Down _ _) s = do
-    menu <- M.create
-    pure $ s & mode .~ Menu menu
 handle (EventMotion p) s = pure $ s & cursor .~ p
 handle e s = case s ^. mode of
     Menu m -> case M.handle e (s ^. scores) m of
