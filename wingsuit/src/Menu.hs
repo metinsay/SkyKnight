@@ -22,9 +22,10 @@ data Menu = Menu
     , _image :: Picture
     , _playImage :: Picture
     , _credits :: Picture
+    , _help :: Picture
     }
 
-data Location = Home | Play | Credits
+data Location = Home | Play | Credits | Help
 
 makeLenses ''Menu
 
@@ -33,12 +34,14 @@ create = Menu Home
     <$> imgToPic 0.75 "assets/menu.png"
     <*> imgToPic 0.75 "assets/level_menu.png"
     <*> imgToPic 0.75 "assets/credits.png"
+    <*> imgToPic 0.75 "assets/help_menu.png"
 
 render :: Scores -> Menu -> Picture
 render ss m = case m ^. location of
     Home -> renderHome m
     Play -> renderPlay ss m
     Credits -> renderCredits m
+    Help -> renderHelp m
 
 renderHome :: Menu -> Picture
 renderHome m = m ^. image <> foldMap B.render (fst <$> homeButtons)
@@ -49,11 +52,15 @@ renderPlay ss m = m ^. playImage <> foldMap B.render ((^. _1) <$> playButtons ss
 renderCredits :: Menu -> Picture
 renderCredits m = m ^. credits
 
+renderHelp :: Menu -> Picture
+renderHelp m = m ^. help
+
 handle :: Event -> Scores -> Menu -> Either (Maybe (String, Level)) Menu
 handle e ss m = case m ^. location of
     Home -> maybe (Left Nothing) Right (handleHome e m)
     Play -> either (Left . Just) Right (handlePlay e ss m)
     Credits -> Right $ handleCredits e m
+    Help -> Right $ handleHelp e m
 
 handleHome :: Event -> Menu -> Maybe Menu
 handleHome (EventKey (SpecialKey KeyEsc) Down _ _) _ = Nothing
@@ -76,6 +83,11 @@ handleCredits :: Event -> Menu -> Menu
 handleCredits (EventKey (SpecialKey KeyEsc) Down _ _) m = m & location .~ Home
 handleCredits (EventKey (MouseButton LeftButton) Down _ _) m = m & location .~ Home
 handleCredits _ m = m
+
+handleHelp :: Event -> Menu -> Menu
+handleHelp (EventKey (SpecialKey KeyEsc) Down _ _) m = m & location .~ Home
+handleHelp (EventKey (MouseButton LeftButton) Down _ _) m = m & location .~ Home
+handleHelp _ m = m
 
 homeButtons :: [(Button, Maybe Location)]
 homeButtons =
