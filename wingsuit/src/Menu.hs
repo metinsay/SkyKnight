@@ -101,5 +101,12 @@ playButtons ss = zipWith mkLevelButton [-offset .. offset] (M.toList levels)
   where
     mkLevelButton i (n, l) = case getScore n ss of
         Nothing -> ( Button n (-200, 100 * i - 25) (200, 100 * i + 25), n, l )
-        Just s -> ( Button (n ++ " - " ++ show s) (-200, 100 * i - 25) (200, 100 * i + 25), n, l )
+        Just s ->
+            ( Button
+                (n ++ " - " ++ showFFloat (Just 2) s "")
+                (-200, 100 * i - 25)
+                (200, 100 * i + 25)
+            , n
+            , l
+            )
     offset = fromIntegral (length levels - 1) / 2
