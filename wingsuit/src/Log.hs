@@ -4,9 +4,10 @@ import Base
 import Player (Player)
 import qualified Player as P
 
-log_ :: String -> Player -> Maybe (Maybe Float) -> Float -> IO ()
-log_ n p e a = appendFile "log.txt" . (++ "\n") $ intercalate ","
-    [ n
+log_ :: Int -> String -> Player -> Maybe (Maybe Float) -> Float -> IO ()
+log_ sId n p e a = appendFile "log.txt" . (++ "\n") $ intercalate ","
+    [ show sId
+    , n
     , show $ p ^. P.position . _1
     , show $ p ^. P.position . _2
     , show $ p ^. P.velocity . _1

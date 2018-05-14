@@ -13,6 +13,7 @@ module Base
     , module Graphics.Gloss.Juicy
     , module Numeric
     , module System.Exit
+    , module System.Random
     , fuzz
     , mag
     , unit
@@ -44,6 +45,7 @@ import Graphics.Gloss.Interface.IO.Game
 import Graphics.Gloss.Juicy (fromDynamicImage)
 import Numeric (showFFloat)
 import System.Exit (exitSuccess)
+import System.Random (randomIO)
 
 fuzz :: Picture -> Picture
 fuzz p = translate 0 0 p

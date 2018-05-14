@@ -10,7 +10,8 @@ import qualified Menu as M
 import Scores (Scores, updateScore)
 
 data State = State
-    { _scores :: Scores
+    { _sessionId :: Int
+    , _scores :: Scores
     , _mode :: Mode
     , _cursor :: Point
     }
@@ -34,8 +35,10 @@ display = InWindow "skyknight" (1280, 800) (0, 0)
 create :: IO State
 create = do
     menu <- M.create
+    sId <- randomIO
     pure $ State
-        { _scores = mempty
+        { _sessionId = sId
+        , _scores = mempty
         , _mode = Menu menu
         , _cursor = 0
         }
@@ -61,4 +64,4 @@ handle e s = case s ^. mode of
         Right g' -> pure $ s & mode .~ Game g'
 
 step :: Float -> State -> IO State
-step t s = (mode . _Game) (G.step t $ s ^. cursor) s
+step t s = (mode . _Game) (G.step t (s ^. cursor) (s ^. sessionId)) s

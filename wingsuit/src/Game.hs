@@ -110,11 +110,11 @@ handleClick g = case g ^. status of
     Paused -> Right $ g & status .~ Playing
     Finished s -> Left (g ^. name, Just s)
 
-step :: Float -> Point -> Game -> IO Game
-step t c g = case g ^. status of
+step :: Float -> Point -> Int -> Game -> IO Game
+step t c sId g = case g ^. status of
     Playing -> do
         let (e, w') = W.step t c (g ^. world)
-        log_ (g ^. name) (g ^. world . W.player) e (W.acornCount $ g ^. world)
+        log_ sId (g ^. name) (g ^. world . W.player) e (W.acornCount $ g ^. world)
         pure $ case e of
             Nothing -> g & world .~ w'
             Just Nothing -> g & world .~ w' & world %~ W.reset & status .~ Start
