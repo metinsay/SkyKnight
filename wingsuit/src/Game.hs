@@ -79,7 +79,7 @@ render g = Px.render camera (g ^. parallax)
 
 handle :: Event -> Game -> Either (String, Maybe Float) Game
 handle e g
-    | Paused <- g ^. status, Just a <- PM.handle e = case a of
+    | Paused <- g ^. status, Just a <- PM.handle e (g ^. pause) = case a of
         Play -> Right $ g & status .~ Playing
         Quit -> Left (g ^. name, Nothing)
         Reset -> Right $ g & status .~ Start & world %~ W.reset

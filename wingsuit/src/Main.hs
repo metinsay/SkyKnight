@@ -23,6 +23,7 @@ makeLenses ''State
 
 makePrisms ''Mode
 
+
 main :: IO ()
 main = do
     initial <- create

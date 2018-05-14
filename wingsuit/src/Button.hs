@@ -21,3 +21,4 @@ handle :: Event -> Button -> Bool
 handle (EventKey (MouseButton LeftButton) Down _ (x, y)) (Button _ (x1, y1) (x2, y2))
     = x >= x1 && x <= x2 && y >= y1 && y <= y2
 handle _ _ = False
+

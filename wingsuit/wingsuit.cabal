@@ -25,6 +25,7 @@ executable wingsuit
                      , Hud
                      , Log
                      , Image
+                     , ImageButton
                      , Level
                      , Level.Image
                      , Levels
