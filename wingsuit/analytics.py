@@ -7,10 +7,9 @@ df = pd.read_csv('log.txt', header=None)
 prev_level, prev_player_id, prev_num_acorns = None, None, None
 prev_recorded = True
 
+deaths = {}
+
 analytics = {}
-
-
-
 
 for index, row in df.iterrows():
     cur_player_id, cur_level, num_acorns, type = row[0], row[1], row[8], row[9]
@@ -29,6 +28,10 @@ for index, row in df.iterrows():
                 an[4].append(row[2])
                 an[5] += num_acorns
             elif type == 'death':
+                if cur_level not in deaths:
+                    deaths[cur_level] = []
+                deaths[cur_level].append((row[2],row[3]))
+
                 an = analytics[cur_player_id][cur_level]
                 an[6].append(row[3])
                 prev_recorded = True
@@ -85,4 +88,27 @@ for p_id, p_an in analytics.items():
         results.append(data)
 
 df = pd.DataFrame(results, columns=['Game ID', 'Player ID', 'Level ID', 'Objective Difficulty', 'Number of Attempts','Number of Successful Attempts', 'Variance of x-Coordinate of Death Locations', 'Maximum Reached x-Coordinate', 'Acorns Collected', 'Average y-Coordinate of Player' ])
-df.to_csv('analytics.csv')
+df.to_csv('analytics/data.csv')
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.patches import Circle
+
+for level, coor in deaths.items():
+
+    img = plt.imread('levels/' + level.lower().replace(' ','') + '/art.png')
+
+    # Create a figure. Equal aspect so circles look circular
+    fig,ax = plt.subplots(1)
+    ax.set_aspect('equal')
+
+    # Show the image
+    ax.imshow(img)
+
+    # Now, loop through coord arrays, and create a circle at each x,y pair
+    for x,y in deaths['Level 1']:
+        print((x/20 + 1500,y/-20 + 600))
+        circ = Circle((x/20 + 1500,y/-20 + 750),7, color='black')
+        ax.add_patch(circ)
+
+    plt.savefig('analytics/' + level.lower().replace(' ','') + '_heatmap.png')
