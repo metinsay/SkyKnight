@@ -30,7 +30,6 @@ executable wingsuit
                      , Level
                      , Level.Image
                      , Levels
-                     , Levels.Image
                      , Menu
                      , Parallax
                      , PauseMenu
