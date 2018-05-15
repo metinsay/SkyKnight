@@ -1,3 +1,3 @@
-,Game ID,Player ID,Level ID,Objective Difficulty,Number of Attempts,Number of Successful Attempts,Variance of x-Coordinate of Death Locations,Maximum Reached x-Coordinate,Acorns Collected,Average y-Coordinate of Player
-0,Sky Knight,4559738455869383343,Level 4,Hard,2,0,0.0,-19126.775,2.0,4247.475516532259
-1,Sky Knight,8219073549509317445,Level 2,Medium,2,0,0.0,-8601.095,2.0,1841.4253626459347
+,Game ID,Player ID,Level ID,Objective Difficulty,Number of Attempts,Number of Successful Attempts,Variance of x-Coordinate of Death Locations,Maximum Reached x-Coordinate,Acorns Collected,Average y-Coordinate of Player,Total  Time Spent
+0,Sky Knight,7631471463499897550,Level 2,Medium,2,0,0.0,-10770.712,4.0,2177.1071064708863,14.449779500000002
+1,Sky Knight,-3429732026423663659,Level 4,Hard,4,0,15281509.715402002,-10034.17,2.0,3080.5602560529683,33.8494835
