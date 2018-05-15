@@ -106,8 +106,7 @@ for level, coor in deaths.items():
     ax.imshow(img)
 
     # Now, loop through coord arrays, and create a circle at each x,y pair
-    for x,y in deaths['Level 1']:
-        print((x/20 + 1500,y/-20 + 600))
+    for x,y in deaths[level]:
         circ = Circle((x/20 + 1500,y/-20 + 750),7, color='black')
         ax.add_patch(circ)
 
