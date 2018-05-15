@@ -4,8 +4,8 @@ module Levels (levels) where
 
 import Data.Map (Map)
 
+import ImageLevel (loadLevel)
 import Level (Level)
-import Level.Image (loadLevel)
 
 levels :: Map String Level
 levels = [ ("Level 4", level4)

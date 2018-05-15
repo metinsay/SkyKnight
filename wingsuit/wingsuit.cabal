@@ -27,8 +27,8 @@ executable wingsuit
                      , Log
                      , Image
                      , ImageButton
+                     , ImageLevel
                      , Level
-                     , Level.Image
                      , Levels
                      , Menu
                      , Parallax

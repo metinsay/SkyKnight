@@ -1,4 +1,4 @@
-module Level.Image (loadLevel) where
+module ImageLevel (loadLevel) where
 
 import Acorn
 import Base
