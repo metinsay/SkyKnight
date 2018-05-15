@@ -13,6 +13,7 @@ module World
     , start
     , step
     , time
+    , startTime
     ) where
 
 import Acorn (Acorn)
