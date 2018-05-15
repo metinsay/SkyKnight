@@ -12,7 +12,7 @@ deaths = {}
 analytics = {}
 
 for index, row in df.iterrows():
-    cur_player_id, cur_level, num_acorns, type = row[0], row[1], row[8], row[9]
+    cur_player_id, cur_level, num_acorns, time, type = row[0], row[1], row[8], row[9], row[10]
 
 
 
@@ -25,6 +25,7 @@ for index, row in df.iterrows():
                 an[6].append(row[3])
                 prev_recorded = True
                 an[2] += 1
+                an[7] += time
                 an[4].append(row[2])
                 an[5] += num_acorns
             elif type == 'death':
@@ -37,11 +38,13 @@ for index, row in df.iterrows():
                 prev_recorded = True
                 an[3].append(row[2])
                 an[4].append(row[2])
+                an[7] += time
                 an[5] += num_acorns
             elif not prev_recorded:
                 an = analytics[prev_player_id][prev_level]
                 an[6].append(row[3])
                 an[4].append(row[2])
+                an[7] += time
                 an[5] += prev_num_acorns
 
         prev_recorded = False
@@ -52,9 +55,9 @@ for index, row in df.iterrows():
                 an[1] += 1 # Incremenet Attempt Count
 
             else:
-                player_analytics[cur_level] = [level_to_diff[cur_level], 1, 0, [], [], num_acorns, [row[3]]]
+                player_analytics[cur_level] = [level_to_diff[cur_level], 1, 0, [], [], num_acorns, [row[3]], 0]
         else:
-            analytics[cur_player_id] = {cur_level : [level_to_diff[cur_level], 1, 0, [], [], num_acorns, [row[3]]]}
+            analytics[cur_player_id] = {cur_level : [level_to_diff[cur_level], 1, 0, [], [], num_acorns, [row[3]], 0]}
 
     else:
         an = analytics[cur_player_id][cur_level]
@@ -87,7 +90,7 @@ for p_id, p_an in analytics.items():
         data = ['Sky Knight', p_id, level] + [m(i, val) for i, val in enumerate(an)]
         results.append(data)
 
-df = pd.DataFrame(results, columns=['Game ID', 'Player ID', 'Level ID', 'Objective Difficulty', 'Number of Attempts','Number of Successful Attempts', 'Variance of x-Coordinate of Death Locations', 'Maximum Reached x-Coordinate', 'Acorns Collected', 'Average y-Coordinate of Player' ])
+df = pd.DataFrame(results, columns=['Game ID', 'Player ID', 'Level ID', 'Objective Difficulty', 'Number of Attempts','Number of Successful Attempts', 'Variance of x-Coordinate of Death Locations', 'Maximum Reached x-Coordinate', 'Acorns Collected', 'Average y-Coordinate of Player', 'Total  Time Spent' ])
 df.to_csv('analytics/data.csv')
 
 import matplotlib.pyplot as plt
