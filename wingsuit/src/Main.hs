@@ -42,11 +42,6 @@ makePrisms ''Mode
 
 playSound :: TChan FilePath -> TChan FilePath -> IO ()
 playSound soundCh backgroundCh = do
-    SDL.initialize [SDL.InitAudio]
-    _ <- Mix.openAudio 44100 Mix.AudioS16LSB 2 4096
-    _ <- Mix.allocateChannels 3
-    _ <- Mix.volume 1 32 -- background volume
-    _ <- Mix.volume 2 128 -- sound volume
     keepAlive soundCh backgroundCh Nothing Nothing
 
 keepAlive :: TChan FilePath -> TChan FilePath -> Maybe Mix.Chunk -> Maybe Mix.Chunk -> IO()
@@ -89,6 +84,11 @@ create = do
     bgSound <- newTChanIO
     sound <- newTChanIO
     atomically $ writeTChan bgSound menuMusic
+    SDL.initialize [SDL.InitAudio]
+    _ <- Mix.openAudio 44100 Mix.AudioS16LSB 2 4096
+    _ <- Mix.allocateChannels 3
+    _ <- Mix.volume 1 32 -- background volume
+    _ <- Mix.volume 2 128 -- sound volume
     _ <- forkOS $ playSound sound bgSound
     pure $ State
         { _sessionId = sId
