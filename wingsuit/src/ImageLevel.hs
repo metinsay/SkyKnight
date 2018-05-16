@@ -5,7 +5,9 @@ import Base
 import Block (Block)
 import Image
 import Level
-    ( Level(Level), _finish, _getIsTerrain, _getTerrain, _getScaleXY, _start, _startTime, _acorns )
+    ( Level(Level)
+    , _finish, _getIsTerrain, _getTerrain, _getScaleXY, _start, _startTime, _cutoffs, _acorns
+    )
 
 isSolid :: PixelRGBA8 -> Bool
 isSolid (PixelRGBA8 _ _ _ a) = a >= 1
@@ -20,14 +22,15 @@ getScaleXY readPix = \point -> let PixelRGBA8 x y z _ = readPix point in
     , fromIntegral z * camScale / 128
     )
 
-loadLevel :: FilePath -> Point -> Block -> Float -> [Point] -> Level
-loadLevel path start finish startTime points = Level
+loadLevel :: FilePath -> Point -> Block -> Float -> (Float, Float, Float) -> [Point] -> Level
+loadLevel path start finish startTime cutoffs points = Level
     { _start = start
     , _finish = finish
     , _getIsTerrain = fmap isSolid <$> imgToFunc scaleFactor (path ++ "/collision.bmp")
     , _getTerrain = imgToPic scaleFactor $ path ++ "/art.bmp"
     , _getScaleXY = fmap getScaleXY <$> imgToFunc scaleFactor $ path ++ "/camera.bmp"
     , _startTime = startTime
+    , _cutoffs = cutoffs
     , _acorns = sequence $ map create points
     }
 

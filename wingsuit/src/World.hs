@@ -5,6 +5,7 @@ module World
     , acornCount
     , acorns
     , create
+    , cutoffs
     , finish
     , getScaleXY
     , player
@@ -37,6 +38,7 @@ data World = World
     , _terrain :: Picture
     , _getScaleXY :: Point -> (Float, Float, Float)
     , _startTime :: Float
+    , _cutoffs :: (Float, Float, Float)
     , _time :: Float
     , _acorns :: [Acorn]
     , _deaths :: [Point]
@@ -91,6 +93,7 @@ create l = do
         , _start = l ^. L.start
         , _finish = l ^. L.finish
         , _startTime = l ^. L.startTime
+        , _cutoffs = l ^. L.cutoffs
         , _time = l ^. L.startTime
         , _acorns = ac
         , _deaths = []

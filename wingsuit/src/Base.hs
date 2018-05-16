@@ -24,7 +24,7 @@ import Codec.Picture
     ( PixelRGBA8(PixelRGBA8), convertRGBA8, imageHeight, imageWidth, pixelAt, readImage )
 import Control.Applicative ((<|>))
 import Control.Arrow ((&&&))
-import Control.Lens (_1, _2, makeLenses, makePrisms, (&), (%~), (+~), (-~), (.~), (<&>), (^.))
+import Control.Lens (_1, _2, _3, makeLenses, makePrisms, (&), (%~), (+~), (-~), (.~), (<&>), (^.))
 import Control.Monad (join)
 import Data.Bool (bool)
 import Data.Foldable (fold)
@@ -32,7 +32,8 @@ import Data.List (foldl', intercalate)
 import Data.Map (Map)
 import Data.Monoid ((<>))
 import Graphics.Gloss.Interface.IO.Game
-    ( Display(FullScreen, InWindow)
+    ( Color
+    , Display(FullScreen, InWindow)
     , Event(EventKey, EventMotion)
     , Key(Char, MouseButton, SpecialKey)
     , KeyState(Down)

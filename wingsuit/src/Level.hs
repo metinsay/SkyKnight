@@ -2,15 +2,17 @@
 
 module Level
     ( Level(Level)
-    , _finish
     , _acorns
+    , _cutoffs
+    , _finish
     , _getIsTerrain
     , _getTerrain
     , _getScaleXY
     , _start
     , _startTime
-    , finish
     , acorns
+    , cutoffs
+    , finish
     , getIsTerrain
     , getTerrain
     , getScaleXY
@@ -29,6 +31,7 @@ data Level = Level
     , _getTerrain :: IO Picture
     , _getScaleXY :: IO (Point -> (Float, Float, Float))
     , _startTime :: Float
+    , _cutoffs :: (Float, Float, Float)
     , _acorns :: IO [Acorn]
     }
 

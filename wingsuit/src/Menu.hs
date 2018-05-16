@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE MultiWayIf, TemplateHaskell #-}
 
 module Menu
     ( Menu
@@ -15,7 +15,7 @@ import qualified Button as B
 import ImageButton (ImageButton)
 import qualified ImageButton as IB
 import Image
-import Level (Level)
+import Level (Level, cutoffs)
 import Levels (levels)
 import Scores (Scores, getScore)
 
@@ -107,9 +107,14 @@ playButtons ss = zipWith mkLevelButton [-offset .. offset] (M.toList levels)
   where
     offset = fromIntegral (length levels - 1) / 2
     mkLevelButton i (n, l) = case getScore n ss of
-        Nothing -> ( Button n (-160, 100 * i - 25) (160, 100 * i + 25), n, l )
+        Nothing -> ( Button (makeColor 0 0 0 1) n (-160, 100 * i - 25) (160, 100 * i + 25), n, l )
         Just s ->
             ( Button
+                ( if | s > l ^. cutoffs . _3 -> makeColor 1 0.8 0 1
+                     | s > l ^. cutoffs . _2 -> makeColor 0.8 0.8 0.8 1
+                     | s > l ^. cutoffs . _1 -> makeColor 0.8 0.5 0.2 1
+                     | otherwise -> makeColor 0 0 0 1
+                )
                 (n ++ " - " ++ showFFloat (Just 2) s "")
                 (-160, 100 * i - 25)
                 (160, 100 * i + 25)
