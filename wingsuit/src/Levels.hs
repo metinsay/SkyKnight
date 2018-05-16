@@ -8,10 +8,9 @@ import ImageLevel (loadLevel)
 import Level (Level)
 
 levels :: Map String Level
-levels = [ ("Level 4", level4)
-         , ("Level 3", level3)
-         , ("Level 2", level2)
-         , ("Level 1", level1)
+levels = [ ("Level 3", level4)
+         , ("Level 2", level3)
+         , ("Level 1", level2)
          ]
 
 level1 :: Level
