@@ -1,6 +1,8 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE OverloadedStrings, TemplateHaskell #-}
 
 module Main (main) where
+
+import qualified Data.ByteString.Lazy as B
 
 import Base
 import Game (Game)
@@ -36,9 +38,11 @@ create :: IO State
 create = do
     menu <- M.create
     sId <- randomIO
+    B.appendFile "scores.json" ""
+    ss <- fold . decode <$> B.readFile "scores.json"
     pure $ State
         { _sessionId = sId
-        , _scores = mempty
+        , _scores = ss
         , _mode = Menu menu
         , _cursor = 0
         }
@@ -53,7 +57,9 @@ handle (EventMotion p) s = pure $ s & cursor .~ p
 handle e s = case s ^. mode of
     Menu m -> case M.handle e (s ^. scores) m of
         Right m' -> pure $ s & mode .~ Menu m'
-        Left Nothing -> exitSuccess
+        Left Nothing -> do
+            B.writeFile "scores.json" . encode $ s ^. scores
+            exitSuccess
         Left (Just (n, l)) -> do
             g <- G.create n l
             pure $ s & mode .~ Game g

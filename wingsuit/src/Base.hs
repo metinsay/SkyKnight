@@ -4,6 +4,7 @@ module Base
     , module Control.Arrow
     , module Control.Monad
     , module Control.Lens
+    , module Data.Aeson
     , module Data.Bool
     , module Data.Foldable
     , module Data.List
@@ -26,6 +27,7 @@ import Control.Applicative ((<|>))
 import Control.Arrow ((&&&))
 import Control.Lens (_1, _2, _3, makeLenses, makePrisms, (&), (%~), (+~), (-~), (.~), (<&>), (^.))
 import Control.Monad (join)
+import Data.Aeson (FromJSON, ToJSON, decode, encode)
 import Data.Bool (bool)
 import Data.Foldable (fold)
 import Data.List (foldl', intercalate)

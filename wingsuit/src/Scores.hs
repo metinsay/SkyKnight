@@ -1,9 +1,13 @@
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+
 module Scores where
 
-import Data.Map (Map)
 import qualified Data.Map as M
 
+import Base
+
 newtype Scores = Scores (Map String Float)
+    deriving (FromJSON, ToJSON)
 
 instance Monoid Scores where
     mempty = Scores mempty
