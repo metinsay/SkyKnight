@@ -13,7 +13,7 @@ isSolid :: PixelRGBA8 -> Bool
 isSolid (PixelRGBA8 _ _ _ a) = a >= 1
 
 camScale :: Float
-camScale = 1
+camScale = 5
 
 getScaleXY :: (Point -> PixelRGBA8) -> (Point -> (Float, Float, Float))
 getScaleXY readPix = \point -> let PixelRGBA8 x y z _ = readPix point in

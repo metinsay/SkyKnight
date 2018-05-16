@@ -8,9 +8,9 @@ import ImageLevel (loadLevel)
 import Level (Level)
 
 levels :: Map String Level
-levels = [ ("Level 3", level4)
-         , ("Level 2", level3)
-         , ("Level 1", level2)
+levels = [ ("Level 3", level3)
+         , ("Level 2", level2)
+         , ("Level 1", level1)
          ]
 
 level1 :: Level
@@ -19,30 +19,21 @@ level1 = loadLevel
     (-19750, 4750)
     ((19900, -5000), (20000, 5000))
     50
-    (20, 25, 29)
-    [(-19500, 4000), (-15000, -2900), (-7500, -850), (0, -1250), (6000, -4400), (13500,-1900)]
+    (22, 27, 31)
+    [(-19500, 4000), (-15000, 500), (-7500, 0), (0, -1800), (9000, -1000), (17000,-1800)]
 
 level2 :: Level
 level2 = loadLevel
     "levels/level2"
-    (-19750, 4750)
-    ((19900, -5000), (20000, 5000))
-    50
-    (22, 27, 31)
-    [(-19500, 4000), (-15000, 500), (-7500, 0), (0, -1800), (9000, -1000), (17000,-1800)]
-
-level3 :: Level
-level3 = loadLevel
-    "levels/level3"
     (-19450, 4850)
     ((19900, -5000), (20000, 5000))
     50
     (20, 25, 29)
     [(-19250, 4100), (-15200, 500), (-8600, -2650), (900, -4500), (7000, -1500), (13500, -3000)]
 
-level4 :: Level
-level4 = loadLevel
-    "levels/level4"
+level3 :: Level
+level3 = loadLevel
+    "levels/level3"
     (-19500, 4750)
     ((19900, -5000), (20000, 5000))
     60

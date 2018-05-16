@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-level_to_diff = {'Level 1' : 'Easy', 'Level 2' : 'Medium', 'Level 3' : 'Medium', 'Level 4': 'Hard'}
+level_to_diff = {'Level 1' : 'Easy', 'Level 2' : 'Medium', 'Level: 3': 'Hard'}
 
 df = pd.read_csv('log.txt', header=None)
 prev_level, prev_player_id, prev_num_acorns = None, None, None
