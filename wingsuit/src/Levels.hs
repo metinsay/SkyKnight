@@ -35,7 +35,7 @@ level2 = loadLevel
 level3 :: Level
 level3 = loadLevel
     "levels/level3"
-    (-19500, 4750)
+    (-19450, 4850)
     ((19900, -5000), (20000, 5000))
     50
     (20, 25, 29)
