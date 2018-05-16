@@ -42,6 +42,9 @@ setBackground :: Audio -> String -> IO Audio
 setBackground a s = if s == (a ^. curr)
                     then pure a
                     else do
+                        _ <- if s == airLoop
+                             then Mix.volume 1 128
+                             else Mix.volume 1 32
                         atomically $ writeTChan (a ^. bgMusicCh) s
                         pure $ a & curr .~ s
 
