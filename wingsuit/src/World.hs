@@ -52,28 +52,32 @@ render c w = C.render c 0
           <> Pictures (A.render <$> w ^. acorns)
           <> foldMap (\(x, y) -> translate x y (w ^. tomb)) (w ^. deaths)
 
-step :: Float -> Point -> World -> (Maybe (Maybe Float), World)
+step :: Float -> Point -> World -> (Maybe (Maybe Float), Maybe String, World)
 step t c
     = checkFinish
     . checkCollision
     . checkTime
-    . (,) Nothing
     . updateAcorns
+    . (,,) Nothing Nothing
     . (time -~ t)
     . (player %~ P.step t c)
   where
-    checkFinish (e, w) = bool (e, w) (Just . Just $ w ^. time + 3 * acornCount w, w)
+    checkFinish (e, s, w) = bool (e, s, w) (Just . Just $ w ^. time + 3 * acornCount w, Nothing, w)
         . or $ flip B.inBlock (w ^. finish) <$> P.points (w ^. player)
-    checkCollision (e, w) = bool (e, w) (Just Nothing, w & deaths %~ (w ^. player . P.position :))
+    checkCollision (e, s, w) = bool (e, s, w) (Just Nothing, Just "assets/sounds2/Hit1.wav", w & deaths %~ (w ^. player . P.position :))
         . or $ w ^. isTerrain <$> P.points (w ^. player)
-    checkTime (e, w) = bool (e, w) (Just Nothing, w) (w ^. time < 0)
-    updateAcorns w = w & acorns %~ map (updateAcorn $ P.points (w ^. player))
+    checkTime (e, s, w) = bool (e, s, w) (Just Nothing, Just "assets/sounds2/Hit2.wav", w) (w ^. time < 0)
+    updateAcorns (e, s, w) = bool (e, s, w) (e, Just "assets/sounds2/Hit4.wav", w & acorns %~ map (updateAcorn $ P.points (w ^. player)))
+        (newCollectedAcorn (P.points (w ^. player)) (w ^. acorns))
 
 acornCount :: World -> Float
 acornCount = fromIntegral . length . filter (^. A.collected) . (^. acorns)
 
 updateAcorn :: [Point] -> Acorn -> Acorn
 updateAcorn ps a = bool a (a & A.collected .~ True) $ any (A.isCollision a) ps
+
+newCollectedAcorn :: [Point] -> [Acorn] -> Bool
+newCollectedAcorn ps as = any (\a -> (a ^. A.collected == False) && any (A.isCollision a) ps) as
 
 create :: Level -> IO World
 create l = do

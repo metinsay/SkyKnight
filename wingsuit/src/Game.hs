@@ -6,6 +6,7 @@ module Game
     , handle
     , render
     , step
+    , sound
     ) where
 
 import Base
@@ -31,6 +32,7 @@ data Game = Game
     , _world :: World
     , _hud :: Hud
     , _status :: Status
+    , _sound :: Maybe String
     }
 
 data Status
@@ -55,6 +57,7 @@ create n l = do
         , _pause = pm
         , _status = Start
         , _hud = h
+        , _sound = Nothing
         }
 
 render :: Game -> Picture
@@ -113,11 +116,11 @@ handleClick g = case g ^. status of
 step :: Float -> Point -> Int -> Game -> IO Game
 step t c sId g = case g ^. status of
     Playing -> do
-        let (e, w') = W.step t c (g ^. world)
+        let (e, snd', w') = W.step t c (g ^. world)
         log_ sId (g ^. name) (g ^. world . W.player) e (W.acornCount $ g ^. world) (g ^. world ^. W.startTime - g ^. world ^. W.time)
         pure $ case e of
-            Nothing -> g & world .~ w'
-            Just Nothing -> g & world .~ w' & world %~ W.reset & status .~ Start
-            Just (Just s) -> g & world .~ w' & status .~ Finished s
-    Zooming x -> pure $ g & status .~ bool Playing (Zooming $ x - 0.4 * (1 + x) * t) (x > 0)
-    _ -> pure g
+            Nothing -> g & world .~ w' & sound .~ snd'
+            Just Nothing -> g & world .~ w' & world %~ W.reset & status .~ Start & sound .~ snd'
+            Just (Just s) -> g & world .~ w' & status .~ Finished s & sound .~ snd'
+    Zooming x -> pure $ g & status .~ bool Playing (Zooming $ x - 0.4 * (1 + x) * t) (x > 0) & sound .~ Nothing
+    _ -> pure $ g & sound .~ Nothing
