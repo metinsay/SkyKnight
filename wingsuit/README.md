@@ -1,11 +1,20 @@
 wingsuit
 ========
 
-* Install `haskell-stack`
+osx
+---
 
-* Install `glut` (shouldn't be necessary on OSX)
+* `brew install sdl2 sdl2_mixer`
 
-* Install `sdl2` and `sdl2_mixer`
+arch
+----
+
+* `sudo pacman -S glu sdl2 sdl2_mixer freeglut`
+
+build
+-----
+
+* Install haskell-stack
 
 * `stack install --local-bin-path .`
 
