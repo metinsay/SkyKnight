@@ -35,7 +35,6 @@ initialize = do
     _ <- forkOS $ playSoundHelper sound bgSound
     pure $ Audio sound bgSound menuMusic
 
-
 setBackground :: Audio -> String -> IO Audio
 setBackground a s = if s == (a ^. curr)
                     then pure a
