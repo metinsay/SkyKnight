@@ -43,6 +43,7 @@ create = do
     sId <- randomIO
     B.appendFile "scores.json" ""
     ss <- fold . decode <$> B.readFile "scores.json"
+    ss `seq` pure ()
     a <- A.initialize
     pure $ State
         { _sessionId = sId
