@@ -11,6 +11,11 @@ arch
 
 * `sudo pacman -S glu sdl2 sdl2_mixer freeglut`
 
+other
+-----
+
+* Install `glut`, `sdl2`, and `sdl2_mixer`.
+
 build
 -----
 
